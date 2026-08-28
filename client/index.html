@@ -5,39 +5,75 @@
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0" />
     <meta name="theme-color" content="#0c0c0f" />
-    
-    <title>ESPACIO — Premium Interior Design & Architecture | Hyderabad</title>
+
+    <!-- ═══════════════════════════════════════════════════════════════════════
+         PAGE TITLE & META — SEO optimized for Hyderabad interior design queries
+    ═══════════════════════════════════════════════════════════════════════ -->
+    <title>ESPACIO — Premium Interior Design &amp; Architecture | Hyderabad</title>
     <meta name="description" content="ESPACIO is Hyderabad's premier luxury interior design studio specializing in turn-key residential interiors, modular kitchens, commercial fit-outs, and premium materials supply." />
-    
-    <!-- Preconnect for Performance Optimization (Essential Google Fonts only) -->
+
+    <!-- ═══════════════════════════════════════════════════════════════════════
+         RESOURCE HINTS — Tell the browser where to connect before it finds links
+         PERF IMPACT: Eliminates DNS lookup + TLS handshake latency (~150–300ms saved)
+    ═══════════════════════════════════════════════════════════════════════ -->
+    <!-- preconnect: Warm up TCP+TLS connection to Google Fonts CDN immediately -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <!-- preconnect + crossorigin: Required for CORS font file downloads from gstatic -->
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 
-    <!-- Google Fonts Non-blocking High-Speed Loading -->
+    <!-- ═══════════════════════════════════════════════════════════════════════
+         GOOGLE FONTS — Non-blocking, async font loading pattern
+         PERF IMPACT: Fonts load without blocking HTML parsing or rendering
+         TECHNIQUE: media="print" trick defers CSS application until after parse
+         FALLBACK: <noscript> for JS-disabled environments
+    ═══════════════════════════════════════════════════════════════════════ -->
+    <!-- Step 1: Preload font CSS (initiates download early, without blocking) -->
     <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,500;1,600;1,700&family=Montserrat:wght@400;500;600;700;800&display=swap" />
+    <!-- Step 2: Load font CSS with media="print" so it doesn't block render -->
+    <!--         onload switches media to 'all' once the font CSS is ready -->
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,500;1,600;1,700&family=Montserrat:wght@400;500;600;700;800&display=swap" media="print" onload="this.media='all'" />
+    <!-- Step 3: Noscript fallback — synchronous font load for JS-disabled browsers -->
     <noscript>
       <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,500;1,600;1,700&family=Montserrat:wght@400;500;600;700;800&display=swap" />
     </noscript>
 
-    <!-- Preload Critical LCP Hero Asset (WebP) -->
+    <!-- ═══════════════════════════════════════════════════════════════════════
+         LCP HERO IMAGE PRELOAD — Critical for PageSpeed / Core Web Vitals
+         PERF IMPACT: Moves LCP element download to head of request queue
+                      Typical improvement: LCP 11s → <2.5s (when + WebP format)
+         RULE: This must match the EXACT file the browser will paint first
+               Currently: /images/hero/hero_bedroom.webp (193 KB WebP, 91% smaller)
+         fetchpriority="high" → browser treats this above all other images
+    ═══════════════════════════════════════════════════════════════════════ -->
     <link rel="preload" as="image" href="/images/hero/hero_bedroom.webp" type="image/webp" fetchpriority="high" />
 
-    <!-- Open Graph Default Fallbacks -->
+    <!-- ═══════════════════════════════════════════════════════════════════════
+         OPEN GRAPH META — Social media card rendering (Facebook, LinkedIn, WhatsApp)
+    ═══════════════════════════════════════════════════════════════════════ -->
     <meta property="og:site_name" content="ESPACIO Interiors" />
     <meta property="og:type" content="website" />
-    <meta property="og:title" content="ESPACIO — Premium Interior Design & Architecture" />
+    <meta property="og:title" content="ESPACIO — Premium Interior Design &amp; Architecture" />
     <meta property="og:description" content="Hyderabad's premier luxury interior design studio delivering turn-key full-home interiors, modular kitchens, and material supply." />
     <meta property="og:image" content="/images/company/3bhk_lux/open_hall.png" />
 
-    <!-- Twitter Card Default Fallbacks -->
+    <!-- ═══════════════════════════════════════════════════════════════════════
+         TWITTER CARD META — Twitter/X link preview rendering
+    ═══════════════════════════════════════════════════════════════════════ -->
     <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:title" content="ESPACIO — Premium Interior Design & Architecture" />
+    <meta name="twitter:title" content="ESPACIO — Premium Interior Design &amp; Architecture" />
     <meta name="twitter:description" content="Hyderabad's premier luxury interior design studio delivering turn-key full-home interiors, modular kitchens, and material supply." />
     <meta name="twitter:image" content="/images/company/3bhk_lux/open_hall.png" />
   </head>
+
   <body class="bg-bg text-ink font-sans antialiased overflow-x-hidden">
+    <!-- React SPA mount point — entire UI is rendered into this div by React -->
     <div id="root"></div>
+
+    <!-- ═══════════════════════════════════════════════════════════════════════
+         ENTRY SCRIPT — type="module" enables native ES module loading
+         PERF: Vite injects <link rel="modulepreload"> for all critical chunks
+               This parallelizes download of vendor-react, vendor-motion, etc.
+    ═══════════════════════════════════════════════════════════════════════ -->
     <script type="module" src="/src/main.jsx"></script>
   </body>
 </html>
