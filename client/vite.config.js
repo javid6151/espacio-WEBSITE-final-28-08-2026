@@ -42,7 +42,8 @@ export default defineConfig({
     exclude: ['@use-gesture/react'],
   },
   build: {
-    target: 'es2020',
+    target: 'es2022',
+    cssMinify: true,
     chunkSizeWarningLimit: 1000,
     cssCodeSplit: true,
     rollupOptions: {

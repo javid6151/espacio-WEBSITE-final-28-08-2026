@@ -66,7 +66,7 @@ const Badge = ({ num, isOpen }) => (
       background: isOpen
         ? 'linear-gradient(135deg, #c5a572 0%, #a07845 100%)'
         : 'rgba(0,0,0,0.06)',
-      color: isOpen ? '#fff' : '#9ca3af',
+      color: isOpen ? '#fff' : '#4b5563',
       boxShadow: isOpen
         ? '0 0 12px rgba(197,165,114,0.6), 0 0 24px rgba(197,165,114,0.3)'
         : '0 0 0 transparent',
@@ -493,10 +493,10 @@ const faqItemVariants = {
 };
 
 const HERO_IMAGES = [
-  '/images/hero/hero_bedroom.jpg',
-  '/images/hero/hero_kitchen.jpg',
-  '/images/hero/hero_kids_bedroom.jpg',
-  '/images/hero/hero_dining.jpg'
+  '/images/hero/hero_bedroom.webp',
+  '/images/hero/hero_kitchen.webp',
+  '/images/hero/hero_kids_bedroom.webp',
+  '/images/hero/hero_dining.webp'
 ];
 
 const Home = () => {
@@ -513,7 +513,7 @@ const Home = () => {
     hero_visible: true,
 
     hero_bg_images: HERO_IMAGES,
-    hero_card_image: '/images/hero/hero_bedroom.jpg',
+    hero_card_image: '/images/hero/hero_bedroom.webp',
     hero_card_heading: 'We Craft the Future Dwelling',
     hero_card_cta_text: 'Our Projects',
     hero_card_cta_link: '/projects',

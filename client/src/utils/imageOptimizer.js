@@ -27,6 +27,11 @@ export const getOptimizedImageUrl = (url, width = 1200, quality = 75) => {
     return `${cleanUrl}${separator}fm=webp&q=${quality}&w=${width}&auto=format&fit=crop`;
   }
 
+  // Local static asset optimization: map /images/...(.jpg|.jpeg|.png) to .webp
+  if (url.startsWith('/images/') && /\.(jpe?g|png)$/i.test(url)) {
+    return url.replace(/\.(jpe?g|png)$/i, '.webp');
+  }
+
   return url;
 };
 

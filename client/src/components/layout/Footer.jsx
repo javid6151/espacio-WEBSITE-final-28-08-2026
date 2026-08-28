@@ -261,14 +261,14 @@ const Footer = () => {
           
           {/* A. Location */}
           <div>
-            <p className="font-sans text-[13px] text-white/40 mb-1 select-none uppercase tracking-wider">
+            <p className="font-sans text-[13px] text-white/70 mb-1 select-none uppercase tracking-wider">
               {locationTitle}
             </p>
             <a 
               href={locationMapUrl}
               target="_blank"
               rel="noopener noreferrer"
-              className="font-sans text-[15px] text-bg/60 hover:text-bg transition-colors block leading-relaxed hover:underline decoration-white/20 underline-offset-4 whitespace-pre-line"
+              className="font-sans text-[15px] text-bg/80 hover:text-bg transition-colors block leading-relaxed hover:underline decoration-white/20 underline-offset-4 whitespace-pre-line"
             >
               {locationAddress}
             </a>

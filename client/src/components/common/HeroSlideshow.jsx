@@ -33,10 +33,19 @@ const HeroSlideshow = memo(({
 
   const imagesKey = activeImages.join('|');
 
-  // Preload all active images in parallel on mount for pure HD instantaneous rendering
+  // Preload first slide immediately for instant LCP, defer remaining slides
   useEffect(() => {
     if (activeImages.length > 0) {
-      preloadImages(activeImages);
+      // Decode first critical LCP image immediately
+      preloadImages([getOptimizedImageUrl(activeImages[0])]);
+
+      // Defer preloading subsequent carousel slides so they don't block critical LCP bandwidth
+      if (activeImages.length > 1) {
+        const timer = setTimeout(() => {
+          preloadImages(activeImages.slice(1).map(url => getOptimizedImageUrl(url)));
+        }, 1500);
+        return () => clearTimeout(timer);
+      }
     }
   }, [imagesKey]);
 
@@ -78,17 +87,15 @@ const HeroSlideshow = memo(({
   // Safety check for empty image array
   if (activeImages.length === 0) return null;
 
-  const rawSrc = activeImages[currentIndex % activeImages.length];
-  const currentSrc = rawSrc;
-
   return (
     <div className="absolute inset-0 w-full h-full overflow-hidden pointer-events-none select-none">
       {activeImages.map((src, idx) => {
         const isActive = idx === (currentIndex % activeImages.length);
+        const optimizedSrc = getOptimizedImageUrl(src);
         return (
           <motion.img
             key={src}
-            src={src}
+            src={optimizedSrc}
             alt="ESPACIO Hero Showcase"
             decoding="async"
             fetchPriority={idx === 0 ? "high" : "auto"}

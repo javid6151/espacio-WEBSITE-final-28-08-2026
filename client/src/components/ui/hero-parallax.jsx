@@ -145,7 +145,7 @@ export const Header = () => {
   return (
     <div className="w-full relative pt-2 pb-5 sm:pt-6 sm:pb-8 md:pt-12 md:pb-16 px-4 sm:px-6 md:px-12 left-0 top-0 z-20 bg-bg">
       <div className="max-w-[1440px] mx-auto text-left">
-        <span className="font-sans text-[10.5px] sm:text-[11px] uppercase tracking-[0.2em] text-gold font-semibold">
+        <span className="font-sans text-[10.5px] sm:text-[11px] uppercase tracking-[0.2em] text-[#9E7B3B] font-bold">
           Bespoke Design Services
         </span>
         <h1 className="font-display text-[clamp(26px,3.5vw,52px)] font-medium leading-[1.08] tracking-tight text-ink mt-2 sm:mt-4">
@@ -160,6 +160,10 @@ export const Header = () => {
 };
 
 export const ProductCard = ({ product }) => {
+  const optimizedThumbnail = typeof product?.thumbnail === 'string' && product.thumbnail.startsWith('/images/') && /\.(jpe?g|png)$/i.test(product.thumbnail)
+    ? product.thumbnail.replace(/\.(jpe?g|png)$/i, '.webp')
+    : product?.thumbnail;
+
   return (
     <div
       key={product.title}
@@ -167,7 +171,7 @@ export const ProductCard = ({ product }) => {
     >
       <div className="block h-full w-full select-none pointer-events-none" draggable="false">
         <img
-          src={product.thumbnail}
+          src={optimizedThumbnail}
           loading="lazy"
           decoding="async"
           onError={(e) => {
