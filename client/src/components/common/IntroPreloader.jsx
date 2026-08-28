@@ -55,35 +55,33 @@ export const IntroPreloader = () => {
             <Logo scrolled={false} size="large" onComplete={handleComplete} />
 
             {/* Tagline: DESIGNING SPACES / DEFINING LIFESTYLES */}
-            <div className="mt-4 flex flex-col items-center text-center space-y-1.5 pointer-events-none">
+            <div className="mt-2 flex flex-col items-center text-center space-y-0.5 pointer-events-none">
               <motion.div
-                initial={{ opacity: 0, y: 12 }}
+                initial={{ opacity: 0, y: 10 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 2.1, duration: 0.65, ease: [0.25, 1, 0.5, 1] }}
                 style={{
-                  fontFamily: "'Cormorant Garamond', Georgia, serif",
-                  fontStyle: 'italic',
-                  fontWeight: 700,
-                  letterSpacing: '0.19em',
-                  textShadow: '0 2px 20px rgba(255,255,255,0.22)'
+                  fontFamily: "'Montserrat', sans-serif",
+                  fontWeight: 800,
+                  letterSpacing: '0.24em',
+                  textShadow: '0 2px 20px rgba(201, 169, 110, 0.4)'
                 }}
-                className="text-[18px] sm:text-[23px] md:text-[26px] text-[#FFFFFF] uppercase font-bold"
+                className="text-[16px] sm:text-[20px] md:text-[23px] text-[#C9A96E] uppercase font-extrabold leading-tight"
               >
                 Designing Spaces
               </motion.div>
 
               <motion.div
-                initial={{ opacity: 0, y: 12 }}
+                initial={{ opacity: 0, y: 10 }}
                 animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 2.6, duration: 0.65, ease: [0.25, 1, 0.5, 1] }}
+                transition={{ delay: 2.5, duration: 0.65, ease: [0.25, 1, 0.5, 1] }}
                 style={{
-                  fontFamily: "'Cormorant Garamond', Georgia, serif",
-                  fontStyle: 'italic',
-                  fontWeight: 700,
-                  letterSpacing: '0.19em',
-                  textShadow: '0 2px 20px rgba(255,255,255,0.22)'
+                  fontFamily: "'Montserrat', sans-serif",
+                  fontWeight: 800,
+                  letterSpacing: '0.24em',
+                  textShadow: '0 2px 20px rgba(255, 255, 255, 0.25)'
                 }}
-                className="text-[18px] sm:text-[23px] md:text-[26px] text-[#FFFFFF] uppercase font-bold"
+                className="text-[16px] sm:text-[20px] md:text-[23px] text-[#FFFFFF] uppercase font-extrabold leading-tight"
               >
                 Defining Lifestyles
               </motion.div>
