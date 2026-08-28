@@ -192,7 +192,7 @@ const Products = () => {
       <SEO title="Premium Material Library — WPC, Fluted, Acrylic Panels" description="Explore ESPACIO's curated material library. WPC wall panels, fluted panels, polygranite, acrylic sheets, mosaic tiles and more. Request samples and catalogue." url="/products" />
       
       {/* Hero with Dome Gallery — matches Home & Services rounded framed card */}
-      <section className="relative h-[94vh] lg:h-[98vh] min-h-[660px] lg:min-h-0 px-4 sm:px-6 pt-2 sm:pt-2.5 lg:pt-3 pb-2 sm:pb-3 lg:px-10 z-0">
+      <section className="relative h-[90vh] sm:h-[94vh] lg:h-[98vh] min-h-[540px] lg:min-h-0 px-3 sm:px-6 pt-2 sm:pt-2.5 lg:pt-3 pb-2 sm:pb-3 lg:px-10 z-0">
         {/* Rounded dark card */}
         <div className="relative w-full h-full overflow-hidden rounded-[24px] lg:rounded-[40px] bg-[#120F17] shadow-2xl">
           {/* Dome Gallery Container */}
@@ -221,18 +221,12 @@ const Products = () => {
         </div>
       </section>
 
-      {/* Search Bar */}
-      <div className="max-w-[1440px] mx-auto px-6 md:px-12 pt-16 pb-8 flex items-center justify-between gap-6 flex-wrap">
-        <div className="space-y-2">
+      {/* Category Header */}
+      <div className="max-w-[1440px] mx-auto px-6 md:px-12 pt-10 sm:pt-14 pb-6 sm:pb-8 flex items-center justify-between gap-6 flex-wrap">
+        <div className="space-y-1.5 sm:space-y-2">
           <span className="font-sans text-xs uppercase tracking-widest text-gold font-bold">Premium Collection</span>
-          <h2 className="font-display text-3xl font-bold text-charcoal">Browse Materials</h2>
+          <h2 className="font-display text-2xl sm:text-3xl font-bold text-charcoal">Browse Materials</h2>
         </div>
-        <GooeyInput
-          placeholder="Search materials..."
-          value={searchQuery}
-          onChange={(e) => setSearchQuery(e.target.value)}
-          className="max-w-[360px]"
-        />
       </div>
 
       {/* Material Cards Grid */}

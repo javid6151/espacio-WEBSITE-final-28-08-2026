@@ -29,39 +29,57 @@ const StarRating = ({ rating = 5 }) => (
 const topTestimonials = [
   {
     rating: 5,
+    title: "Best Interior Designer Decision",
+    body: "I was researching the best interior designer near me, and while doing that, I came across ESPACIO. Eventually, we hired them, and it turned out to be a good decision. The interior designer was nice, the quality of the materials and finishing was great.",
+    name: "Dharma Teja",
+    role: "Local Guide • 96 Reviews • 383 Photos",
+    avatar: "",
+    date: "2 months ago"
+  },
+  {
+    rating: 5,
+    title: "Smooth Process & Sensible 3D Design",
+    body: "Needed a Tv unit for my new house. Found Espacio on Instagram, liked their work, reached out. The whole process was smooth they came measured and suggested a design that actually made sense. What impressed me the most is that they gave 3d render before execution.",
+    name: "madhavi tara",
+    role: "Google Reviewer • 6 Reviews",
+    avatar: "",
+    date: "2 months ago"
+  },
+  {
+    rating: 5,
+    title: "Largest Variety of Laminates & Veneers",
+    body: "As an interior designer, I have found the largest variety of laminates, vineers, and plywood with all ranges of economy, premium and super premium as required by different customer segments at the best competitive rates.",
+    name: "Khaleel Shaik",
+    role: "Interior Designer • 4 Photos",
+    avatar: "/reviews/khaleel_shaik.png",
+    date: "5 months ago"
+  },
+  {
+    rating: 5,
     title: "Good Work & Good Communication 👍",
     body: "Good work and good communication 👍 The team at Espacio delivered our project smoothly and transparently.",
     name: "Paladugu Raju",
     role: "Local Guide • Google Reviewer",
     avatar: "/reviews/paladugu_raju.png",
-    date: "3 months ago"
-  },
-  {
-    rating: 5,
-    title: "Good Experience & Good Working Skills",
-    body: "Good experience & good working skills. The team at Espacio Interiors & Modular is dedicated and skilled.",
-    name: "Kishor Kumar",
-    role: "Google Reviewer • 6 Reviews",
-    avatar: "/reviews/kishor_kumar.png",
-    date: "3 months ago"
+    date: "5 months ago"
   },
   {
     rating: 5,
     title: "Wide Range & Patient Customer Service",
     body: "Recently visited the store they have wide range of varieties and the customer service was very good they were very patient and understanding.",
     name: "Shaik BOB",
-    role: "Google Reviewer • 3 Reviews",
+    role: "Google Reviewer • 3 Reviews • 3 Photos",
     avatar: "/reviews/shaik_bob.png",
-    date: "10 months ago"
+    date: "11 months ago"
   },
   {
     rating: 5,
     title: "My House Became Luxurious at Reasonable Prices",
     body: "Good equipment and well staff my house is now completely become luxurious with reasonable prices and thanks to espacio.",
     name: "Lovely boy Laxman",
-    role: "Homeowner • Google Reviewer",
+    role: "Homeowner • 3 Photos",
     avatar: "/reviews/lovely_boy_laxman.png",
-    date: "3 months ago"
+    date: "5 months ago"
   },
   {
     rating: 5,
@@ -70,28 +88,52 @@ const topTestimonials = [
     name: "imtiyaz shaik",
     role: "Google Reviewer • 9 Photos",
     avatar: "/reviews/imtiyaz_shaik.png",
-    date: "3 months ago"
+    date: "5 months ago"
   },
   {
     rating: 5,
-    title: "Good Experience & Excellent Service",
+    title: "Good Service & Excellent Work 👍👏",
+    body: "Good service excellent work 👍👏 Very happy with Espacio Interiors & Modular service quality.",
+    name: "Jani Basha",
+    role: "Google Reviewer • 4 Reviews",
+    avatar: "/reviews/jani_basha.png",
+    date: "5 months ago"
+  },
+  {
+    rating: 5,
+    title: "Good Experience & Good Working Skills",
+    body: "Good experience & good working skills. The team at Espacio Interiors & Modular is dedicated and skilled.",
+    name: "Kishor Kumar",
+    role: "Google Reviewer • 6 Reviews • 5 Photos",
+    avatar: "/reviews/kishor_kumar.png",
+    date: "5 months ago"
+  },
+  {
+    rating: 5,
+    title: "Good Experience and Excellent Service",
     body: "Good experience and excellent service provided by Espacio Interiors & Modular.",
-    name: "Amresh Kumar",
+    name: "Amresh kumar",
     role: "Google Reviewer • 1 Review",
     avatar: "/reviews/amresh_kumar.png",
-    date: "3 months ago"
-  }
-];
-
-const bottomTestimonials = [
+    date: "4 months ago"
+  },
   {
     rating: 5,
     title: "Good Quality Materials & Affordable Prices",
     body: "Good quality of materials and affordable prices. Great experience working with ESPACIO Interiors & Modular.",
     name: "KoteswaraRao Alaparthi",
-    role: "Local Guide • 4 Reviews",
+    role: "Local Guide • 4 Reviews • 62 Photos",
     avatar: "/reviews/koteswararao_alaparthi.png",
-    date: "3 months ago"
+    date: "5 months ago"
+  },
+  {
+    rating: 5,
+    title: "Good Service & Quality Materials",
+    body: "Good service and excellent quality materials offered at competitive pricing by Espacio.",
+    name: "Ajayreddy Gowreddy123",
+    role: "Google Reviewer • 2 Reviews",
+    avatar: "/reviews/ajayreddy_gowreddy.png",
+    date: "5 months ago"
   },
   {
     rating: 5,
@@ -100,52 +142,163 @@ const bottomTestimonials = [
     name: "G Rakesh",
     role: "Google Reviewer • 3 Photos",
     avatar: "/reviews/g_rakesh.png",
-    date: "6 months ago"
+    date: "7 months ago"
   },
   {
     rating: 5,
-    title: "Good Service & Excellent Quality Materials",
-    body: "Good service and excellent quality materials offered at competitive pricing by Espacio.",
-    name: "Ajayreddy Gowreddy123",
-    role: "Google Reviewer • 2 Reviews",
-    avatar: "/reviews/ajayreddy_gowreddy.png",
-    date: "3 months ago"
-  },
-  {
-    rating: 5,
-    title: "Good Service Excellent Work 👍👏",
-    body: "Good service excellent work 👍👏 Very happy with Espacio Interiors & Modular service quality.",
-    name: "Jani Basha",
-    role: "Google Reviewer • 4 Reviews",
-    avatar: "/reviews/jani_basha.png",
-    date: "3 months ago"
-  },
-  {
-    rating: 5,
-    title: "Excellent Interior Materials for Home & Office",
+    title: "Excellent Materials for Home & Office",
     body: "Excellent materials for interior at home or office so pls visit this Espacio interiors and modular. Thank you...! ❤️",
     name: "Shaik Hussain",
     role: "Google Reviewer • 1 Review",
     avatar: "/reviews/shaik_hussain.png",
-    date: "3 months ago"
+    date: "5 months ago"
+  },
+  {
+    rating: 5,
+    title: "Very Good Service",
+    body: "Very good service and helpful staff at ESPACIO.",
+    name: "Akshay kumar Pullagura",
+    role: "Google Reviewer • 1 Review",
+    avatar: "",
+    date: "a week ago"
+  }
+];
+
+const bottomTestimonials = [
+  {
+    rating: 5,
+    title: "Chala Manchi TV Unit Work",
+    body: "Espacio vallu chala manchi ga TV unit chesyaru degara vundi mari cheyinchyaru chala bagundhi, please do visit espacio 👍🏻",
+    name: "Madhusudhan Vanam",
+    role: "Google Reviewer • 1 Review • 1 Photo",
+    avatar: "",
+    date: "4 months ago"
+  },
+  {
+    rating: 5,
+    title: "Good Quality & Good Management",
+    body: "good Quality and good work and we'll management at Espacio.",
+    name: "Bhanu Sadhu",
+    role: "Google Reviewer • 3 Reviews",
+    avatar: "",
+    date: "5 months ago"
+  },
+  {
+    rating: 5,
+    title: "Good Experience & Good Working Skills",
+    body: "Good experience & good working skills. Dedicated team with great craftsmanship.",
+    name: "KIRAN RAJA",
+    role: "Google Reviewer • 2 Reviews",
+    avatar: "",
+    date: "4 months ago"
+  },
+  {
+    rating: 5,
+    title: "Good Work and Satisfied",
+    body: "Good work and satisfied with the interior service.",
+    name: "Shiak Ayub",
+    role: "Google Reviewer • 2 Reviews",
+    avatar: "",
+    date: "5 months ago"
+  },
+  {
+    rating: 5,
+    title: "Excellent Work Done",
+    body: "Excellent work done by the Espacio Interiors team.",
+    name: "Sharmash Hussain",
+    role: "Google Reviewer • 2 Reviews",
+    avatar: "",
+    date: "5 months ago"
+  },
+  {
+    rating: 5,
+    title: "Good Work 💯",
+    body: "Good work. Highly professional team and smooth execution.",
+    name: "Yadidya",
+    role: "Google Reviewer • 3 Reviews",
+    avatar: "",
+    date: "5 months ago"
+  },
+  {
+    rating: 5,
+    title: "Good Service 💯",
+    body: "Good service 💯 Quality interior materials and great execution.",
+    name: "Luqman Ahmed",
+    role: "Google Reviewer • 2 Reviews",
+    avatar: "",
+    date: "5 months ago"
+  },
+  {
+    rating: 5,
+    title: "Good Experience",
+    body: "Good experience with Espacio Interiors & Modular.",
+    name: "Rajeena shaik",
+    role: "Google Reviewer • 1 Review",
+    avatar: "",
+    date: "5 months ago"
+  },
+  {
+    rating: 5,
+    title: "Good Work 💯",
+    body: "Good work 💯 Great quality and friendly service.",
+    name: "Kali",
+    role: "Google Reviewer • 1 Review",
+    avatar: "",
+    date: "5 months ago"
+  },
+  {
+    rating: 5,
+    title: "Super 👍😊",
+    body: "Super 👍😊 Highly satisfied with the overall experience.",
+    name: "karagani pavankumar",
+    role: "Google Reviewer • 2 Reviews",
+    avatar: "",
+    date: "5 months ago"
+  },
+  {
+    rating: 5,
+    title: "Greate Experience",
+    body: "Greate experience working with Espacio Interiors & Modular. Very satisfied with their team and craftsmanship.",
+    name: "Rajini Kumar",
+    role: "Google Reviewer • 2 Reviews",
+    avatar: "/reviews/rajini_kumar.png",
+    date: "5 months ago"
+  },
+  {
+    rating: 5,
+    title: "Good Service",
+    body: "Good service and reliable interior materials at ESPACIO.",
+    name: "Ramesh Paladugu",
+    role: "Google Reviewer • 3 Reviews",
+    avatar: "/reviews/ramesh_paladugu.png",
+    date: "5 months ago"
+  },
+  {
+    rating: 5,
+    title: "Good Material",
+    body: "Good Metirial. Glad with the quality of materials and finishes.",
+    name: "Prem",
+    role: "Google Reviewer • 1 Review • 3 Photos",
+    avatar: "",
+    date: "5 months ago"
+  },
+  {
+    rating: 5,
+    title: "Fabulous",
+    body: "Fabulous service and very positive experience with Espacio.",
+    name: "Virat Vinod",
+    role: "Google Reviewer • 2 Reviews",
+    avatar: "",
+    date: "5 months ago"
   },
   {
     rating: 5,
     title: "Great Experience ❣️",
     body: "great experience ❣️ Looking forward to working with Espacio Interiors & Modular again.",
-    name: "Venkatesh Mudhiraj",
+    name: "Venkatesh mudhiraj",
     role: "Google Reviewer • 1 Review",
     avatar: "/reviews/venkatesh_mudhiraj.png",
-    date: "9 months ago"
-  },
-  {
-    rating: 5,
-    title: "Greate Experience & Professional Service",
-    body: "Greate experience working with Espacio Interiors & Modular. Very satisfied with their team and craftsmanship.",
-    name: "Rajini Kumar",
-    role: "Google Reviewer • 2 Reviews",
-    avatar: "/reviews/rajini_kumar.png",
-    date: "4 months ago"
+    date: "11 months ago"
   }
 ];
 
@@ -153,50 +306,53 @@ const rowA = [...topTestimonials, ...topTestimonials];
 const rowB = [...bottomTestimonials, ...bottomTestimonials];
 
 const TestimonialCard = ({ t }) => (
-  <div className="w-[300px] md:w-[410px] shrink-0 bg-white rounded-2xl md:rounded-[24px] p-5 md:p-7 mx-2 md:mx-3 flex flex-col justify-between h-[230px] md:h-[260px] shadow-none md:shadow-[0_4px_25px_0_rgba(0,0,0,0.06)] border border-stone-200/80">
-    <div className="space-y-3">
+  <div className="w-[230px] sm:w-[280px] md:w-[410px] shrink-0 bg-white rounded-[16px] sm:rounded-2xl md:rounded-[24px] p-3.5 sm:p-5 md:p-7 mx-1.5 sm:mx-2 md:mx-3 flex flex-col justify-between h-[175px] sm:h-[205px] md:h-[260px] shadow-sm md:shadow-[0_4px_25px_0_rgba(0,0,0,0.06)] border border-stone-200/80 select-none">
+    <div className="space-y-1.5 sm:space-y-2 md:space-y-3">
       {/* Star Rating & Verified Badge */}
       <div className="flex items-center justify-between">
-        <StarRating rating={t.rating} />
+        <div className="scale-85 sm:scale-95 md:scale-100 origin-left">
+          <StarRating rating={t.rating} />
+        </div>
         {t.source === 'MANUAL' ? (
-          <div className="inline-flex items-center gap-1.5 bg-amber-50 border border-amber-200/60 px-2.5 py-1 rounded-full text-[11px] font-sans font-semibold text-amber-800">
+          <div className="inline-flex items-center gap-1 bg-amber-50 border border-amber-200/60 px-2 py-0.5 sm:px-2.5 sm:py-1 rounded-full text-[9.5px] sm:text-[11px] font-sans font-semibold text-amber-800">
             <span>Client Testimonial</span>
           </div>
         ) : (
-          <div className="inline-flex items-center gap-1.5 bg-stone-100/90 border border-stone-200/60 px-2.5 py-1 rounded-full text-[11px] font-sans font-semibold text-stone-700">
+          <div className="inline-flex items-center gap-1 bg-stone-100/90 border border-stone-200/60 px-2 py-0.5 sm:px-2.5 sm:py-1 rounded-full text-[9.5px] sm:text-[11px] font-sans font-semibold text-stone-700">
             <GoogleGLogo />
             <span>Verified Review</span>
           </div>
         )}
       </div>
 
-      <h3 className="font-editorial text-[17px] md:text-[20px] font-medium text-[#101014] leading-[1.3] m-0">
+      <h3 className="font-editorial text-[13.5px] sm:text-[16px] md:text-[20px] font-medium text-[#101014] leading-[1.25] md:leading-[1.3] m-0 line-clamp-1">
         "{t.title}"
       </h3>
-      <p className="font-sans text-[12.5px] md:text-[13.5px] font-normal text-[#4a4a55] leading-[1.65] m-0 line-clamp-2">
+      <p className="font-sans text-[11px] sm:text-[12px] md:text-[13.5px] font-normal text-[#4a4a55] leading-snug sm:leading-[1.65] m-0 line-clamp-2">
         {t.body}
       </p>
     </div>
 
-    <div className="flex items-center gap-3 pt-3.5 border-t border-[#f0f0f2] mt-4">
-      {t.avatar ? (
-        <img src={t.avatar} alt={t.name} className="w-9 h-9 md:w-10 md:h-10 rounded-full object-cover shrink-0 border-2 border-amber-400/30" />
-      ) : (
-        <div className="w-9 h-9 md:w-10 md:h-10 rounded-full bg-gradient-to-br from-amber-400 to-amber-600 text-charcoal font-sans text-xs font-bold flex items-center justify-center shrink-0 shadow-sm border border-amber-300">
-          {(t.name || 'C').charAt(0).toUpperCase()}
-        </div>
-      )}
-      <div className="flex-1 truncate">
-        <p className="font-sans text-[12px] md:text-[13px] font-bold text-[#101014] m-0 leading-tight truncate">
+    <div className="flex items-center gap-2 sm:gap-3 pt-2 sm:pt-2.5 md:pt-3.5 border-t border-[#f0f0f2] mt-1.5 sm:mt-3 md:mt-4">
+      <img 
+        src={t.avatar && t.avatar.trim() !== '' ? t.avatar : `https://ui-avatars.com/api/?name=${encodeURIComponent((t.name || 'C').trim())}&background=C9A96E&color=101014&bold=true&rounded=true`}
+        alt={t.name}
+        onError={(e) => {
+          e.currentTarget.src = `https://ui-avatars.com/api/?name=${encodeURIComponent((t.name || 'C').trim())}&background=C9A96E&color=101014&bold=true&rounded=true`;
+        }}
+        className="w-7 h-7 sm:w-8 sm:h-8 md:w-10 md:h-10 rounded-full object-cover object-center shrink-0 border border-amber-400/40 shadow-xs" 
+      />
+      <div className="flex-1 min-w-0 truncate">
+        <p className="font-sans text-[11px] sm:text-[12px] md:text-[13px] font-bold text-[#101014] m-0 leading-tight truncate">
           {t.name}
         </p>
-        <p className="font-sans text-[11px] font-normal text-[#545460] m-0 leading-tight mt-0.5 truncate">{t.role || t.designation}</p>
+        <p className="font-sans text-[9.5px] sm:text-[10.5px] md:text-[11px] font-normal text-[#545460] m-0 leading-tight mt-0.5 truncate">{t.role || t.designation}</p>
       </div>
     </div>
   </div>
 );
 
-const MarqueeRow = ({ items, speed = 1.2, reverse = false }) => {
+const MarqueeRow = ({ items, speed = 1.09, reverse = false }) => {
   const containerRef = useRef(null);
   const isDragging = useRef(false);
   const startX = useRef(0);
@@ -354,21 +510,21 @@ const Testimonials = () => {
   const rowB = [...bottomItems, ...bottomItems];
 
   return (
-    <section style={{ position: "relative", padding: "96px 0", overflow: "hidden" }}>
+    <section className="relative py-8 sm:py-16 md:py-24 overflow-hidden">
 
       {/* Background */}
-      <div style={{ position: "absolute", inset: 0, zIndex: 0 }}>
-        <img src="https://images.unsplash.com/photo-1512917774080-9991f1c4c750?auto=format&fit=crop&w=1000&q=70&fm=webp" loading="lazy" decoding="async" alt="ESPACIO Luxury Interior Background" style={{ width: "100%", height: "100%", objectFit: "cover", objectPosition: "center" }} />
-        <div style={{ position: "absolute", inset: 0, background: "rgba(16,16,20,0.82)", backdropFilter: "blur(2px)" }} />
+      <div className="absolute inset-0 z-0">
+        <img src="https://images.unsplash.com/photo-1512917774080-9991f1c4c750?auto=format&fit=crop&w=1000&q=70&fm=webp" loading="lazy" decoding="async" alt="ESPACIO Luxury Interior Background" className="w-full h-full object-cover object-center" />
+        <div className="absolute inset-0 bg-[#101014]/85 backdrop-blur-[2px]" />
       </div>
 
-      <div style={{ position: "relative", zIndex: 10 }}>
+      <div className="relative z-10">
 
         {/* Header */}
-        <motion.div initial={{ opacity: 0, y: 28 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }} style={{ textAlign: "center", marginBottom: "48px", padding: "0 24px" }}>
+        <motion.div initial={{ opacity: 0, y: 24 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }} className="text-center mb-6 sm:mb-8 md:mb-12 px-4 sm:px-6">
           
           {/* Testimonials Badge */}
-          <div className="inline-flex items-center gap-2 bg-white text-ink px-4 py-1.5 rounded-full text-[13px] sm:text-[13.5px] font-sans font-medium shadow-md border border-black/5 mb-6 select-none tracking-normal">
+          <div className="inline-flex items-center gap-2 bg-white text-ink px-3.5 py-1 sm:px-4 sm:py-1.5 rounded-full text-[12px] sm:text-[13.5px] font-sans font-medium shadow-md border border-black/5 mb-3 sm:mb-5 select-none tracking-normal">
             <svg width="14" height="14" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg" className="shrink-0">
               <path d="M2 3C1.44772 3 1 3.44772 1 4V11C1 11.5523 1.44772 12 2 12H4V15L7.5 12H14C14.5523 12 15 11.5523 15 11V4C15 3.44772 14.5523 3 14 3H2Z" fill="#101014" />
               <circle cx="4.5" cy="7.5" r="0.9" fill="white" />
@@ -378,22 +534,22 @@ const Testimonials = () => {
             <span>Testimonials</span>
           </div>
 
-          <h2 className="font-editorial text-4xl sm:text-5xl md:text-6xl font-normal text-white leading-[1.12] mb-4 tracking-tight">
+          <h2 className="font-editorial text-3xl sm:text-5xl md:text-6xl font-normal text-white leading-[1.12] mb-2.5 sm:mb-4 tracking-tight">
             Client Reviews & Ratings
           </h2>
-          <p className="font-sans text-base md:text-lg font-medium text-white/90 max-w-[540px] mx-auto leading-relaxed">
+          <p className="font-sans text-[13.5px] sm:text-base md:text-lg font-medium text-white/90 max-w-[540px] mx-auto leading-relaxed">
             40+ Years of Experience in the Service Industry
           </p>
         </motion.div>
 
         {/* Row 1 — Auto-scrolls Right-to-Left */}
-        <div style={{ position: "relative", marginBottom: "16px" }}>
-          <MarqueeRow items={rowA} speed={1.2} reverse={false} />
+        <div className="relative mb-3 sm:mb-4 md:mb-5">
+          <MarqueeRow items={rowA} speed={1.09} reverse={false} />
         </div>
 
         {/* Row 2 — Auto-scrolls Left-to-Right */}
-        <div style={{ position: "relative" }}>
-          <MarqueeRow items={rowB} speed={1.1} reverse={true} />
+        <div className="relative">
+          <MarqueeRow items={rowB} speed={1.00} reverse={true} />
         </div>
 
       </div>

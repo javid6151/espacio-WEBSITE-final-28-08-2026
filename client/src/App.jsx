@@ -81,7 +81,25 @@ const ScrollToTop = () => {
 
 // Floating CTA Triggers: Desktop Floating Button + Mobile Right-Edge Vertical "GET FREE ESTIMATE" Tab
 const FloatingLogo = () => {
+  const location = useLocation();
   const shouldReduceMotion = useReducedMotion();
+  const [hiddenByEvent, setHiddenByEvent] = React.useState(false);
+
+  React.useEffect(() => {
+    const hide = () => setHiddenByEvent(true);
+    const show = () => setHiddenByEvent(false);
+    window.addEventListener('hide-floating-estimate', hide);
+    window.addEventListener('show-floating-estimate', show);
+    return () => {
+      window.removeEventListener('hide-floating-estimate', hide);
+      window.removeEventListener('show-floating-estimate', show);
+    };
+  }, []);
+
+  const isContactSuccess = (location.pathname === '/contact' && location.search.includes('success=true')) || hiddenByEvent;
+  if (isContactSuccess) {
+    return null;
+  }
 
   const handleOpenModal = () => {
     window.dispatchEvent(new CustomEvent('open-quote-modal'));
@@ -142,16 +160,16 @@ const FloatingLogo = () => {
           initial={{ opacity: 0, x: 25 }}
           animate={{ opacity: 1, x: 0 }}
           transition={{ delay: 1, duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
-          className="bg-[#121316]/95 backdrop-blur-md border-l border-t border-b border-gold/40 text-gold shadow-[0_4px_20px_rgba(0,0,0,0.6)] rounded-l-xl py-3.5 px-2 flex flex-col items-center justify-center gap-1.5 cursor-pointer hover:bg-[#1a1b20] active:bg-[#1f2026] transition-all select-none group outline-none"
+          className="bg-black/30 backdrop-blur-md border-l border-t border-b border-white/20 text-white shadow-[0_2px_12px_rgba(0,0,0,0.35)] rounded-l-lg py-2.5 px-1.5 flex flex-col items-center justify-center gap-1 cursor-pointer hover:bg-black/45 active:bg-black/55 transition-all select-none group outline-none"
           aria-label="Get Free Estimate"
         >
           <span 
-            className="font-display text-[9.5px] font-bold tracking-[0.2em] text-gold uppercase whitespace-nowrap"
+            className="font-sans text-[8px] font-normal tracking-[0.18em] text-white/90 uppercase whitespace-nowrap"
             style={{ writingMode: 'vertical-rl', transform: 'rotate(180deg)' }}
           >
             Get Free Estimate
           </span>
-          <span className="w-1.5 h-1.5 rounded-full bg-gold animate-pulse mt-0.5" />
+          <span className="w-1 h-1 rounded-full bg-white/70 animate-pulse mt-0.5" />
         </motion.button>
       </div>
     </>
@@ -198,7 +216,7 @@ const MainLayout = () => {
         <PrivacyModal />
         <TermsModal />
       </React.Suspense>
-      <FloatingLogo />
+      {!isContactSuccess && <FloatingLogo />}
     </div>
   );
 };

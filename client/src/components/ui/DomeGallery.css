@@ -43,6 +43,18 @@ main.sphere-main {
   contain: layout paint size;
 }
 
+@media (max-width: 640px) {
+  main.sphere-main {
+    overflow: visible !important;
+  }
+  .stage {
+    contain: none !important;
+    overflow: visible !important;
+    transform: scale(0.8);
+    transform-origin: 50% 50%;
+  }
+}
+
 .sphere {
   transform: translateZ(calc(var(--radius) * -1));
   will-change: transform;

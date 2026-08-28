@@ -210,13 +210,13 @@ const Footer = () => {
   const emailHref = `mailto:${emailText}`;
 
   return (
-    <footer className="bg-bg-dark text-bg min-h-[45vh] flex flex-col justify-between pt-8 pb-8">
+    <footer className="bg-bg-dark text-bg min-h-[45vh] flex flex-col justify-between pt-0 pb-8">
       {/* 1. Center CTA Banner with Dusk Architectural Background */}
       {ctaEnabled && (
         <motion.div 
           ref={ctaRef}
           style={{ clipPath }}
-          className="relative pt-24 pb-32 px-6 md:px-12 text-center mb-16 overflow-hidden bg-cover bg-center"
+          className="relative pt-10 pb-12 sm:pt-14 sm:pb-16 lg:pt-16 lg:pb-20 px-5 sm:px-6 md:px-12 text-center mb-4 sm:mb-6 lg:mb-8 overflow-hidden bg-cover bg-center"
         >
           {/* Background Image Layer */}
           <div 
@@ -233,10 +233,10 @@ const Footer = () => {
             className="relative z-10 max-w-[1440px] mx-auto flex flex-col items-center justify-center"
             style={{ y: contentY, opacity: contentOpacity }}
           >
-            <h2 className="font-display text-[clamp(32px,5vw,60px)] font-medium leading-[1.1] tracking-tight text-bg mb-6 whitespace-pre-line">
+            <h2 className="font-display text-[clamp(24px,5.8vw,60px)] font-medium leading-[1.12] tracking-tight text-bg mb-4 sm:mb-6 whitespace-pre-line text-center">
               {ctaHeadline}
             </h2>
-            <p className="font-sans text-[15px] text-bg/60 max-w-[480px] mx-auto leading-relaxed mb-10">
+            <p className="font-sans text-[13.5px] sm:text-[15px] text-bg/60 max-w-[480px] mx-auto leading-relaxed mb-6 sm:mb-10">
               {ctaSubtext}
             </p>
             <Link 
@@ -252,9 +252,6 @@ const Footer = () => {
           </motion.div>
         </motion.div>
       )}
-
-      {/* Spacing below CTA banner */}
-      <div className="mb-4" />
 
       {/* 2. Combined Footer Info Row */}
       <div className="max-w-[1440px] w-full mx-auto px-6 md:px-12 flex flex-col lg:flex-row lg:justify-between items-start gap-10 pb-10 pt-2">

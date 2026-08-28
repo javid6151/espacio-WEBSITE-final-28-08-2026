@@ -253,7 +253,7 @@ const Projects = () => {
       {/* ── ROUNDED CARD HERO (same as Home & Services) ── */}
       <section
         ref={heroRef}
-        className="relative h-[82vh] lg:h-[96vh] px-5 pt-2 sm:pt-2.5 lg:pt-3 pb-[10px] lg:px-12"
+        className="relative h-[90vh] sm:h-[82vh] lg:h-[96vh] min-h-[540px] lg:min-h-0 px-3 sm:px-5 pt-2 sm:pt-2.5 lg:pt-3 pb-[10px] lg:px-12"
       >
         <div
           className="relative w-full h-full overflow-hidden rounded-[24px] lg:rounded-[40px]"
@@ -318,19 +318,12 @@ const Projects = () => {
       <div className="bg-bg pb-24">
         <div className="max-w-[1440px] mx-auto px-6 md:px-10 pt-16">
 
-          {/* Search Bar */}
-          <div className="flex flex-col lg:flex-row items-stretch lg:items-center justify-between border-b border-ink-border pb-8 mb-12 gap-6">
+          {/* Header */}
+          <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between border-b border-ink-border pb-6 sm:pb-8 mb-8 sm:mb-12 gap-4">
             <div>
               <h2 className="font-display text-2xl font-bold text-ink">All Architectural Projects</h2>
               <p className="font-sans text-xs text-ink-soft mt-1">Explore our turnkey interior design and execution portfolio</p>
             </div>
-
-            <GooeyInput
-              placeholder="Search projects..."
-              value={searchQuery}
-              onChange={(e) => setSearchQuery(e.target.value)}
-              className="lg:max-w-[320px]"
-            />
           </div>
 
           {/* Project Grid */}

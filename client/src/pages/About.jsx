@@ -173,7 +173,7 @@ const About = () => {
   const bgScale = useTransform(scrollYProgress, [0, 0.25], [1.05, 0.98]);
   const bgY     = useTransform(scrollYProgress, [0, 0.25], ['0%', '8%']);
 
-  // Hero exit scroll animation (scales down, fades, and moves with exit curve matching Home page)
+  // Hero scroll parallax animations matching Services page
   const { scrollYProgress: heroScroll } = useScroll({
     target: heroRef,
     offset: ["start start", "end start"]
@@ -181,6 +181,8 @@ const About = () => {
   const heroExitScale = useTransform(heroScroll, [0, 1], [1, 0.85]);
   const heroExitOpacity = useTransform(heroScroll, [0, 1], [1, 0]);
   const heroExitY = useTransform(heroScroll, [0, 1], ["0%", "25%"]);
+  const textY = useTransform(heroScroll, [0, 0.8], ['0px', '-45px']);
+  const textOpacity = useTransform(heroScroll, [0, 0.7], [1, 0.25]);
 
   const [aboutData, setAboutData] = useState(() => {
     const s = getCMSData(STORAGE_KEYS.SETTINGS);
@@ -335,103 +337,54 @@ const About = () => {
         url="/about"
       />
 
-      {/* ── 1. SIGNATURE HERO BANNER (Rounded Dark Hero Card — 100% Full Screen View) ────────────── */}
+      {/* ── 1. SIGNATURE HERO BANNER (Matches Services hero layout with bottom-anchored content) ────────────── */}
       {aboutData.heroVisible !== false && (
-        <section ref={heroRef} className="relative h-[94vh] lg:h-[98vh] min-h-[660px] lg:min-h-0 px-4 sm:px-6 pt-2 sm:pt-2.5 lg:pt-3 pb-2 sm:pb-3 lg:px-10 z-0">
-          {/* Rounded card — fills the section with smooth exit transition matching Home page */}
-          <motion.div
-            style={{ scale: heroExitScale, opacity: heroExitOpacity, y: heroExitY }}
-            className="relative w-full h-full overflow-hidden rounded-[24px] lg:rounded-[40px] bg-bg-dark text-white p-6 sm:p-10 md:p-14 lg:p-16 xl:p-20 shadow-2xl flex flex-col justify-between origin-top"
-          >
-            
-            {/* Hero Background Image with Parallax & Overlay */}
-            <div className="absolute inset-0 z-0 opacity-35 overflow-hidden">
-              <motion.img
-                style={{ scale: bgScale, y: bgY }}
+        <section ref={heroRef} className="relative h-[90vh] sm:h-[94vh] lg:h-[96vh] min-h-[540px] lg:min-h-0 px-3 sm:px-5 pt-2 sm:pt-2.5 lg:pt-3 pb-2 lg:px-12 z-0">
+          <div className="relative w-full h-full overflow-hidden rounded-[24px] lg:rounded-[40px] origin-top shadow-2xl">
+            <motion.div style={{ scale: bgScale, y: bgY }} className="absolute inset-0 overflow-hidden">
+              <img
                 src={aboutData.heroImage}
                 alt="ESPACIO Luxury Background"
                 className="w-full h-full object-cover object-center"
               />
-              <div className="absolute inset-0 bg-gradient-to-t from-[#101014] via-[#101014]/70 to-[#101014]/35" />
-            </div>
+            </motion.div>
+            <div className="absolute inset-0 bg-gradient-to-b from-black/50 via-transparent to-black/85 z-10 pointer-events-none" />
+            <div className="absolute inset-0 bg-gradient-to-r from-black/35 via-transparent to-black/20 z-10 pointer-events-none" />
 
-            <div className="relative z-10 max-w-[1280px] w-full mx-auto space-y-4 md:space-y-6 pt-8 md:pt-4">
-              {/* Clean White Pill Badge matching site standard */}
-              <motion.div
-                initial={{ opacity: 0, y: 15 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.6 }}
-                className="inline-flex items-center gap-2 bg-white text-[#101014] px-4 py-1.5 rounded-full text-[13px] font-sans font-medium shadow-lg border border-black/5 select-none tracking-normal mb-1 w-fit"
+            {/* Hero Text Content with Dynamic Scroll Parallax — Anchored at Bottom */}
+            <div className="absolute inset-0 z-20 flex flex-col justify-end pointer-events-none">
+              <motion.div 
+                style={{ y: textY, opacity: textOpacity }}
+                className="w-full px-6 sm:px-8 md:px-12 pb-10 sm:pb-12 md:pb-14 pointer-events-auto"
               >
-                <Award size={14} className="text-[#101014] shrink-0" />
-                <span>{aboutData.heroBadge || 'About ESPACIO'}</span>
-              </motion.div>
-
-              {/* Editorial Title */}
-              <motion.h1
-                initial={{ opacity: 0, y: 28 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.8, delay: 0.15, ease: [0.16, 1, 0.3, 1] }}
-                className="font-display text-[clamp(32px,5vw,72px)] font-normal leading-[1.08] tracking-tight text-white max-w-[950px] whitespace-pre-line"
-              >
-                {aboutData.heroTitle}
-              </motion.h1>
-
-              {/* Hero Subtitle */}
-              <motion.p
-                initial={{ opacity: 0, y: 18 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.8, delay: 0.3 }}
-                className="font-sans text-[14px] md:text-[16px] text-white/70 max-w-[720px] leading-relaxed line-clamp-3 md:line-clamp-none"
-              >
-                {aboutData.heroSubtitle}
-              </motion.p>
-            </div>
-
-            {/* Dynamic Hero Statistics Cards pinned to bottom of full-screen card */}
-            <div className="relative z-10 max-w-[1280px] w-full mx-auto pt-6">
-              <motion.div
-                initial={{ opacity: 0, y: 25 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.7, delay: 0.35, ease: [0.16, 1, 0.3, 1] }}
-                className="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-5 border-t border-white/10 pt-4 md:pt-6"
-              >
-                {(aboutData.heroStats || defaultStats).map((st, idx) => (
-                  <motion.div
-                    key={idx}
-                    initial={{ opacity: 0, y: 20 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 0.5, delay: 0.4 + idx * 0.1, ease: [0.16, 1, 0.3, 1] }}
-                    whileHover={{ y: -4, transition: { duration: 0.2 } }}
-                    className="p-4 sm:p-6 rounded-[18px] md:rounded-[20px] bg-white/[0.06] hover:bg-white/[0.1] backdrop-blur-xl border border-white/10 hover:border-gold/40 flex flex-col justify-between transition-all duration-300 group shadow-lg"
-                  >
-                    <div>
-                      <p className="font-display text-[clamp(28px,2.8vw,44px)] font-bold text-gold leading-none tracking-tight group-hover:scale-105 transition-transform duration-300 origin-left">
-                        <Counter value={st.value} duration={2} />
-                      </p>
-                      <p className="font-sans text-[10px] sm:text-[11px] font-semibold uppercase tracking-[0.15em] text-white/60 group-hover:text-white/90 mt-2 sm:mt-3 leading-normal transition-colors duration-300">
-                        {st.label}
-                      </p>
-                    </div>
-                  </motion.div>
-                ))}
+                <div className="flex flex-col items-start gap-2.5 sm:gap-3 max-w-[850px]">
+                  <div className="inline-flex items-center gap-1.5 sm:gap-2 bg-white text-[#101014] px-4 py-1.5 rounded-full text-[12px] sm:text-[13px] font-sans font-medium shadow-lg border border-black/5 select-none tracking-normal mb-1">
+                    <Award size={14} className="text-[#101014] shrink-0" />
+                    <span>{aboutData.heroBadge || 'About ESPACIO'}</span>
+                  </div>
+                  <h1 className="font-display font-bold leading-[1.08] sm:leading-none tracking-tight text-white drop-shadow-[0_4px_16px_rgba(0,0,0,0.6)]" style={{ fontSize: 'clamp(28px, 5.5vw, 76px)' }}>
+                    {aboutData.heroTitle}
+                  </h1>
+                  <p className="font-sans text-[13.5px] sm:text-[15px] md:text-[15.5px] text-white/90 max-w-[620px] leading-relaxed drop-shadow-[0_2px_8px_rgba(0,0,0,0.7)]">
+                    {aboutData.heroSubtitle}
+                  </p>
+                </div>
               </motion.div>
             </div>
 
-            {/* ── Center Scroll Down Indicator (Small, thin, transparent) ── */}
+            {/* Scroll Down Indicator */}
             <ScrollDownIndicator />
-
-          </motion.div>
+          </div>
         </section>
       )}
 
       {/* ── 2. OUR STORY SECTION (Warm Cream Background) ─────────────────── */}
-      <section className="py-24 px-6 md:px-12 border-b border-ink-border bg-bg">
-        <div className="max-w-[1440px] mx-auto grid grid-cols-1 lg:grid-cols-12 gap-12 items-start">
+      <section className="pt-6 sm:pt-16 lg:pt-16 pb-12 sm:pb-20 lg:pb-24 px-4 sm:px-6 md:px-12 border-b border-ink-border bg-bg relative">
+        <div className="max-w-[1440px] mx-auto grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-start relative">
           
-          {/* Left Column — Sticky Showcase Card */}
-          <Reveal className="lg:col-span-5 lg:sticky lg:top-28">
-            <div className="relative aspect-[4/3] rounded-[24px] overflow-hidden shadow-xl border border-ink-border group">
+          {/* Left Column — Sticky Showcase Card on Mobile & Desktop */}
+          <div className="lg:col-span-5 sticky top-[72px] sm:top-20 lg:top-28 z-20 pb-3 lg:pb-0 bg-bg/95 backdrop-blur-md -mx-4 px-4 sm:mx-0 sm:px-0 pt-3 sm:pt-4 lg:pt-0">
+            <div className="relative aspect-[16/10] sm:aspect-[4/3] rounded-[18px] sm:rounded-[24px] overflow-hidden shadow-xl border border-ink-border group">
               <img
                 src={getOptimizedImageUrl(aboutData.storyImage, 800, 75)}
                 alt="ESPACIO Studio Craft"
@@ -441,17 +394,17 @@ const About = () => {
               />
               <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent" />
               {aboutData.milestoneVisible !== false && (
-                <div className="absolute bottom-5 left-5 right-5 p-4 sm:p-5 rounded-[16px] bg-white/95 backdrop-blur-xl border border-white/60 shadow-xl">
-                  <span className="font-sans text-[10px] sm:text-[11px] font-bold uppercase tracking-[0.18em] text-[#9E7B3B] block">
+                <div className="absolute bottom-3 sm:bottom-5 left-3 sm:left-5 right-3 sm:right-5 p-3 sm:p-5 rounded-[14px] sm:rounded-[16px] bg-white/95 backdrop-blur-xl border border-white/60 shadow-xl">
+                  <span className="font-sans text-[9.5px] sm:text-[11px] font-bold uppercase tracking-[0.18em] text-[#9E7B3B] block">
                     {aboutData.milestoneLabel}
                   </span>
-                  <p className="font-display text-base sm:text-lg font-bold text-[#101014] mt-1 leading-snug">
+                  <p className="font-display text-[13px] sm:text-lg font-bold text-[#101014] mt-0.5 sm:mt-1 leading-snug">
                     {aboutData.milestoneText}
                   </p>
                 </div>
               )}
             </div>
-          </Reveal>
+          </div>
 
           {/* Right Column — Narrative Story */}
           <Reveal delay={0.15} className="lg:col-span-7 space-y-6 pt-2">
@@ -585,33 +538,37 @@ const About = () => {
             </h2>
           </Reveal>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-3 sm:gap-6 md:gap-8">
             {values.map((v, i) => {
               const Icon = v.icon;
               return (
                 <Reveal key={v.num} delay={i * 0.1}>
-                  <div className="p-8 md:p-10 rounded-[20px] bg-bg-card border border-ink-border shadow-sm hover:border-gold/50 hover:shadow-md transition-all duration-300 relative group overflow-hidden h-full flex flex-col justify-between">
-                    <div className="absolute top-4 right-6 font-display text-5xl font-bold text-ink-border/40 group-hover:text-gold/20 transition-colors">
+                  <motion.div 
+                    whileHover={{ y: -4, transition: { duration: 0.2 } }}
+                    whileTap={{ scale: 0.98 }}
+                    className="p-4 sm:p-7 md:p-9 rounded-[18px] sm:rounded-[22px] bg-bg-card border border-ink-border shadow-sm hover:border-gold/50 hover:shadow-lg transition-all duration-300 relative group overflow-hidden h-full flex flex-col justify-between"
+                  >
+                    <div className="absolute top-3 right-4 sm:top-4 sm:right-6 font-display text-3xl sm:text-5xl font-bold text-ink-border/20 group-hover:text-gold/20 transition-colors select-none">
                       {v.num}
                     </div>
 
                     <div>
-                      <div className="w-12 h-12 rounded-[14px] bg-gold/10 border border-gold/30 flex items-center justify-center text-gold mb-6 group-hover:scale-105 transition-transform">
-                        <Icon size={24} />
+                      <div className="w-9 h-9 sm:w-12 sm:h-12 rounded-[11px] sm:rounded-[14px] bg-gold/10 border border-gold/30 flex items-center justify-center text-gold mb-2.5 sm:mb-5 group-hover:scale-110 transition-transform duration-300 shadow-sm">
+                        <Icon className="w-4.5 h-4.5 sm:w-6 sm:h-6 stroke-[1.75]" />
                       </div>
-                      <h3 className="font-display text-2xl font-bold text-ink mb-3">
+                      <h3 className="font-display text-[16px] sm:text-2xl font-bold text-ink mb-1 sm:mb-2.5 leading-snug">
                         {v.title}
                       </h3>
-                      <p className="font-sans text-sm text-ink-soft leading-relaxed">
+                      <p className="font-sans text-[12.5px] sm:text-sm text-ink-soft leading-relaxed">
                         {v.desc}
                       </p>
                     </div>
 
-                    <div className="pt-6 mt-6 border-t border-ink-border/40 flex items-center gap-2 text-xs font-bold text-gold uppercase tracking-wider">
-                      <CheckCircle2 size={14} />
+                    <div className="pt-2.5 mt-2.5 sm:pt-5 sm:mt-5 border-t border-ink-border/40 flex items-center gap-1.5 sm:gap-2 text-[10px] sm:text-xs font-bold text-gold uppercase tracking-wider">
+                      <CheckCircle2 className="w-3.5 h-3.5 sm:w-4 sm:h-4 shrink-0" />
                       <span>ESPACIO Guarantee</span>
                     </div>
-                  </div>
+                  </motion.div>
                 </Reveal>
               );
             })}
@@ -645,7 +602,7 @@ const About = () => {
       </section>
 
       {/* ── 6. CRAFTSMANSHIP GALLERY GRID ─────────────────────────────────── */}
-      <section className="py-24 px-6 md:px-12 border-b border-ink-border bg-bg">
+      <section className="py-14 sm:py-20 lg:py-24 px-6 md:px-12 bg-bg">
         <div className="max-w-[1440px] mx-auto space-y-12">
           <Reveal className="text-center max-w-[650px] mx-auto">
             <span className="font-sans text-[11px] font-bold uppercase tracking-[0.22em] text-gold">{aboutData.galleryBadge}</span>
@@ -654,30 +611,34 @@ const About = () => {
             </h2>
           </Reveal>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6">
             {(aboutData.galleryImages || defaultGalleryImages).map((img, i) => (
               <Reveal key={i} delay={i * 0.1}>
-                <div className="group relative aspect-[3/4] rounded-[20px] overflow-hidden border border-ink-border shadow-sm bg-bg-card cursor-pointer">
+                <motion.div 
+                  whileHover={{ y: -6, scale: 1.02, transition: { duration: 0.25 } }}
+                  whileTap={{ scale: 0.98 }}
+                  className="group relative aspect-[16/11] sm:aspect-[3/4] rounded-[20px] overflow-hidden border border-ink-border shadow-md hover:shadow-xl transition-all duration-300 bg-bg-card cursor-pointer"
+                >
                   <img
                     src={img.url}
                     alt={img.title}
                     className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
                   />
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent pointer-events-none" />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/55 via-transparent to-transparent pointer-events-none" />
                   
                   {/* Color-Corrected High-Contrast Glass Card */}
                   <div 
-                    className="absolute bottom-4 left-4 right-4 bg-white/95 backdrop-blur-xl border border-black/5 rounded-[16px] p-4 sm:p-5 shadow-2xl opacity-0 translate-y-3 group-hover:opacity-100 group-hover:translate-y-0 transition-all duration-400 pointer-events-none overflow-hidden"
+                    className="absolute bottom-3 left-3 right-3 sm:bottom-4 sm:left-4 sm:right-4 bg-white/95 backdrop-blur-xl border border-black/5 rounded-[15px] sm:rounded-[16px] p-3.5 sm:p-5 shadow-2xl opacity-100 translate-y-0 sm:opacity-0 sm:translate-y-3 sm:group-hover:opacity-100 sm:group-hover:translate-y-0 transition-all duration-400 pointer-events-none overflow-hidden"
                   >
                     <div className="absolute top-0 left-0 w-1.5 h-full bg-[#B89047]" />
-                    <p className="font-sans text-[10px] sm:text-[11px] font-bold uppercase tracking-[0.18em] text-[#9E7B3B] pl-2">
+                    <p className="font-sans text-[10.5px] sm:text-[11px] font-bold uppercase tracking-[0.15em] sm:tracking-[0.18em] text-[#9E7B3B] pl-2 line-clamp-1">
                       {img.subtitle}
                     </p>
-                    <h3 className="font-display text-sm sm:text-[15px] font-bold text-[#101014] leading-snug mt-1 pl-2">
+                    <h3 className="font-display text-[15px] sm:text-[16px] font-bold text-[#101014] leading-snug mt-0.5 sm:mt-1 pl-2 line-clamp-2">
                       {img.title}
                     </h3>
                   </div>
-                </div>
+                </motion.div>
               </Reveal>
             ))}
           </div>

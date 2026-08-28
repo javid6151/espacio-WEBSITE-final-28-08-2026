@@ -172,7 +172,14 @@ const Navbar = () => {
                 >
                   <Link 
                     to={link.path}
-                    onClick={() => setMobileMenuOpen(false)}
+                    onClick={() => {
+                      setMobileMenuOpen(false);
+                      if (window.location.pathname === link.path) {
+                        window.scrollTo({ top: 0, left: 0, behavior: 'smooth' });
+                      } else {
+                        window.scrollTo(0, 0);
+                      }
+                    }}
                     className="block font-display text-3xl font-semibold text-white hover:text-gold py-3 border-b border-white/10 transition-colors"
                   >
                     {link.name}
@@ -183,7 +190,14 @@ const Navbar = () => {
             
             <Link 
               to="/contact" 
-              onClick={() => setMobileMenuOpen(false)}
+              onClick={() => {
+                setMobileMenuOpen(false);
+                if (window.location.pathname === '/contact') {
+                  window.scrollTo({ top: 0, left: 0, behavior: 'smooth' });
+                } else {
+                  window.scrollTo(0, 0);
+                }
+              }}
               className="mt-8 inline-flex items-center justify-center gap-2 bg-white text-ink font-sans text-[12px] font-bold uppercase tracking-widest px-6 py-4.5 rounded-pill w-full hover:bg-white/90 transition-colors"
             >
               Contact us <ArrowUpRight size={13} />
@@ -195,13 +209,33 @@ const Navbar = () => {
       {/* Mobile Sticky Bottom Tab Bar (D'LIFE inspired) */}
       <div className="lg:hidden fixed bottom-0 left-0 w-full z-45 bg-bg/95 backdrop-blur-md border-t border-ink-border/30 h-20 flex items-center justify-around px-4 shadow-[0_-6px_20px_rgba(0,0,0,0.06)] pb-safe">
         {/* Tab: Services */}
-        <Link to="/services" className="flex flex-col items-center gap-1 text-ink-soft hover:text-ink transition-colors flex-1 py-2">
+        <Link 
+          to="/services" 
+          onClick={() => {
+            if (window.location.pathname === '/services') {
+              window.scrollTo({ top: 0, left: 0, behavior: 'smooth' });
+            } else {
+              window.scrollTo(0, 0);
+            }
+          }}
+          className="flex flex-col items-center gap-1 text-ink-soft hover:text-ink transition-colors flex-1 py-2"
+        >
           <Briefcase size={22} className="text-ink-soft" />
           <span className="font-sans text-[10px] uppercase tracking-wider font-bold text-ink-soft">Services</span>
         </Link>
 
         {/* Tab: Projects */}
-        <Link to="/projects" className="flex flex-col items-center gap-1 text-ink-soft hover:text-ink transition-colors flex-1 py-2">
+        <Link 
+          to="/projects" 
+          onClick={() => {
+            if (window.location.pathname === '/projects') {
+              window.scrollTo({ top: 0, left: 0, behavior: 'smooth' });
+            } else {
+              window.scrollTo(0, 0);
+            }
+          }}
+          className="flex flex-col items-center gap-1 text-ink-soft hover:text-ink transition-colors flex-1 py-2"
+        >
           <FolderKanban size={22} className="text-ink-soft" />
           <span className="font-sans text-[10px] uppercase tracking-wider font-bold text-ink-soft">Projects</span>
         </Link>
@@ -209,10 +243,11 @@ const Navbar = () => {
         {/* Tab: Home */}
         <Link 
           to="/" 
-          onClick={(e) => {
+          onClick={() => {
             if (window.location.pathname === '/') {
-              e.preventDefault();
               window.scrollTo({ top: 0, left: 0, behavior: 'smooth' });
+            } else {
+              window.scrollTo(0, 0);
             }
           }}
           className="flex flex-col items-center justify-end relative h-full flex-1 pb-2 text-ink-soft hover:text-ink transition-colors group"
@@ -258,7 +293,17 @@ const Navbar = () => {
         </Link>
 
         {/* Tab: Materials */}
-        <Link to="/products" className="flex flex-col items-center gap-1 text-ink-soft hover:text-ink transition-colors flex-1 py-2">
+        <Link 
+          to="/products" 
+          onClick={() => {
+            if (window.location.pathname === '/products') {
+              window.scrollTo({ top: 0, left: 0, behavior: 'smooth' });
+            } else {
+              window.scrollTo(0, 0);
+            }
+          }}
+          className="flex flex-col items-center gap-1 text-ink-soft hover:text-ink transition-colors flex-1 py-2"
+        >
           <Package size={22} className="text-ink-soft" />
           <span className="font-sans text-[10px] uppercase tracking-wider font-bold text-ink-soft">Materials</span>
         </Link>

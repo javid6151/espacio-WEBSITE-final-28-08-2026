@@ -17,13 +17,12 @@ export const ScrollStackItem = ({
     offset: ["start start", "end start"]
   });
 
-  // Rapid clean fade & scale as the card is covered by the next one to eliminate black mist ghosting
-  const scale = useTransform(scrollYProgress, [0, 0.3], [1, 0.98]);
-  const opacity = useTransform(scrollYProgress, [0, 0.15, 0.3], [1, 0.2, 0]);
+  // Smooth clean fade as the card is covered by the next one to eliminate misaligned double borders
+  const opacity = useTransform(scrollYProgress, [0, 0.08, 0.2], [1, 0.1, 0]);
 
   // Use a clean unified sticky top with generous breathing room below the fixed navbar
   const isMobile = typeof window !== "undefined" && window.innerWidth < 768;
-  const stickyTop = isMobile ? 110 : 135;
+  const stickyTop = isMobile ? 90 : 120;
 
   return (
     <motion.div
@@ -31,9 +30,8 @@ export const ScrollStackItem = ({
       style={{
         position: "sticky",
         top: `${stickyTop}px`,
-        scale,
         opacity,
-        willChange: "transform, opacity",
+        willChange: "opacity",
         transformOrigin: "top center",
         zIndex: index + 1
       }}

@@ -128,7 +128,7 @@ const MarqueeRow = ({ products, direction = "left", speed = 1.2, rowId }) => {
       <motion.div
         ref={containerRef}
         style={{ x }}
-        className="flex flex-nowrap space-x-6 md:space-x-8 w-max will-change-transform py-1"
+        className="flex flex-nowrap space-x-3.5 sm:space-x-6 md:space-x-8 w-max will-change-transform py-1"
       >
         {products.map((product, idx) => (
           <ProductCard
@@ -143,15 +143,15 @@ const MarqueeRow = ({ products, direction = "left", speed = 1.2, rowId }) => {
 
 export const Header = () => {
   return (
-    <div className="w-full relative pt-8 pb-10 md:pt-12 md:pb-16 px-6 md:px-12 left-0 top-0 z-20 bg-bg">
+    <div className="w-full relative pt-2 pb-5 sm:pt-6 sm:pb-8 md:pt-12 md:pb-16 px-4 sm:px-6 md:px-12 left-0 top-0 z-20 bg-bg">
       <div className="max-w-[1440px] mx-auto text-left">
-        <span className="font-sans text-[11px] uppercase tracking-[0.2em] text-gold font-semibold">
+        <span className="font-sans text-[10.5px] sm:text-[11px] uppercase tracking-[0.2em] text-gold font-semibold">
           Bespoke Design Services
         </span>
-        <h1 className="font-display text-[clamp(30px,3.5vw,52px)] font-medium leading-[1.08] tracking-tight text-ink mt-4">
+        <h1 className="font-display text-[clamp(26px,3.5vw,52px)] font-medium leading-[1.08] tracking-tight text-ink mt-2 sm:mt-4">
           We Sculpt <br />Inspiring Spaces
         </h1>
-        <p className="max-w-xl font-sans text-[14px] text-ink font-medium mt-5 leading-relaxed">
+        <p className="max-w-xl font-sans text-[13px] sm:text-[14px] text-ink font-medium mt-2.5 sm:mt-5 leading-relaxed">
           From conceptual 3D visualizations to master turnkey handovers, ESPACIO brings unmatched structural excellence and premium material sourcing to residential, commercial, and modular kitchen spaces.
         </p>
       </div>
@@ -163,7 +163,7 @@ export const ProductCard = ({ product }) => {
   return (
     <div
       key={product.title}
-      className="group/product h-56 sm:h-60 md:h-64 w-[20rem] sm:w-[24rem] md:w-[28rem] lg:w-[30rem] relative flex-shrink-0 rounded-[20px] overflow-hidden shadow-2xl transition-transform duration-300 hover:-translate-y-1.5 bg-stone-900 select-none cursor-grab active:cursor-grabbing"
+      className="group/product h-40 sm:h-52 md:h-64 w-[14rem] sm:w-[20rem] md:w-[28rem] lg:w-[30rem] relative flex-shrink-0 rounded-[14px] sm:rounded-[18px] md:rounded-[20px] overflow-hidden shadow-lg md:shadow-2xl transition-transform duration-300 hover:-translate-y-1.5 bg-stone-900 select-none cursor-grab active:cursor-grabbing"
     >
       <div className="block h-full w-full select-none pointer-events-none" draggable="false">
         <img
@@ -181,18 +181,18 @@ export const ProductCard = ({ product }) => {
         />
       </div>
       {/* Smooth bottom gradient vignette for crisp text contrast */}
-      <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/35 to-transparent pointer-events-none transition-opacity duration-300 group-hover/product:from-black/95" />
-      <div className="absolute bottom-4.5 left-5 right-5 text-white z-10 select-none pointer-events-none">
-        <div className="flex items-center gap-2 mb-1.5">
-          <span className="text-[10.5px] font-sans font-semibold uppercase tracking-[0.16em] text-[#C9A96E]">
+      <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/30 to-transparent pointer-events-none transition-opacity duration-300 group-hover/product:from-black/95" />
+      <div className="absolute bottom-3 sm:bottom-4.5 left-3 sm:left-5 right-3 sm:right-5 text-white z-10 select-none pointer-events-none">
+        <div className="flex items-center gap-1.5 sm:gap-2 mb-0.5 sm:mb-1.5">
+          <span className="text-[8.5px] sm:text-[10.5px] font-sans font-semibold uppercase tracking-[0.14em] sm:tracking-[0.16em] text-[#C9A96E]">
             {product.category || "INTERIOR SERVICE"}
           </span>
           <span className="w-1 h-1 rounded-full bg-white/40" />
-          <span className="text-[10.5px] font-sans font-medium tracking-[0.12em] text-white/70 uppercase">
+          <span className="text-[8.5px] sm:text-[10.5px] font-sans font-medium tracking-[0.12em] text-white/70 uppercase">
             ESPACIO
           </span>
         </div>
-        <h2 className="font-sans text-[15.5px] md:text-[17px] font-semibold text-white leading-snug tracking-tight drop-shadow-[0_2px_4px_rgba(0,0,0,0.85)]">
+        <h2 className="font-sans text-[13px] sm:text-[15.5px] md:text-[17px] font-semibold text-white leading-snug tracking-tight drop-shadow-[0_2px_4px_rgba(0,0,0,0.85)] line-clamp-1">
           {product.title}
         </h2>
       </div>

@@ -302,10 +302,10 @@ const TeamProjectsShowcase = ({ customSlides }) => {
   };
 
   return (
-    <div className="relative w-[85%] sm:w-[80%] mx-auto aspect-[4/3.2] group">
+    <div className="relative w-full max-w-[580px] lg:max-w-none mx-auto aspect-[4/3.3] sm:aspect-[4/3] min-h-[290px] sm:min-h-[380px] group">
 
       {/* ── Main Card ── */}
-      <div className="w-full h-full rounded-[24px] overflow-hidden shadow-2xl border border-ink-border/10 relative z-10 bg-stone-950">
+      <div className="w-full h-full rounded-[20px] sm:rounded-[26px] overflow-hidden shadow-2xl border border-ink-border/15 relative z-10 bg-stone-950">
         <AnimatePresence custom={direction} initial={false} mode="sync">
           <motion.div
             key={`proj-${idx}`}
@@ -340,30 +340,29 @@ const TeamProjectsShowcase = ({ customSlides }) => {
             />
 
             {/* Soft bottom vignette for text contrast */}
-            <div className="absolute inset-0 bg-gradient-to-t from-black/75 via-black/15 to-transparent pointer-events-none" />
+            <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent pointer-events-none" />
 
-            {/* Architectural Space Caption (matching FAQ style) */}
+            {/* Architectural Space Caption */}
             <motion.div
-              className="absolute bottom-5 left-5 right-5 text-left pointer-events-none z-20 select-none"
+              className="absolute bottom-4 sm:bottom-5 left-4 sm:left-5 right-4 sm:right-5 text-left pointer-events-none z-20 select-none"
               initial={{ opacity: 0, y: 10 }}
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, y: -6 }}
               transition={{ delay: 0.1, duration: 0.35, ease: [0.22, 1, 0.36, 1] }}
             >
-              <div className="flex items-center gap-2 mb-1.5">
-                <span className="text-[11px] font-sans font-semibold uppercase tracking-[0.16em] text-[#C9A96E]">
+              <div className="flex items-center gap-2 mb-1">
+                <span className="text-[10px] sm:text-[11px] font-sans font-semibold uppercase tracking-[0.16em] text-[#C9A96E]">
                   {current.role || 'INTERIOR SHOWCASE'}
                 </span>
                 <span className="w-1 h-1 rounded-full bg-white/40" />
-                <span className="text-[11px] font-sans font-medium tracking-[0.12em] text-white/70 uppercase">
+                <span className="text-[10px] sm:text-[11px] font-sans font-medium tracking-[0.12em] text-white/70 uppercase">
                   Featured Space
                 </span>
               </div>
-              <p className="text-[#FAF8F5] font-sans text-[16px] sm:text-[18px] font-medium leading-snug tracking-tight drop-shadow-sm">
+              <p className="text-[#FAF8F5] font-sans text-[15px] sm:text-[18px] font-medium leading-snug tracking-tight drop-shadow-sm">
                 {current.projectLabel}
               </p>
             </motion.div>
-
 
           </motion.div>
         </AnimatePresence>
@@ -374,41 +373,9 @@ const TeamProjectsShowcase = ({ customSlides }) => {
             ref={progressBarRef}
             className="h-full bg-gold transition-none"
             style={{ width: '0%' }}
-            transition={{ duration: 0 }}
           />
         </div>
       </div>
-
-      {/* ── Nav Buttons ── */}
-      <motion.button
-        onClick={handlePrev}
-        whileHover={{ scale: 1.12, backgroundColor: 'white', color: '#101014' }}
-        whileTap={{ scale: 0.95 }}
-        className="absolute left-4 top-1/2 -translate-y-1/2 z-30 w-9 h-9 rounded-full border border-white/10 bg-black/40 backdrop-blur-md text-white flex items-center justify-center transition-colors duration-300 shadow-md opacity-100 sm:opacity-0 sm:group-hover:opacity-100"
-        transition={{ duration: 0.2 }}
-        aria-label="Previous Project"
-      >
-        <motion.span
-          className="text-[14px]"
-          animate={{ x: [0, -2, 0] }}
-          transition={{ duration: 1.5, repeat: Infinity, ease: 'easeInOut' }}
-        >←</motion.span>
-      </motion.button>
-
-      <motion.button
-        onClick={handleNext}
-        whileHover={{ scale: 1.12, backgroundColor: 'white', color: '#101014' }}
-        whileTap={{ scale: 0.95 }}
-        className="absolute right-4 top-1/2 -translate-y-1/2 z-30 w-9 h-9 rounded-full border border-white/10 bg-black/40 backdrop-blur-md text-white flex items-center justify-center transition-colors duration-300 shadow-md opacity-100 sm:opacity-0 sm:group-hover:opacity-100"
-        transition={{ duration: 0.2 }}
-        aria-label="Next Project"
-      >
-        <motion.span
-          className="text-[14px]"
-          animate={{ x: [0, 2, 0] }}
-          transition={{ duration: 1.5, repeat: Infinity, ease: 'easeInOut' }}
-        >→</motion.span>
-      </motion.button>
 
     </div>
   );
@@ -848,13 +815,16 @@ const Home = () => {
         <p className="font-sans text-[15px] lg:text-[17px] text-ink-soft leading-relaxed font-normal">
           {p.description || `A luxury ${p.category.toLowerCase()} interior design in ${p.location}, showcasing custom spatial architecture and premium materials.`}
         </p>
-        <Link 
-          to={`/projects/${p.slug}`}
-          aria-label={`View Case Study: ${p.title}`}
-          className="inline-flex items-center gap-2 font-sans text-[13px] lg:text-[14px] font-bold uppercase tracking-wider text-gold hover:text-gold/80 transition-colors pt-2"
-        >
-          View Case Study <ArrowUpRight size={15} />
-        </Link>
+        <div className="pt-2 pb-0">
+          <Link 
+            to={`/projects/${p.slug}`}
+            aria-label={`View Case Study: ${p.title}`}
+            className="inline-flex items-center gap-2 font-sans text-[13px] lg:text-[14px] font-bold uppercase tracking-wider text-gold hover:text-gold/80 transition-colors pt-1"
+          >
+            <span>View Case Study</span>
+            <ArrowUpRight size={15} />
+          </Link>
+        </div>
       </div>
     ),
     content: (
@@ -1045,11 +1015,11 @@ const Home = () => {
       />
 
       {/* ── 1. HERO (Rounded Card — matches Services) ── */}
-      <section ref={heroRef} className="relative h-[94vh] lg:h-[98vh] min-h-[660px] lg:min-h-0 px-4 sm:px-6 pt-2 sm:pt-2.5 lg:pt-3 pb-2 sm:pb-3 lg:px-10 z-0">
+      <section ref={heroRef} className="relative h-[90vh] sm:h-[94vh] lg:h-[98vh] min-h-[540px] sm:min-h-[660px] lg:min-h-0 px-3 sm:px-6 pt-2 sm:pt-2.5 lg:pt-3 pb-2 sm:pb-3 lg:px-10 z-0">
         {/* Rounded card — fills the section with smooth exit transition */}
         <motion.div
           style={{ scale: heroExitScale, opacity: heroExitOpacity, y: heroExitY }}
-          className="relative w-full h-full overflow-hidden rounded-[24px] lg:rounded-[40px] origin-top"
+          className="relative w-full h-full overflow-hidden rounded-[20px] sm:rounded-[24px] lg:rounded-[40px] origin-top"
         >
           {/* Background Image Layer */}
           <div className="absolute inset-0 overflow-hidden">
@@ -1317,6 +1287,11 @@ const Home = () => {
             
             <Reveal delay={0.3}>
               <Link to={homeSettings.intro_cta_link || "/about"} className="btn-sliding-cta-dark">
+                <span className="invisible select-none pointer-events-none whitespace-nowrap opacity-0">
+                  {(homeSettings.intro_cta_text1 || 'Our Story ↗').length >= (homeSettings.intro_cta_text2 || 'Read More ↗').length 
+                    ? (homeSettings.intro_cta_text1 || 'Our Story ↗') 
+                    : (homeSettings.intro_cta_text2 || 'Read More ↗')}
+                </span>
                 <span className="btn-sliding-cta-dark-text-one">{homeSettings.intro_cta_text1 || 'Our Story ↗'}</span>
                 <span className="btn-sliding-cta-dark-text-two">{homeSettings.intro_cta_text2 || 'Read More ↗'}</span>
               </Link>
@@ -1348,27 +1323,15 @@ const Home = () => {
               transition={{ duration: 0.8, delay: i * 0.1, ease: [0.22, 1, 0.36, 1] }}
               className="border border-ink-border/20 bg-bg rounded-[20px] p-6 shadow-sm relative overflow-hidden flex flex-col justify-between min-h-[130px] w-full max-w-[550px] mx-auto lg:max-w-none lg:mx-0 group hover:border-gold hover:shadow-md transition-all duration-300"
             >
-              {/* Middle Row: Large Value Left */}
-              <div className="flex items-baseline justify-between mt-2 mb-2">
-                <h3 className="font-display font-medium text-ink leading-none text-[44px] md:text-[48px]">
-                  <AnimatedCounter value={stat.value} />
-                </h3>
-                
-                {/* Bottom Right Label */}
-                <p className="font-sans text-[13px] font-semibold text-ink-soft text-right leading-snug max-w-[180px] select-none">
-                  {stat.label}
-                </p>
+              <div className="space-y-1">
+                <p className="font-sans text-[11px] font-semibold text-ink-muted uppercase tracking-[0.2em]">{stat.label}</p>
+                <div className="font-display text-4xl lg:text-5xl font-semibold text-ink tracking-tight">
+                  <AnimatedCounter value={stat.value} duration={2} />
+                </div>
               </div>
-
-              {/* Bottom Decorative Line */}
-              <div className="absolute bottom-0 left-0 right-0 h-[3px] bg-ink-border/10">
-                <motion.div 
-                  initial={{ width: 0 }}
-                  whileInView={{ width: stat.progressWidth }}
-                  viewport={{ once: false, amount: 0.1 }}
-                  transition={{ duration: 1.2, ease: "easeOut", delay: i * 0.1 }}
-                  className={`h-full bg-ink ${i === 3 ? 'ml-auto' : ''}`}
-                />
+              <div className="mt-4 pt-4 border-t border-ink-border/20 flex items-center justify-between">
+                <span className="font-sans text-[11px] font-medium text-ink-muted">Turnkey Execution</span>
+                <span className="w-1.5 h-1.5 rounded-full bg-gold"></span>
               </div>
             </motion.div>
           ))}
@@ -1377,14 +1340,17 @@ const Home = () => {
 
 
       {/* ── 4. PROJECTS GRID ────────────────────────────────────────────────── */}
-      <section className="py-14 px-4 md:px-8 lg:px-12 max-w-[1720px] mx-auto">
-        <div className="flex items-end justify-between mb-6">
+      <section className="pt-8 pb-2 sm:pt-12 sm:pb-8 lg:py-14 px-4 md:px-8 lg:px-12 max-w-[1720px] mx-auto">
+        <div className="flex items-end justify-between mb-4 sm:mb-6">
           <Reveal>
             <p className="font-sans text-[12px] font-semibold uppercase tracking-[0.2em] text-gold mb-4">Selected Work</p>
             <h2 className="font-display text-[clamp(26px,2.8vw,44px)] font-medium tracking-tight text-ink">Our Projects</h2>
           </Reveal>
           <Reveal delay={0.1}>
             <Link to="/projects" className="btn-sliding-cta-dark">
+              <span className="invisible select-none pointer-events-none whitespace-nowrap opacity-0">
+                All Projects ↗
+              </span>
               <span className="btn-sliding-cta-dark-text-one">All Projects ↗</span>
               <span className="btn-sliding-cta-dark-text-two">View All ↗</span>
             </Link>
@@ -1410,32 +1376,32 @@ const Home = () => {
 
 
 
-      {/* ── FAQ SECTION (Sticky Left Column / Scrolling Right Questions) ── */}
+      {/* ── FAQ SECTION (Sticky Header / Scrolling Questions on Mobile & Desktop) ── */}
       <section
         ref={faqSectionRef}
-        className="pt-10 pb-20 px-6 md:px-12 max-w-[1440px] mx-auto relative"
+        className="pt-6 pb-6 sm:pt-8 sm:pb-12 lg:pt-10 lg:pb-20 px-4 sm:px-6 md:px-12 max-w-[1440px] mx-auto relative"
       >
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-20 items-start relative">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-20 items-start relative">
           
-          {/* Left Column: Sticky Pinned while questions scroll */}
-          <div className="lg:col-span-5 relative self-start lg:sticky lg:top-24 xl:top-28 z-10">
-            <div className="flex flex-col items-center text-center pb-6">
-              <div className="inline-flex items-center gap-1.5 bg-ink text-bg px-4 py-1.5 rounded-full text-[11px] font-semibold tracking-wider uppercase mb-6 shadow-sm">
+          {/* Header Column: Sticky Pinned while questions scroll */}
+          <div className="lg:col-span-5 sticky top-[72px] sm:top-20 lg:top-24 xl:top-28 self-start z-20 bg-bg/95 backdrop-blur-md lg:bg-transparent lg:backdrop-blur-none pt-4 pb-4 lg:pt-0 lg:pb-0">
+            <div className="flex flex-col items-center text-center pb-2 lg:pb-6">
+              <div className="inline-flex items-center gap-1.5 bg-ink text-bg px-3.5 sm:px-4 py-1 sm:py-1.5 rounded-full text-[10.5px] sm:text-[11px] font-semibold tracking-wider uppercase mb-3 sm:mb-6 shadow-sm">
                 <span className="w-1.5 h-1.5 rounded-full bg-gold animate-pulse" />
                 FAQ
               </div>
 
-              <h2 className="font-display text-[clamp(28px,3.5vw,44px)] font-medium leading-[1.12] tracking-tight text-ink mb-4 text-center">
+              <h2 className="font-display text-[clamp(24px,3.5vw,44px)] font-medium leading-[1.12] tracking-tight text-ink mb-2.5 sm:mb-4 text-center">
                 Got Questions?
                 <br />
                 We Have Answers.
               </h2>
 
-              <p className="font-sans text-[14px] text-ink-soft leading-relaxed mb-6 max-w-[400px] mx-auto text-center">
+              <p className="font-sans text-[13px] sm:text-[14px] text-ink-soft leading-relaxed mb-2 sm:mb-6 max-w-[400px] mx-auto text-center">
                 From first consultation to final installation, we know you want to understand exactly what to expect. Here's everything you need to know about working with ESPACIO.
               </p>
 
-              {/* FAQ Portrait Auto-Scrolling Projects Carousel */}
+              {/* FAQ Portrait Auto-Scrolling Projects Carousel (Desktop only) */}
               <div className="hidden lg:block w-full max-w-[520px] xl:max-w-[560px]">
                 <AutoScrollingInteriorBox activeIdx={openFaqIdx} items={faqData} />
               </div>
@@ -1443,7 +1409,7 @@ const Home = () => {
           </div>
 
           {/* Right Column: FAQ Accordion List (Scrolls naturally) */}
-          <div className="lg:col-span-7 flex flex-col justify-start">
+          <div className="lg:col-span-7 flex flex-col justify-start relative z-10">
             <div className="border-t border-ink-border/20">
               {faqData.map((faq, idx) => {
                 const isOpen = openFaqIdx === idx;

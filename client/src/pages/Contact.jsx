@@ -141,6 +141,14 @@ const Contact = () => {
   }, [location]);
 
   useEffect(() => {
+    if (submitted) {
+      window.dispatchEvent(new CustomEvent('hide-floating-estimate'));
+    } else {
+      window.dispatchEvent(new CustomEvent('show-floating-estimate'));
+    }
+  }, [submitted]);
+
+  useEffect(() => {
     if (formRef.current) {
       formRef.current.scrollIntoView({ behavior: 'instant', block: 'start' });
     }
@@ -475,9 +483,9 @@ const Contact = () => {
       
       {/* ── CLEAN PAGE TITLE HEADER ── */}
       <section className="pt-24 sm:pt-28 pb-8 px-6 text-center max-w-[820px] mx-auto">
-        <div className="inline-flex items-center gap-2 bg-gold/15 border border-gold/30 text-gold px-4 py-1.5 rounded-full mb-4">
+        <div className="inline-flex items-center gap-2 bg-ink text-bg px-4 py-1.5 rounded-full text-[11px] font-semibold tracking-wider uppercase mb-4 shadow-sm">
           <span className="w-1.5 h-1.5 rounded-full bg-gold animate-pulse" />
-          <span className="font-sans text-[11px] font-bold uppercase tracking-[0.2em]">Get A Quote & Consultation</span>
+          <span>Get A Quote & Consultation</span>
         </div>
         <h1 className="font-editorial text-4xl md:text-5xl font-bold text-charcoal leading-tight">
           Let's Design Something Remarkable.
@@ -1177,58 +1185,58 @@ const Contact = () => {
             </p>
           </div>
 
-          <div className="flex md:grid md:grid-cols-2 lg:grid-cols-4 gap-6 overflow-x-auto pb-4 pt-1 snap-x snap-mandatory scrollbar-thin">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6 pt-1">
             {contactCMS.commit_card1_visible !== false && (
-              <div className="min-w-[260px] flex-1 snap-start bg-cream border border-walnut/10 rounded-card p-6 space-y-4 shadow-sm hover:border-gold/40 transition-all shrink-0 md:shrink">
-                <div className="w-12 h-12 rounded-full bg-gold/20 flex items-center justify-center text-gold">
-                  <FileText size={22} />
+              <div className="bg-cream border border-walnut/10 rounded-[20px] p-5 sm:p-6 space-y-3.5 shadow-sm hover:border-gold/40 transition-all">
+                <div className="w-11 h-11 rounded-full bg-gold/15 flex items-center justify-center text-gold shadow-sm">
+                  <FileText size={20} />
                 </div>
                 <h3 className="font-editorial text-lg font-bold text-charcoal">
                   {contactCMS.commit_card1_title || 'Itemized BOQ Quote'}
                 </h3>
-                <p className="font-sans text-xs text-walnut leading-relaxed">
+                <p className="font-sans text-xs sm:text-sm text-walnut leading-relaxed">
                   {contactCMS.commit_card1_desc || 'Zero surprise fees. You receive a complete line-item breakdown of hardware, board grades, and finish costs.'}
                 </p>
               </div>
             )}
 
             {contactCMS.commit_card2_visible !== false && (
-              <div className="min-w-[260px] flex-1 snap-start bg-cream border border-walnut/10 rounded-card p-6 space-y-4 shadow-sm hover:border-gold/40 transition-all shrink-0 md:shrink">
-                <div className="w-12 h-12 rounded-full bg-gold/20 flex items-center justify-center text-gold">
-                  <ShieldCheck size={22} />
+              <div className="bg-cream border border-walnut/10 rounded-[20px] p-5 sm:p-6 space-y-3.5 shadow-sm hover:border-gold/40 transition-all">
+                <div className="w-11 h-11 rounded-full bg-gold/15 flex items-center justify-center text-gold shadow-sm">
+                  <ShieldCheck size={20} />
                 </div>
                 <h3 className="font-editorial text-lg font-bold text-charcoal">
                   {contactCMS.commit_card2_title || 'Guaranteed Quality'}
                 </h3>
-                <p className="font-sans text-xs text-walnut leading-relaxed">
+                <p className="font-sans text-xs sm:text-sm text-walnut leading-relaxed">
                   {contactCMS.commit_card2_desc || 'Every product is carefully selected, inspected, and installed to meet our uncompromising quality standards.'}
                 </p>
               </div>
             )}
 
             {contactCMS.commit_card3_visible !== false && (
-              <div className="min-w-[260px] flex-1 snap-start bg-cream border border-walnut/10 rounded-card p-6 space-y-4 shadow-sm hover:border-gold/40 transition-all shrink-0 md:shrink">
-                <div className="w-12 h-12 rounded-full bg-gold/20 flex items-center justify-center text-gold">
-                  <Award size={22} />
+              <div className="bg-cream border border-walnut/10 rounded-[20px] p-5 sm:p-6 space-y-3.5 shadow-sm hover:border-gold/40 transition-all">
+                <div className="w-11 h-11 rounded-full bg-gold/15 flex items-center justify-center text-gold shadow-sm">
+                  <Award size={20} />
                 </div>
                 <h3 className="font-editorial text-lg font-bold text-charcoal">
                   {contactCMS.commit_card3_title || 'Transparent Pricing'}
                 </h3>
-                <p className="font-sans text-xs text-walnut leading-relaxed">
+                <p className="font-sans text-xs sm:text-sm text-walnut leading-relaxed">
                   {contactCMS.commit_card3_desc || 'No hidden charges or unexpected costs. Every quotation is clear, detailed, and fully transparent before execution.'}
                 </p>
               </div>
             )}
 
             {contactCMS.commit_card4_visible !== false && (
-              <div className="min-w-[260px] flex-1 snap-start bg-cream border border-walnut/10 rounded-card p-6 space-y-4 shadow-sm hover:border-gold/40 transition-all shrink-0 md:shrink">
-                <div className="w-12 h-12 rounded-full bg-gold/20 flex items-center justify-center text-gold">
-                  <Sparkles size={22} />
+              <div className="bg-cream border border-walnut/10 rounded-[20px] p-5 sm:p-6 space-y-3.5 shadow-sm hover:border-gold/40 transition-all">
+                <div className="w-11 h-11 rounded-full bg-gold/15 flex items-center justify-center text-gold shadow-sm">
+                  <Sparkles size={20} />
                 </div>
                 <h3 className="font-editorial text-lg font-bold text-charcoal">
                   {contactCMS.commit_card4_title || 'Free 3D Render'}
                 </h3>
-                <p className="font-sans text-xs text-walnut leading-relaxed">
+                <p className="font-sans text-xs sm:text-sm text-walnut leading-relaxed">
                   {contactCMS.commit_card4_desc || 'Visualize your living room, kitchen, and wardrobes in photorealistic 3D before starting site execution.'}
                 </p>
               </div>
@@ -1237,124 +1245,7 @@ const Contact = () => {
         </div>
       </section>
 
-      {/* ── STUDIO & EXPERIENCE CENTER DETAILS ────────────────────────────────── */}
-      <section className="py-20 px-6 md:px-12 bg-charcoal text-cream">
-        <div className="max-w-[1440px] mx-auto space-y-12">
-          <div className="text-center max-w-[600px] mx-auto space-y-3">
-            <span className="font-sans text-[11px] font-bold uppercase tracking-[0.2em] text-gold">
-              {contactCMS.exp_eyebrow || 'Visit Us'}
-            </span>
-            <h2 className="font-editorial text-3xl md:text-5xl font-bold text-white">
-              {contactCMS.exp_heading || 'Experience Centers & Studio'}
-            </h2>
-            <p className="font-sans text-xs md:text-sm text-cream/70 leading-relaxed">
-              {contactCMS.exp_description || 'Walk into our flagship material experience studio. Touch, feel, and compare over 200+ live panel and finish samples in person.'}
-            </p>
-          </div>
 
-          <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
-            {/* Experience Center */}
-            {contactCMS.exp_card1_visible !== false && (
-              <div className="bg-white/5 border border-white/10 rounded-card p-8 backdrop-blur-md space-y-6 flex flex-col justify-between hover:border-gold/40 transition-all">
-                <div className="space-y-4">
-                  <div className="w-10 h-10 rounded-full bg-gold/20 text-gold flex items-center justify-center">
-                    <MapPin size={20} />
-                  </div>
-                  <h3 className="font-editorial text-xl font-bold text-white">
-                    {contactCMS.exp_card1_title || 'Our Studio'}
-                  </h3>
-                  <a 
-                    href="https://maps.app.goo.gl/q3zbxWmEt5wvRKbZ6" 
-                    target="_blank" 
-                    rel="noopener noreferrer" 
-                    className="font-sans text-xs text-cream/80 hover:text-gold transition-colors leading-relaxed block whitespace-pre-line"
-                  >
-                    {contactCMS.exp_card1_address || '1st floor, H.No. 6-63/14B,\nMoinabad Road, Aziznagar,\nHyderabad, Telangana 500075'}
-                  </a>
-                </div>
-                <div className="pt-4 border-t border-white/10">
-                  <span className="font-sans text-[10px] uppercase tracking-widest text-gold font-bold">
-                    {contactCMS.exp_card1_bottomLabel || 'Experience Center'}
-                  </span>
-                </div>
-              </div>
-            )}
-
-            {/* Direct Contact */}
-            {contactCMS.exp_card2_visible !== false && (
-              <div className="bg-white/5 border border-white/10 rounded-card p-8 backdrop-blur-md space-y-6 flex flex-col justify-between hover:border-gold/40 transition-all">
-                <div className="space-y-4">
-                  <div className="w-10 h-10 rounded-full bg-gold/20 text-gold flex items-center justify-center">
-                    <Phone size={20} />
-                  </div>
-                  <h3 className="font-editorial text-xl font-bold text-white">
-                    {contactCMS.exp_card2_title || 'Direct Line'}
-                  </h3>
-                  <div className="space-y-2 font-sans text-xs text-cream/80">
-                    <p className="flex items-center gap-2">
-                      <Phone size={14} className="text-gold" />
-                      <a href={`tel:${(contactCMS.exp_card2_phone || '+91 95051 51116').replace(/\s+/g, '')}`} className="text-cream/90 hover:text-gold transition-colors font-medium">
-                        {contactCMS.exp_card2_phone || '+91 95051 51116'}
-                      </a>
-                    </p>
-                    <p className="flex items-center gap-2">
-                      <svg className="text-gold fill-current" viewBox="0 0 24 24" width="14" height="14" xmlns="http://www.w3.org/2000/svg">
-                        <path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946C.06 5.348 5.397.01 12.008.01c3.202.001 6.212 1.246 8.477 3.514 2.266 2.268 3.507 5.28 3.505 8.484-.004 6.657-5.34 11.997-11.953 11.997-2.005-.001-3.973-.504-5.713-1.465L0 24zm6.59-4.846c1.6.95 3.188 1.449 4.825 1.451 5.436 0 9.86-4.37 9.864-9.799.002-2.63-1.023-5.101-2.885-6.965C16.57 1.977 14.093.953 11.453.953 6.017.953 1.593 5.323 1.589 10.75c-.001 1.638.431 3.236 1.251 4.654L1.874 21.8l6.452-1.68c1.378.75 2.87 1.146 4.382 1.147h.008zM17.486 14.4c-.3-.15-1.774-.875-2.05-1.008-.277-.1-.478-.15-.68.15-.202.3-.777.977-.954 1.176-.176.2-.352.225-.652.075-.3-.15-1.266-.467-2.41-1.485-.89-.795-1.49-1.777-1.665-2.077-.176-.3-.02-.462.13-.61.135-.133.3-.349.45-.523.15-.174.2-.299.3-.499.1-.2.05-.375-.025-.524-.075-.15-.68-1.645-.93-2.247-.244-.593-.492-.51-.68-.52-.176-.01-.377-.01-.577-.01s-.527.075-.803.375c-.277.3-1.054 1.028-1.054 2.509 0 1.48 1.08 2.92 1.23 3.122.15.2 2.126 3.25 5.152 4.56.72.311 1.28.499 1.719.639.723.23 1.38.19 1.9.11.58-.09 1.774-.726 2.025-1.43.25-.704.25-1.306.175-1.43-.075-.124-.275-.2-.575-.35z" />
-                      </svg>
-                      <a href={`https://wa.me/${(contactCMS.exp_card2_whatsapp || '+91 95051 51116').replace(/\D/g, '')}`} target="_blank" rel="noopener noreferrer" className="text-cream/90 hover:text-gold transition-colors font-medium">
-                        WhatsApp: {contactCMS.exp_card2_whatsapp || '+91 95051 51116'}
-                      </a>
-                    </p>
-                    <p className="flex items-center gap-2 pt-2">
-                      <Mail size={14} className="text-gold" />
-                      <a href={`mailto:${contactCMS.exp_card2_email || 'Espacio.hyd@gmail.com'}`} className="text-cream/90 hover:text-gold transition-colors font-medium">
-                        {contactCMS.exp_card2_email || 'Espacio.hyd@gmail.com'}
-                      </a>
-                    </p>
-                  </div>
-                </div>
-                <div className="pt-4 border-t border-white/10">
-                  <span className="font-sans text-[10px] uppercase tracking-widest text-gold font-bold">
-                    {contactCMS.exp_card2_bottomLabel || 'Immediate Assistance'}
-                  </span>
-                </div>
-              </div>
-            )}
-
-            {/* Working Hours */}
-            {contactCMS.exp_card3_visible !== false && (
-              <div className="bg-white/5 border border-white/10 rounded-card p-8 backdrop-blur-md space-y-6 flex flex-col justify-between hover:border-gold/40 transition-all">
-                <div className="space-y-4">
-                  <div className="w-10 h-10 rounded-full bg-gold/20 text-gold flex items-center justify-center">
-                    <Clock size={20} />
-                  </div>
-                  <h3 className="font-editorial text-xl font-bold text-white">
-                    {contactCMS.exp_card3_title || 'Studio Hours'}
-                  </h3>
-                  <div className="space-y-2 font-sans text-xs">
-                    <p className="flex justify-between">
-                      <span className="text-cream/80">Mon – Sat:</span>
-                      <span className="font-bold text-white">{contactCMS.exp_card3_monSatHours || '10:00 AM – 7:30 PM'}</span>
-                    </p>
-                    <p className="flex justify-between">
-                      <span className="text-cream/80">Sunday:</span>
-                      <span className="text-gold font-bold">{contactCMS.exp_card3_sunHours || 'By Appointment'}</span>
-                    </p>
-                    <p className="font-sans text-[11px] text-cream/75 pt-2">
-                      {contactCMS.exp_card3_supportingText || 'Private evening consultations available upon request.'}
-                    </p>
-                  </div>
-                </div>
-                <div className="pt-4 border-t border-white/10">
-                  <span className="font-sans text-[10px] uppercase tracking-widest text-gold font-bold">
-                    {contactCMS.exp_card3_bottomLabel || 'Consultation Hours'}
-                  </span>
-                </div>
-              </div>
-            )}
-          </div>
-        </div>
-      </section>
 
       {/* ─── PREMIUM MODAL POPUP FOR INDIVIDUAL REQUIREMENTS ─── */}
       <AnimatePresence>

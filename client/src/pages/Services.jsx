@@ -205,7 +205,7 @@ const Services = () => {
       <SEO title="Services — ESPACIO Interiors" description="Full home interiors, modular kitchens, commercial spaces, and renovations. Engineering-first luxury design executed by ESPACIO." url="/services" />
 
       {heroContent.visible !== false && (
-        <section ref={heroRef} className="relative h-[92vh] lg:h-[96vh] min-h-[640px] lg:min-h-0 px-5 pt-2 sm:pt-2.5 lg:pt-3 pb-2 lg:px-12 z-0">
+        <section ref={heroRef} className="relative h-[90vh] sm:h-[94vh] lg:h-[96vh] min-h-[540px] lg:min-h-0 px-3 sm:px-5 pt-2 sm:pt-2.5 lg:pt-3 pb-2 lg:px-12 z-0">
           <div className="relative w-full h-full overflow-hidden rounded-[24px] lg:rounded-[40px] origin-top shadow-2xl">
             <motion.div style={{ scale: bgScale, y: bgY }} className="absolute inset-0 overflow-hidden">
               <HeroSlideshow
@@ -246,39 +246,39 @@ const Services = () => {
         </section>
       )}
 
-      <section className="pt-6 md:pt-8 pb-16 md:pb-20 px-6 md:px-10 overflow-hidden">
+      <section className="pt-4 sm:pt-6 md:pt-8 pb-10 sm:pb-16 md:pb-20 px-4 sm:px-6 md:px-10 overflow-hidden">
         <div className="max-w-[1440px] mx-auto divide-y divide-ink-border">
           {servicesList.filter((s) => s.visible !== false).map((s, i) => {
             const isOdd = i % 2 === 1;
             return (
-              <div key={s.num || i} className="py-12 md:py-14 grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+              <div key={s.num || i} className="py-8 sm:py-12 md:py-14 grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12 items-center">
                 <Reveal delay={0.05} direction={isOdd ? 'right' : 'left'} className={isOdd ? 'lg:order-2' : ''}>
                   <div className="aspect-[4/3] rounded-card overflow-hidden bg-bg-card">
                     <img src={getOptimizedImageUrl(s.img, 800, 75)} alt={s.title} loading="lazy" decoding="async" className="w-full h-full object-cover hover:scale-105 transition-transform duration-700" />
                   </div>
                 </Reveal>
-                <Reveal delay={0.15} direction={isOdd ? 'left' : 'right'} className={`space-y-6 ${isOdd ? 'lg:order-1' : ''}`}>
+                <Reveal delay={0.15} direction={isOdd ? 'left' : 'right'} className={`space-y-4 sm:space-y-6 ${isOdd ? 'lg:order-1' : ''}`}>
                   <div className="flex items-center gap-4">
                     <span className="font-sans text-[11px] font-semibold text-gold">{String(i + 1).padStart(2, '0')}</span>
                     <span className="font-sans text-[10px] font-semibold uppercase tracking-widest text-ink-muted bg-bg-card px-3 py-1 rounded-pill">{s.tag}</span>
                   </div>
-                  <h2 className="font-display text-[clamp(28px,3vw,42px)] font-bold tracking-tight text-ink leading-tight">{s.title}</h2>
-                  <p className="font-sans text-[15px] text-ink-soft leading-relaxed">{s.desc}</p>
+                  <h2 className="font-display text-[clamp(24px,3vw,42px)] font-bold tracking-tight text-ink leading-tight">{s.title}</h2>
+                  <p className="font-sans text-[13.5px] sm:text-[15px] text-ink-soft leading-relaxed">{s.desc}</p>
                   <ul className="grid grid-cols-1 sm:grid-cols-2 gap-2">
                     {(Array.isArray(s.includes) ? s.includes : []).map((item, fIdx) => (
-                      <li key={fIdx} className="flex items-center gap-2 font-sans text-[13px] text-ink-soft">
+                      <li key={fIdx} className="flex items-center gap-2 font-sans text-[12.5px] sm:text-[13px] text-ink-soft">
                         <CheckCircle2 size={14} className="text-gold shrink-0" />
                         {item}
                       </li>
                     ))}
                   </ul>
                   {s.ctaVisible !== false && (
-                    <div className="flex flex-wrap items-center gap-4 pt-2">
+                    <div className="flex flex-wrap items-center gap-4 pt-1 sm:pt-2">
                       <Link to={s.ctaLink || "/contact"} className="btn-primary w-fit">
                         {s.ctaText || "Enquire About This"} <ArrowUpRight size={13} />
                       </Link>
                       {(s.hasSecondaryLink || s.num === '05' || s.title.includes('Materials')) && (
-                        <Link to="/products" className="inline-flex items-center gap-1.5 font-sans text-[13px] font-bold text-gold hover:text-gold/80 transition-colors uppercase tracking-wider">
+                        <Link to="/products" className="inline-flex items-center gap-1.5 font-sans text-[12.5px] sm:text-[13px] font-bold text-gold hover:text-gold/80 transition-colors uppercase tracking-wider">
                           Browse Materials →
                         </Link>
                       )}
@@ -291,28 +291,28 @@ const Services = () => {
         </div>
       </section>
 
-      <section className="py-24 px-6 md:px-10 bg-bg-card border-t border-ink-border">
+      <section className="py-10 sm:py-16 md:py-24 px-4 sm:px-6 md:px-10 bg-bg-card border-t border-ink-border">
         <div className="max-w-[1440px] mx-auto">
           <Reveal>
-            <p className="font-sans text-[11px] font-semibold uppercase tracking-[0.18em] text-gold mb-3">How We Work</p>
-            <h2 className="font-display text-[clamp(28px,3vw,44px)] font-bold tracking-tight text-ink mb-14">Our Process</h2>
+            <p className="font-sans text-[11px] font-semibold uppercase tracking-[0.18em] text-gold mb-2.5 sm:mb-3">How We Work</p>
+            <h2 className="font-display text-[clamp(26px,3vw,44px)] font-bold tracking-tight text-ink mb-6 sm:mb-10 md:mb-14">Our Process</h2>
           </Reveal>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8">
+          <div className="grid grid-cols-2 lg:grid-cols-3 gap-3.5 sm:gap-6 lg:gap-8">
             {processSteps.map((p, i) => {
               const Icon = getStepIcon(p.step);
               return (
                 <Reveal key={p.step} delay={i * 0.07} className="h-full">
-                  <MovingBorderButton as="div" borderRadius="24px" duration={3000 + i * 500} containerClassName="w-full h-full" className="group relative bg-bg border border-ink-border/10 rounded-card p-8 hover:-translate-y-2 hover:shadow-[0_20px_40px_rgba(16,16,20,0.04)] transition-all duration-500 flex flex-col justify-between h-full overflow-hidden text-left items-stretch">
-                    <div className="space-y-6">
+                  <MovingBorderButton as="div" borderRadius="20px" duration={3000 + i * 500} containerClassName="w-full h-full" className="group relative bg-bg border border-ink-border/10 rounded-[20px] sm:rounded-card p-4 sm:p-6 lg:p-8 min-h-[195px] sm:min-h-[220px] hover:-translate-y-1 sm:hover:-translate-y-2 hover:shadow-[0_20px_40px_rgba(16,16,20,0.04)] transition-all duration-500 flex flex-col justify-between h-full overflow-hidden text-left items-stretch">
+                    <div className="space-y-3 sm:space-y-4 lg:space-y-6">
                       <div className="flex items-center justify-between">
-                        <div className="w-12 h-12 rounded-pill bg-black/10 flex items-center justify-center text-black group-hover:bg-black group-hover:text-cream transition-all duration-500">
-                          <Icon size={20} className="stroke-[1.5]" />
+                        <div className="w-9 h-9 sm:w-12 sm:h-12 rounded-pill bg-black/10 flex items-center justify-center text-black group-hover:bg-black group-hover:text-cream transition-all duration-500">
+                          <Icon className="w-4.5 h-4.5 sm:w-5 sm:h-5 stroke-[1.5]" />
                         </div>
-                        <span className="font-display text-[44px] font-bold text-ink-muted/15 group-hover:text-black/20 transition-colors duration-500 select-none">{p.step}</span>
+                        <span className="font-display text-[24px] sm:text-[36px] lg:text-[44px] font-bold text-ink-muted/20 group-hover:text-black/20 transition-colors duration-500 select-none">{p.step}</span>
                       </div>
-                      <div className="space-y-3">
-                        <h3 className="font-display text-[19px] font-bold text-ink group-hover:text-black transition-colors duration-300">{p.name}</h3>
-                        <p className="font-sans text-[13.5px] text-ink-soft leading-relaxed">{p.desc}</p>
+                      <div className="space-y-1.5 sm:space-y-2 lg:space-y-3">
+                        <h3 className="font-display text-[13.5px] sm:text-[16px] lg:text-[19px] font-bold text-ink group-hover:text-black transition-colors duration-300 leading-snug">{p.name}</h3>
+                        <p className="font-sans text-[11px] sm:text-[12px] lg:text-[13.5px] text-ink-soft leading-relaxed">{p.desc}</p>
                       </div>
                     </div>
                   </MovingBorderButton>
@@ -324,14 +324,14 @@ const Services = () => {
       </section>
 
       {/* ── INSTANT ESTIMATION & QUOTATION CALCULATOR ──────────────────────────── */}
-      <section className="py-20 px-6 md:px-10 bg-offwhite">
+      <section className="py-10 sm:py-16 md:py-20 px-4 sm:px-6 md:px-10 bg-offwhite">
         <div className="max-w-[1440px] mx-auto">
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
-            <div className="lg:col-span-5 space-y-6">
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center">
+            <div className="lg:col-span-5 space-y-4 sm:space-y-6">
               <Reveal>
                 <span className="font-sans text-[11px] font-semibold uppercase tracking-[0.2em] text-gold">Project Planner</span>
-                <h2 className="font-display text-[clamp(32px,3.5vw,48px)] font-bold text-charcoal leading-tight">Instant Project Estimate</h2>
-                <p className="font-sans text-sm text-walnut leading-relaxed">
+                <h2 className="font-display text-[clamp(26px,3.5vw,48px)] font-bold text-charcoal leading-tight">Instant Project Estimate</h2>
+                <p className="font-sans text-[13.5px] sm:text-sm text-walnut leading-relaxed">
                   Select your property type, scope, and finish tier below. Since actual site conditions affect final BOQ significantly, our principal design team will share your personalized range on a quick call.
                 </p>
               </Reveal>
@@ -347,7 +347,7 @@ const Services = () => {
       </section>
 
       {/* ── CLIENT REVIEWS & TESTIMONIALS ────────────────────────────────────────── */}
-      <section className="py-20 px-6 md:px-10 bg-cream">
+      <section className="py-10 sm:py-16 md:py-20 px-4 sm:px-6 md:px-10 bg-cream">
         <div className="max-w-[1440px] mx-auto">
           <Reveal className="text-center max-w-[600px] mx-auto mb-14 space-y-3">
             <span className="font-sans text-[11px] font-semibold uppercase tracking-[0.2em] text-gold">Client Feedback</span>

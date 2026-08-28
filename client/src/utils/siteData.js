@@ -44,7 +44,7 @@ export const PAGE_CTAS = {
     enabled: true
   },
   SERVICES: {
-    headline: "Engineered First,\nStyled Second.",
+    headline: "Engineered First, Styled Second.",
     subtext: "Tailored interior solutions built to last generations. Contact our principal design team to discuss your scope.",
     buttonText: "Discuss Your Project ↗",
     buttonHoverText: "Let's Talk ↗",
