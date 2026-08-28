@@ -20,10 +20,10 @@ export const IntroPreloader = () => {
 
   useEffect(() => {
     if (!showIntro) return;
-    // Auto-complete cleanly after animation
+    // Always auto-dismiss after 3.5s regardless of animation state
     const timer = setTimeout(() => {
       handleComplete();
-    }, 2200);
+    }, 3500);
     return () => clearTimeout(timer);
   }, [showIntro]);
 

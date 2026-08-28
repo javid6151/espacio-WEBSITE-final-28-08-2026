@@ -191,7 +191,7 @@ const LargeLogo = ({ scrolled, onComplete }) => {
         onAnimationComplete={() => {
           setTimeout(() => {
             if (onComplete) onComplete();
-          }, 300);
+          }, 800);
         }}
       >
         INTERIORS AND MODULAR
