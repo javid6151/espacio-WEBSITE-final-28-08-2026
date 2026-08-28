@@ -189,10 +189,9 @@ const LargeLogo = ({ scrolled, onComplete }) => {
         animate={{ opacity: 1, y: 0 }}
         transition={{ delay: 2.45, duration: 0.55, ease: 'easeOut' }}
         onAnimationComplete={() => {
-          // Allow tagline animation & hold before triggering curtain lift
           setTimeout(() => {
             if (onComplete) onComplete();
-          }, 1900);
+          }, 300);
         }}
       >
         INTERIORS AND MODULAR

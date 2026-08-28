@@ -334,14 +334,24 @@ const TestimonialCard = ({ t }) => (
     </div>
 
     <div className="flex items-center gap-2 sm:gap-3 pt-2 sm:pt-2.5 md:pt-3.5 border-t border-[#f0f0f2] mt-1.5 sm:mt-3 md:mt-4">
-      <img 
-        src={t.avatar && t.avatar.trim() !== '' ? t.avatar : `https://ui-avatars.com/api/?name=${encodeURIComponent((t.name || 'C').trim())}&background=C9A96E&color=101014&bold=true&rounded=true`}
-        alt={t.name}
-        onError={(e) => {
-          e.currentTarget.src = `https://ui-avatars.com/api/?name=${encodeURIComponent((t.name || 'C').trim())}&background=C9A96E&color=101014&bold=true&rounded=true`;
-        }}
-        className="w-7 h-7 sm:w-8 sm:h-8 md:w-10 md:h-10 rounded-full object-cover object-center shrink-0 border border-amber-400/40 shadow-xs" 
-      />
+      {t.avatar && t.avatar.trim() !== '' ? (
+        <img 
+          src={t.avatar}
+          alt={t.name}
+          loading="lazy"
+          decoding="async"
+          onError={(e) => {
+            e.currentTarget.style.display = 'none';
+          }}
+          className="w-7 h-7 sm:w-8 sm:h-8 md:w-10 md:h-10 rounded-full object-cover object-center shrink-0 border border-amber-400/40 shadow-xs" 
+        />
+      ) : (
+        <div 
+          className="w-7 h-7 sm:w-8 sm:h-8 md:w-10 md:h-10 rounded-full bg-[#C9A96E] text-[#101014] font-bold flex items-center justify-center text-[11px] sm:text-[12px] md:text-[14px] shrink-0 border border-amber-400/40 shadow-xs select-none uppercase font-sans"
+        >
+          {(t.name || 'C').trim().charAt(0)}
+        </div>
+      )}
       <div className="flex-1 min-w-0 truncate">
         <p className="font-sans text-[11px] sm:text-[12px] md:text-[13px] font-bold text-[#101014] m-0 leading-tight truncate">
           {t.name}

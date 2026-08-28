@@ -20,10 +20,10 @@ export const IntroPreloader = () => {
 
   useEffect(() => {
     if (!showIntro) return;
-    // Auto-complete after animation completes
+    // Auto-complete cleanly after animation
     const timer = setTimeout(() => {
       handleComplete();
-    }, 4200);
+    }, 2200);
     return () => clearTimeout(timer);
   }, [showIntro]);
 
