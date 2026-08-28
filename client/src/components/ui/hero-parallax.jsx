@@ -1,206 +1,141 @@
-import React, { useRef, useEffect } from "react";
-import { motion, useScroll, useTransform, useSpring, useMotionValue } from "framer-motion";
-import { Link } from "react-router-dom";
+import React, { useRef, useState, useEffect, useCallback } from "react";
+import { motion, useMotionValue, useAnimationFrame } from "framer-motion";
 
-export const HeroParallax = ({ products }) => {
-  const baseFirst = products.slice(0, 12);
-  const baseSecond = products.slice(12, 24);
-  const firstRow = [...baseFirst, ...baseFirst];
-  const secondRow = [...baseSecond, ...baseSecond];
-  const ref = useRef(null);
+export const HeroParallax = ({ products = [] }) => {
+  const baseFirst = products.slice(0, 8);
+  const baseSecond = products.slice(8, 16);
+  // Duplicate 3x for seamless infinite marquee loop
+  const firstRow = [...baseFirst, ...baseFirst, ...baseFirst];
+  const secondRow = [...baseSecond, ...baseSecond, ...baseSecond];
 
-  const { scrollYProgress } = useScroll({
-    target: ref,
-    offset: ["start start", "end start"],
-  });
+  return (
+    <div className="w-full pt-0 pb-12 md:pb-16 overflow-hidden antialiased relative flex flex-col">
+      <Header />
+      <div className="w-full space-y-6 md:space-y-8 overflow-hidden">
+        {/* Row 1: Auto-scrolling Leftwards + Manual Drag/Swipe/Wheel */}
+        <MarqueeRow
+          products={firstRow}
+          direction="left"
+          speed={1.2}
+          rowId="r1"
+        />
 
-  const springConfig = { stiffness: 180, damping: 25, bounce: 0 };
-
-  const translateXRow1 = useSpring(
-    useTransform(scrollYProgress, [0, 1], [0, 1500]),
-    springConfig
+        {/* Row 2: Auto-scrolling Rightwards + Manual Drag/Swipe/Wheel */}
+        <MarqueeRow
+          products={secondRow}
+          direction="right"
+          speed={1.2}
+          rowId="r2"
+        />
+      </div>
+    </div>
   );
-  const translateXRow2 = useSpring(
-    useTransform(scrollYProgress, [0, 1], [0, -1500]),
-    springConfig
-  );
+};
 
-  const autoMotionX = useMotionValue(0);
-  const dragX1 = useMotionValue(0);
-  const dragX2 = useMotionValue(0);
+const MarqueeRow = ({ products, direction = "left", speed = 1.2, rowId }) => {
+  const containerRef = useRef(null);
+  const x = useMotionValue(0);
+  const [isHovered, setIsHovered] = useState(false);
+  const [isDragging, setIsDragging] = useState(false);
+  const dragStartX = useRef(0);
+  const dragStartMotionX = useRef(0);
+  const singleSetWidth = useRef(0);
+
+  const measure = useCallback(() => {
+    if (containerRef.current) {
+      const totalWidth = containerRef.current.scrollWidth;
+      // products has 3 duplicate sets
+      singleSetWidth.current = totalWidth / 3;
+    }
+  }, []);
 
   useEffect(() => {
-    let animId;
-    let isVisible = true;
+    measure();
+    window.addEventListener("resize", measure);
+    return () => window.removeEventListener("resize", measure);
+  }, [products, measure]);
 
-    const el = ref.current;
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        isVisible = entry.isIntersecting;
-        if (isVisible && !animId) {
-          animId = requestAnimationFrame(loop);
-        }
-      },
-      { threshold: 0.05 }
-    );
+  useAnimationFrame((_, delta) => {
+    if (isDragging) return;
 
-    if (el) observer.observe(el);
+    // Smooth auto-scroll delta
+    const currentSpeed = isHovered ? speed * 0.35 : speed;
+    const move = currentSpeed * (delta / 16.67);
 
-    const loop = () => {
-      if (!isVisible) {
-        animId = null;
-        return;
+    let currentX = x.get();
+    if (direction === "left") {
+      currentX -= move;
+      if (singleSetWidth.current > 0 && Math.abs(currentX) >= singleSetWidth.current) {
+        currentX += singleSetWidth.current;
       }
-      autoMotionX.set((autoMotionX.get() + 1.56) % 3200);
-      animId = requestAnimationFrame(loop);
-    };
-    animId = requestAnimationFrame(loop);
-    return () => {
-      if (el) observer.unobserve(el);
-      if (animId) cancelAnimationFrame(animId);
-    };
-  }, [autoMotionX]);
-
-  const combinedX1 = useTransform(
-    [translateXRow1, autoMotionX, dragX1],
-    ([scrollX, auto, drag]) => scrollX + auto + drag
-  );
-  const combinedX2 = useTransform(
-    [translateXRow2, autoMotionX, dragX2],
-    ([scrollX, auto, drag]) => scrollX - auto + drag
-  );
-
-  const useRowDrag = (dragValue) => {
-    const handleStart = (clientX, clientY) => {
-      const startX = clientX;
-      const startY = clientY;
-      const startVal = dragValue.get();
-      let hasDragged = false;
-      let isDragging = true;
-      let touchChecked = false;
-
-      const handleMove = (moveEvent) => {
-        if (!isDragging) return;
-        
-        const currentX = moveEvent.pageX || (moveEvent.touches && moveEvent.touches[0].pageX);
-        const currentY = moveEvent.pageY || (moveEvent.touches && moveEvent.touches[0].pageY);
-        if (currentX === undefined || currentY === undefined) return;
-        
-        const deltaX = currentX - startX;
-        const deltaY = currentY - startY;
-
-        // If they are scrolling vertically, abort horizontal drag immediately
-        if (!touchChecked) {
-          if (Math.abs(deltaY) > Math.abs(deltaX) && Math.abs(deltaY) > 6) {
-            isDragging = false;
-            handleEnd();
-            return;
-          }
-          if (Math.abs(deltaX) > 6 || Math.abs(deltaY) > 6) {
-            touchChecked = true;
-          }
-        }
-
-        if (Math.abs(deltaX) > 8) {
-          hasDragged = true;
-        }
-        dragValue.set(startVal + deltaX * 1.35);
-      };
-
-      const handleEnd = () => {
-        isDragging = false;
-        window.removeEventListener("mousemove", handleMove);
-        window.removeEventListener("mouseup", handleEnd);
-        window.removeEventListener("touchmove", handleMove);
-        window.removeEventListener("touchend", handleEnd);
-
-        if (hasDragged) {
-          const blockClick = (e) => {
-            e.preventDefault();
-            e.stopPropagation();
-            window.removeEventListener("click", blockClick, true);
-          };
-          window.addEventListener("click", blockClick, true);
-        }
-      };
-
-      window.addEventListener("mousemove", handleMove);
-      window.addEventListener("mouseup", handleEnd);
-      window.addEventListener("touchmove", handleMove, { passive: true });
-      window.addEventListener("touchend", handleEnd);
-    };
-
-    return {
-      onMouseDown: (e) => {
-        if (e.button !== 0) return; // only left click
-        handleStart(e.pageX, e.pageY);
-      },
-      onTouchStart: (e) => {
-        handleStart(e.touches[0].pageX, e.touches[0].pageY);
+    } else {
+      currentX += move;
+      if (singleSetWidth.current > 0 && currentX >= 0) {
+        currentX -= singleSetWidth.current;
       }
-    };
+    }
+    x.set(currentX);
+  });
+
+  const onPointerDown = (e) => {
+    setIsDragging(true);
+    dragStartX.current = e.clientX ?? (e.touches && e.touches[0]?.clientX) ?? 0;
+    dragStartMotionX.current = x.get();
   };
 
-  const handlersRow1 = useRowDrag(dragX1);
-  const handlersRow2 = useRowDrag(dragX2);
+  const onPointerMove = (e) => {
+    if (!isDragging) return;
+    const clientX = e.clientX ?? (e.touches && e.touches[0]?.clientX) ?? 0;
+    const diff = clientX - dragStartX.current;
+    let newX = dragStartMotionX.current + diff;
 
-  const rotateX = useSpring(
-    useTransform(scrollYProgress, [0, 0.2], [15, 0]),
-    springConfig
-  );
-  const opacity = useSpring(
-    useTransform(scrollYProgress, [0, 0.2], [0.3, 1]),
-    springConfig
-  );
-  const rotateZ = useSpring(
-    useTransform(scrollYProgress, [0, 0.2], [15, 0]),
-    springConfig
-  );
-  const translateY = useSpring(
-    useTransform(scrollYProgress, [0, 0.2], [40, 0]),
-    springConfig
-  );
+    if (singleSetWidth.current > 0) {
+      if (newX > 0) newX -= singleSetWidth.current;
+      if (newX < -singleSetWidth.current * 2) newX += singleSetWidth.current;
+    }
+    x.set(newX);
+  };
+
+  const onPointerUp = () => {
+    setIsDragging(false);
+  };
+
+  const onWheel = (e) => {
+    if (Math.abs(e.deltaX) > Math.abs(e.deltaY)) {
+      let newX = x.get() - e.deltaX * 0.8;
+      if (singleSetWidth.current > 0) {
+        if (newX > 0) newX -= singleSetWidth.current;
+        if (newX < -singleSetWidth.current * 2) newX += singleSetWidth.current;
+      }
+      x.set(newX);
+    }
+  };
 
   return (
     <div
-      ref={ref}
-      className="h-[100vh] lg:h-[135vh] pt-0 pb-12 md:pb-16 overflow-hidden antialiased relative flex flex-col self-auto [perspective:1000px] [transform-style:preserve-3d]"
+      className="w-full overflow-hidden select-none cursor-grab active:cursor-grabbing touch-pan-y"
+      onMouseEnter={() => setIsHovered(true)}
+      onMouseLeave={() => {
+        setIsHovered(false);
+        setIsDragging(false);
+      }}
+      onPointerDown={onPointerDown}
+      onPointerMove={onPointerMove}
+      onPointerUp={onPointerUp}
+      onPointerCancel={onPointerUp}
+      onWheel={onWheel}
     >
-      <Header />
       <motion.div
-        style={{
-          rotateX,
-          rotateZ,
-          translateY,
-          opacity,
-        }}
+        ref={containerRef}
+        style={{ x }}
+        className="flex flex-nowrap space-x-6 md:space-x-8 w-max will-change-transform py-1"
       >
-        <motion.div 
-          {...handlersRow1}
-          className="flex flex-row-reverse space-x-reverse space-x-8 md:space-x-12 mb-8 md:mb-12 cursor-grab active:cursor-grabbing select-none"
-        >
-          {firstRow.map((product, idx) => (
-            <ProductCard
-              product={product}
-              translate={combinedX1}
-              key={product.title + idx}
-              index={idx}
-            />
-          ))}
-        </motion.div>
-        <motion.div 
-          {...handlersRow2}
-          className="flex flex-row space-x-8 md:space-x-12 cursor-grab active:cursor-grabbing select-none"
-        >
-          {secondRow.map((product, idx) => (
-            <ProductCard
-              product={product}
-              translate={combinedX2}
-              key={product.title + idx}
-              index={idx + 12}
-            />
-          ))}
-        </motion.div>
+        {products.map((product, idx) => (
+          <ProductCard
+            product={product}
+            key={`${product.title}-${rowId}-${idx}`}
+          />
+        ))}
       </motion.div>
     </div>
   );
@@ -210,7 +145,9 @@ export const Header = () => {
   return (
     <div className="w-full relative pt-8 pb-10 md:pt-12 md:pb-16 px-6 md:px-12 left-0 top-0 z-20 bg-bg">
       <div className="max-w-[1440px] mx-auto text-left">
-        <span className="font-sans text-[11px] uppercase tracking-[0.2em] text-gold font-semibold">Bespoke Design Services</span>
+        <span className="font-sans text-[11px] uppercase tracking-[0.2em] text-gold font-semibold">
+          Bespoke Design Services
+        </span>
         <h1 className="font-display text-[clamp(30px,3.5vw,52px)] font-medium leading-[1.08] tracking-tight text-ink mt-4">
           We Sculpt <br />Inspiring Spaces
         </h1>
@@ -222,46 +159,43 @@ export const Header = () => {
   );
 };
 
-export const ProductCard = ({ product, translate, index }) => {
-  const isNarrow = [0, 3, 6, 9, 12, 15, 18, 21].includes(index);
+export const ProductCard = ({ product }) => {
   return (
-    <motion.div
-      style={{
-        x: translate,
-        willChange: "transform",
-      }}
-      whileHover={{
-        y: -10,
-      }}
+    <div
       key={product.title}
-      className={`group/product h-56 relative flex-shrink-0 rounded-[20px] overflow-hidden border border-ink-border/35 shadow-lg ${
-        isNarrow ? "w-42 md:w-[16.5rem]" : "w-84 md:w-[33rem]"
-      }`}
+      className="group/product h-56 sm:h-60 md:h-64 w-[20rem] sm:w-[24rem] md:w-[28rem] lg:w-[30rem] relative flex-shrink-0 rounded-[20px] overflow-hidden shadow-2xl transition-transform duration-300 hover:-translate-y-1.5 bg-stone-900 select-none cursor-grab active:cursor-grabbing"
     >
-      <Link
-        to={product.link}
-        className="block h-full w-full select-none"
-        draggable="false"
-      >
+      <div className="block h-full w-full select-none pointer-events-none" draggable="false">
         <img
           src={product.thumbnail}
           loading="lazy"
           decoding="async"
           onError={(e) => {
-            e.currentTarget.src = "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=600&q=65&fm=webp";
+            e.currentTarget.src =
+              "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=600&q=65&fm=webp";
           }}
-          className="object-cover absolute h-full w-full inset-0 transition-transform duration-700 group-hover/product:scale-105 select-none pointer-events-none"
+          className="object-cover object-center absolute h-full w-full inset-0 transition-transform duration-700 group-hover/product:scale-105 select-none pointer-events-none transform-gpu"
+          style={{ imageRendering: "auto", backfaceVisibility: "hidden" }}
           draggable="false"
           alt={product.title}
         />
-      </Link>
-      <div className="absolute inset-0 h-full w-full opacity-60 bg-black/45 transition-opacity duration-300 group-hover/product:opacity-75 pointer-events-none"></div>
-      <div className="absolute bottom-5 left-6 right-6 text-white z-10">
-        <p className="font-sans text-[10px] font-semibold uppercase tracking-widest text-gold mb-1.5">{product.category || 'Interior Service'}</p>
-        <h2 className="font-display text-base md:text-lg font-medium text-white group-hover/product:text-gold transition-colors leading-tight">
+      </div>
+      {/* Smooth bottom gradient vignette for crisp text contrast */}
+      <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/35 to-transparent pointer-events-none transition-opacity duration-300 group-hover/product:from-black/95" />
+      <div className="absolute bottom-4.5 left-5 right-5 text-white z-10 select-none pointer-events-none">
+        <div className="flex items-center gap-2 mb-1.5">
+          <span className="text-[10.5px] font-sans font-semibold uppercase tracking-[0.16em] text-[#C9A96E]">
+            {product.category || "INTERIOR SERVICE"}
+          </span>
+          <span className="w-1 h-1 rounded-full bg-white/40" />
+          <span className="text-[10.5px] font-sans font-medium tracking-[0.12em] text-white/70 uppercase">
+            ESPACIO
+          </span>
+        </div>
+        <h2 className="font-sans text-[15.5px] md:text-[17px] font-semibold text-white leading-snug tracking-tight drop-shadow-[0_2px_4px_rgba(0,0,0,0.85)]">
           {product.title}
         </h2>
       </div>
-    </motion.div>
+    </div>
   );
 };

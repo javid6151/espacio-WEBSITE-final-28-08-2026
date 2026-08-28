@@ -474,7 +474,7 @@ const Contact = () => {
       <SEO title="Get a Quote & Consultation — Luxury Interiors" description="Submit your project requirements through our multi-step quote wizard to request a private consultation with ESPACIO's principal interior design team." url="/contact" />
       
       {/* ── CLEAN PAGE TITLE HEADER ── */}
-      <section className="pt-32 pb-8 px-6 text-center max-w-[820px] mx-auto">
+      <section className="pt-24 sm:pt-28 pb-8 px-6 text-center max-w-[820px] mx-auto">
         <div className="inline-flex items-center gap-2 bg-gold/15 border border-gold/30 text-gold px-4 py-1.5 rounded-full mb-4">
           <span className="w-1.5 h-1.5 rounded-full bg-gold animate-pulse" />
           <span className="font-sans text-[11px] font-bold uppercase tracking-[0.2em]">Get A Quote & Consultation</span>

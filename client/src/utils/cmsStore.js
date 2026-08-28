@@ -46,7 +46,64 @@ export const notifyCMSUpdate = () => {
 export const getCMSData = (key, fallback = null) => {
   try {
     const raw = localStorage.getItem(key);
-    if (raw) return JSON.parse(raw);
+    if (raw) {
+      const data = JSON.parse(raw);
+        if (Array.isArray(data.hero_bg_images) && (data.hero_bg_images.some(img => typeof img === 'string' && (img.includes('unsplash.com') || img.includes('user_uploaded') || img.includes('company/duplex') || data.hero_bg_images.length !== 4)))) {
+          data.hero_bg_images = [
+            '/images/hero/hero_bedroom.jpg',
+            '/images/hero/hero_kitchen.jpg',
+            '/images/hero/hero_kids_bedroom.jpg',
+            '/images/hero/hero_dining.jpg'
+          ];
+          try { localStorage.setItem(key, JSON.stringify(data)); } catch {}
+        }
+        if (!Array.isArray(data.showcase_slides) || data.showcase_slides.length !== 4 || data.showcase_slides.some(s => s.projectImg?.includes('company/'))) {
+          data.showcase_slides = [
+            {
+              projectImg: "/images/about/about_showcase_1.jpg",
+              memberImg: "/reviews/paladugu_raju.png",
+              name: "Spatial Design Lead",
+              role: "Thematic Spatial Planning",
+              projectLabel: "Cosmic Odyssey Kids Suite"
+            },
+            {
+              projectImg: "/images/about/about_showcase_2.jpg",
+              memberImg: "/reviews/kishor_kumar.png",
+              name: "Interior Specialist",
+              role: "Classical Boiserie Styling",
+              projectLabel: "Sage Classical Lounge"
+            },
+            {
+              projectImg: "/images/about/about_showcase_3.jpg",
+              memberImg: "/reviews/amresh_kumar.png",
+              name: "Joinery & Detailing",
+              role: "Bespoke Study & Atelier",
+              projectLabel: "Executive Study & Atelier"
+            },
+            {
+              projectImg: "/images/about/about_showcase_4.jpg",
+              memberImg: "/reviews/imtiyaz_shaik.png",
+              name: "Modular Specialist",
+              role: "High-Gloss Modular Kitchens",
+              projectLabel: "Modern Quartzite Kitchen"
+            }
+          ];
+          try { localStorage.setItem(key, JSON.stringify(data)); } catch {}
+        }
+        if (key === STORAGE_KEYS.FAQS && Array.isArray(data)) {
+          let modified = false;
+          data.forEach(item => {
+            if (typeof item.image === 'string' && item.image.includes('Guest_restaurant_18')) {
+              item.image = '/images/company/duplex/Exquisite_Fusion_of_Modern__Desi_in_a_4BHK-Guest_restaurant_5-20260813-110615.jpg';
+              modified = true;
+            }
+          });
+          if (modified) {
+            try { localStorage.setItem(key, JSON.stringify(data)); } catch {}
+          }
+        }
+      return data;
+    }
   } catch (err) {
     console.warn(`Error reading ${key} from localStorage:`, err);
   }
@@ -63,135 +120,135 @@ export const setCMSData = (key, data) => {
   }
 };
 
-// Seed default media library items
+// Seed default media library items with authentic company project images
 const DEFAULT_MEDIA_ITEMS = [
   {
     id: 'media-1',
-    fileName: 'user_uploaded_bedroom.jpg',
-    originalName: 'media_1787072367913.jpg',
-    imageUrl: '/images/user_uploaded_bedroom.jpg',
-    thumbnailUrl: '/images/user_uploaded_bedroom.jpg',
-    altText: 'Bespoke Luxury Master Bedroom Suite with Warm Beige Tones and Fluted Panels',
-    caption: 'Master Bedroom Suite Turnkey Interior',
+    fileName: 'Exquisite_Fusion_of_Modern__Desi_in_a_4BHK-Guest_restaurant_18-20260813-110611.jpg',
+    originalName: 'Duplex Guest Restaurant Lounge',
+    imageUrl: '/images/company/3bhk_lux/open_hall.png',
+    thumbnailUrl: '/images/company/3bhk_lux/open_hall.png',
+    altText: 'Exquisite Duplex 4BHK Living & Dining Lounge with Italian Marble',
+    caption: 'Duplex 4BHK Grand Living Lounge',
     category: 'Home',
     fileType: 'JPG',
-    fileSize: '247.9 KB',
+    fileSize: '2.07 MB',
     width: 1920,
     height: 1080,
-    createdAt: '2026-08-18T17:00:00Z',
-    updatedAt: '2026-08-18T17:00:00Z'
+    createdAt: '2026-08-26T12:00:00Z',
+    updatedAt: '2026-08-26T12:00:00Z'
   },
   {
     id: 'media-2',
-    fileName: 'about_hero_interior.png',
-    originalName: 'about_hero_interior.png',
-    imageUrl: '/images/about_hero_interior.png',
-    thumbnailUrl: '/images/about_hero_interior.png',
-    altText: 'ESPACIO Luxury Interior Architecture Studio',
-    caption: 'Hero Architectural Living Area',
-    category: 'About',
-    fileType: 'PNG',
-    fileSize: '793 KB',
+    fileName: 'Minimalist_Beige_Bedroom_and_Contemporary_Living_R-Living_room_3-20260810-124909.jpg',
+    originalName: 'Minimalist Beige Living Room',
+    imageUrl: '/images/company/minimalist_beige_2bhk/Minimalist_Beige_Bedroom_and_Contemporary_Living_R-Living_room_3-20260810-124909.jpg',
+    thumbnailUrl: '/images/company/minimalist_beige_2bhk/Minimalist_Beige_Bedroom_and_Contemporary_Living_R-Living_room_3-20260810-124909.jpg',
+    altText: 'Minimalist Beige Contemporary Living Room with Warm Ambient Lighting',
+    caption: 'Minimalist Beige Sanctuary Living Area',
+    category: 'Home',
+    fileType: 'JPG',
+    fileSize: '2.03 MB',
     width: 1920,
     height: 1080,
-    createdAt: '2026-08-18T16:00:00Z',
-    updatedAt: '2026-08-18T16:00:00Z'
+    createdAt: '2026-08-26T12:00:00Z',
+    updatedAt: '2026-08-26T12:00:00Z'
   },
   {
     id: 'media-3',
-    fileName: 'about_heritage_build.png',
-    originalName: 'about_heritage_build.png',
-    imageUrl: '/images/about_heritage_build.png',
-    thumbnailUrl: '/images/about_heritage_build.png',
-    altText: 'Four Decades of Civil Engineering & Heritage Craftsmanship',
-    caption: 'Civil Structural Heritage Execution',
-    category: 'About',
-    fileType: 'PNG',
-    fileSize: '766 KB',
-    width: 1600,
-    height: 900,
-    createdAt: '2026-08-18T16:00:00Z',
-    updatedAt: '2026-08-18T16:00:00Z'
+    fileName: '3BHK-Guest_restaurant_4-20260810-164320.jpg',
+    originalName: 'Indo Classical 3BHK Living & Dining',
+    imageUrl: '/images/company/indo_classical_elegance_3bhk/3BHK-Guest_restaurant_4-20260810-164320.jpg',
+    thumbnailUrl: '/images/company/indo_classical_elegance_3bhk/3BHK-Guest_restaurant_4-20260810-164320.jpg',
+    altText: 'Indo-Classical Elegance 3BHK Grand Living Lounge with Brass Accents',
+    caption: 'Indo-Classical Elegance 3BHK Showcase',
+    category: 'Projects',
+    fileType: 'JPG',
+    fileSize: '2.12 MB',
+    width: 1920,
+    height: 1080,
+    createdAt: '2026-08-26T12:00:00Z',
+    updatedAt: '2026-08-26T12:00:00Z'
   },
   {
     id: 'media-4',
-    fileName: 'faq_designer.jpg',
-    originalName: 'faq_designer.jpg',
-    imageUrl: '/images/faq_designer.jpg',
-    thumbnailUrl: '/images/faq_designer.jpg',
-    altText: 'ESPACIO Senior Designer Consultation',
-    caption: 'Consultation & Spatial Planning',
-    category: 'General',
-    fileType: 'JPG',
-    fileSize: '71.7 KB',
-    width: 800,
-    height: 600,
-    createdAt: '2026-08-18T16:00:00Z',
-    updatedAt: '2026-08-18T16:00:00Z'
+    fileName: 'open_hall.png',
+    originalName: '3BHK Lux Open Hall Penthouse',
+    imageUrl: '/images/company/3bhk_lux/open_hall.png',
+    thumbnailUrl: '/images/company/3bhk_lux/open_hall.png',
+    altText: 'Grand 3BHK Penthouse Luxe Open Hall with Ambient Profile Lighting',
+    caption: 'Grand 3BHK Penthouse Luxe Living Space',
+    category: 'Projects',
+    fileType: 'PNG',
+    fileSize: '1.98 MB',
+    width: 1920,
+    height: 1080,
+    createdAt: '2026-08-26T12:00:00Z',
+    updatedAt: '2026-08-26T12:00:00Z'
   },
   {
     id: 'media-5',
-    fileName: 'modernist_penthouse_lounge.jpg',
-    originalName: 'unsplash_penthouse.jpg',
-    imageUrl: 'https://images.unsplash.com/photo-1616594039964-ae9021a400a0?auto=format&fit=crop&w=1000&q=70&fm=webp',
-    thumbnailUrl: 'https://images.unsplash.com/photo-1616594039964-ae9021a400a0?auto=format&fit=crop&w=400&q=65&fm=webp',
-    altText: 'Modernist Penthouse Living Lounge with Panoramic Floor-to-Ceiling Windows',
-    caption: 'Jubilee Hills Penthouse Project',
-    category: 'Projects',
+    fileName: 'Minimalist_Gray__A_Contemporary_Kitchen_Masterpiec-Unnamed_2-20260810-173514.jpg',
+    originalName: 'Contemporary Modular Kitchen Suite',
+    imageUrl: '/images/company/2bhk_urban/Minimalist_Gray__A_Contemporary_Kitchen_Masterpiec-Unnamed_2-20260810-173514.jpg',
+    thumbnailUrl: '/images/company/2bhk_urban/Minimalist_Gray__A_Contemporary_Kitchen_Masterpiec-Unnamed_2-20260810-173514.jpg',
+    altText: 'Sleek Contemporary Grey Modular Kitchen with Quartz Countertops',
+    caption: 'Precision Modular Kitchen Fitout',
+    category: 'Services',
     fileType: 'JPG',
-    fileSize: '1.2 MB',
+    fileSize: '2.33 MB',
     width: 1920,
-    height: 1280,
-    createdAt: '2026-08-18T15:00:00Z',
-    updatedAt: '2026-08-18T15:00:00Z'
+    height: 1080,
+    createdAt: '2026-08-26T12:00:00Z',
+    updatedAt: '2026-08-26T12:00:00Z'
   },
   {
     id: 'media-6',
-    fileName: 'lakeside_sanctuary_villa.jpg',
-    originalName: 'unsplash_villa.jpg',
-    imageUrl: 'https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=1000&q=70&fm=webp',
-    thumbnailUrl: 'https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=400&q=65&fm=webp',
-    altText: 'Lakeside Sanctuary Luxury Villa Interior Architecture',
-    caption: 'Lakeside Villa Living Suite',
-    category: 'Projects',
-    fileType: 'JPG',
-    fileSize: '1.4 MB',
+    fileName: 'tv_unit_2_1.png',
+    originalName: 'Bespoke TV Entertainment Console',
+    imageUrl: '/images/company/2bhk_lux/tv_unit_2_1.png',
+    thumbnailUrl: '/images/company/2bhk_lux/tv_unit_2_1.png',
+    altText: 'Architectural Fluted TV Console with Ambient LED Backlighting',
+    caption: 'Custom TV & Media Console Unit',
+    category: 'Products',
+    fileType: 'PNG',
+    fileSize: '1.85 MB',
     width: 1920,
-    height: 1280,
-    createdAt: '2026-08-18T15:00:00Z',
-    updatedAt: '2026-08-18T15:00:00Z'
+    height: 1080,
+    createdAt: '2026-08-26T12:00:00Z',
+    updatedAt: '2026-08-26T12:00:00Z'
   },
   {
     id: 'media-7',
-    fileName: 'italian_modular_kitchen.jpg',
-    originalName: 'unsplash_kitchen.jpg',
-    imageUrl: 'https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?auto=format&fit=crop&w=1000&q=70&fm=webp',
-    thumbnailUrl: 'https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?auto=format&fit=crop&w=400&q=65&fm=webp',
-    altText: 'Bespoke Italian Modular Kitchen with Quartz Island Countertops',
-    caption: 'Italian Modular Kitchen Execution',
-    category: 'Services',
+    fileName: '3BHK-Master_Bedroom_0-20260810-164320.jpg',
+    originalName: 'Indo Classical Master Bedroom Suite',
+    imageUrl: '/images/company/indo_classical_elegance_3bhk/3BHK-Master_Bedroom_0-20260810-164320.jpg',
+    thumbnailUrl: '/images/company/indo_classical_elegance_3bhk/3BHK-Master_Bedroom_0-20260810-164320.jpg',
+    altText: 'Master Bedroom Suite with Custom Acoustic Headboard and Profile Lighting',
+    caption: 'Bespoke Master Bedroom Sanctuary',
+    category: 'Home',
     fileType: 'JPG',
-    fileSize: '1.1 MB',
+    fileSize: '2.02 MB',
     width: 1920,
-    height: 1280,
-    createdAt: '2026-08-18T14:00:00Z',
-    updatedAt: '2026-08-18T14:00:00Z'
+    height: 1080,
+    createdAt: '2026-08-26T12:00:00Z',
+    updatedAt: '2026-08-26T12:00:00Z'
   },
   {
     id: 'media-8',
-    fileName: 'acoustic_wpc_wall_paneling.jpg',
-    originalName: 'unsplash_wpc.jpg',
-    imageUrl: 'https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?auto=format&fit=crop&w=1000&q=70&fm=webp',
-    thumbnailUrl: 'https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?auto=format&fit=crop&w=400&q=65&fm=webp',
-    altText: 'Fluted Acoustic WPC Wall Paneling & Architectural Wood Decor',
-    caption: 'Material Sourcing: Acoustic WPC Panels',
-    category: 'Materials',
-    fileType: 'JPG',
-    fileSize: '1.3 MB',
+    fileName: 'crockery1_1.png',
+    originalName: 'Illuminated Crockery & Bar Unit',
+    imageUrl: '/images/company/2bhk_lux/crockery1_1.png',
+    thumbnailUrl: '/images/company/2bhk_lux/crockery1_1.png',
+    altText: 'Luxury Fluted Glass Crockery & Bar Console with Integrated Lighting',
+    caption: 'Dining Crockery & Bar Console Unit',
+    category: 'Products',
+    fileType: 'PNG',
+    fileSize: '1.92 MB',
     width: 1920,
-    height: 1280,
-    createdAt: '2026-08-18T14:00:00Z',
-    updatedAt: '2026-08-18T14:00:00Z'
+    height: 1080,
+    createdAt: '2026-08-26T12:00:00Z',
+    updatedAt: '2026-08-26T12:00:00Z'
   }
 ];
 
@@ -326,7 +383,7 @@ export const getCtaDataForPage = (settings = {}, pageKey = 'home', defaultCta = 
   const subtext  = ctaObj.description || pageDesc || defaultCta.subtext || defaultCta.description || "Every great space starts with a single conversation. Let's talk about your vision and bring it to life together.";
   const buttonText = ctaObj.buttonText || pageBtn || defaultCta.buttonText || "LET'S TALK ↗";
   const buttonLink = ctaObj.buttonLink || pageLink || defaultCta.path || defaultCta.buttonLink || '/contact';
-  const bgImage    = ctaObj.bgImage || pageBg || defaultCta.bgImage || 'https://images.unsplash.com/photo-1512917774080-9991f1c4c750?auto=format&fit=crop&w=1920&q=80';
+  const bgImage    = ctaObj.bgImage || pageBg || defaultCta.bgImage || '/images/company/minimalist_beige_2bhk/Minimalist_Beige_Bedroom_and_Contemporary_Living_R-Living_room_3-20260810-124909.jpg';
   const opacity    = ctaObj.opacity !== undefined ? Number(ctaObj.opacity) : (defaultCta.opacity ?? 80);
 
   let enabled = true;

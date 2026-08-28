@@ -3,7 +3,9 @@ import { useParams, Link } from 'react-router-dom';
 import { motion, useInView, useScroll, useTransform, AnimatePresence } from 'framer-motion';
 import { ArrowUpRight } from 'lucide-react';
 import SEO from '../components/common/SEO';
+import ScrollDownIndicator from '../components/common/ScrollDownIndicator';
 import { getOptimizedImageUrl } from '../utils/imageOptimizer';
+import { ScrollStack, ScrollStackItem } from '../components/ui/scroll-stack';
 
 const Reveal = ({ children, delay = 0, className = '' }) => {
   const ref = useRef(null);
@@ -23,7 +25,7 @@ const mockCategories = [
     name: 'Modular Kitchen', 
     slug: 'modular-kitchen', 
     description: 'Precision-engineered kitchens with high-gloss acrylic, polygranite surfaces, and concealed lighting tracks.', 
-    heroImage: 'https://images.unsplash.com/photo-1556911220-e15b29be8c8f?auto=format&fit=crop&w=1200&q=80', 
+    heroImage: '/images/company/2bhk_urban/Minimalist_Gray__A_Contemporary_Kitchen_Masterpiec-Unnamed_2-20260810-173514.jpg', 
     details: {
       tag: 'Precision-Engineered',
       headline: 'Kitchens Built Around the Way You Cook',
@@ -31,43 +33,17 @@ const mockCategories = [
       includes: ['Layout & Workflow Planning', 'Island / Parallel / L-Shape / U-Shape', 'Premium Hardware (Hettich / Hafele)', 'Granite / Quartz / Sintered Countertops', 'Chimney & Appliance Integration', 'Backsplash Tiling', 'Soft-Close Shutters & Drawers', 'Under-Cabinet LED Lighting', 'Custom Pantry & Tall Unit Design', '10-Year Workmanship Warranty'],
     },
     galleryImages: [
-      '/images/materials/user_luxury_kitchen_6.jpg',
-      '/images/materials/user_luxury_kitchen_7.jpg',
-      '/images/materials/user_luxury_kitchen_8.jpg',
-      '/images/materials/user_luxury_kitchen_1.jpg',
-      '/images/materials/user_luxury_kitchen_2.jpg',
-      '/images/materials/user_luxury_kitchen_3.jpg',
-      '/images/materials/user_luxury_kitchen_4.jpg',
-      '/images/materials/user_luxury_kitchen_5.jpg',
-      '/images/materials/user_l_shape_kitchen_5.jpg',
-      '/images/materials/user_l_shape_kitchen_6.jpg',
-      '/images/materials/user_l_shape_kitchen_7.jpg',
-      '/images/materials/user_l_shape_kitchen_8.jpg',
-      '/images/materials/user_l_shape_kitchen_1.jpg',
-      '/images/materials/user_l_shape_kitchen_2.jpg',
-      '/images/materials/user_l_shape_kitchen_3.jpg',
-      '/images/materials/user_l_shape_kitchen_4.jpg',
-      '/images/materials/l_shape_kitchen_1.png',
-      '/images/materials/l_shape_kitchen_2.png',
-      '/images/materials/parallel_kitchen_6.jpg',
-      '/images/materials/parallel_kitchen_7.jpg',
-      '/images/materials/parallel_kitchen_8.jpg',
-      '/images/materials/parallel_kitchen_9.png',
-      '/images/materials/parallel_kitchen_1.jpg',
-      '/images/materials/parallel_kitchen_2.jpg',
-      '/images/materials/parallel_kitchen_3.jpg',
-      '/images/materials/parallel_kitchen_4.jpg',
-      '/images/materials/parallel_kitchen_5.jpg',
-      '/images/materials/island_kitchen_10.jpg',
-      '/images/materials/island_kitchen_5.jpg',
-      '/images/materials/island_kitchen_6.jpg',
-      '/images/materials/island_kitchen_7.jpg',
-      '/images/materials/island_kitchen_8.jpg',
-      '/images/materials/island_kitchen_9.jpg',
-      '/images/materials/island_kitchen_1.jpg',
-      '/images/materials/island_kitchen_2.jpg',
-      '/images/materials/island_kitchen_3.jpg',
-      '/images/materials/island_kitchen_4.jpg'
+      '/images/company/2bhk_urban/Minimalist_Gray__A_Contemporary_Kitchen_Masterpiec-Unnamed_2-20260810-173514.jpg',
+      '/images/company/2bhk_urban/Minimalist_Gray__A_Contemporary_Kitchen_Masterpiec-Unnamed_0-20260810-173514.jpg',
+      '/images/company/indo_classical_elegance_3bhk/Indo-Classical_Elegance__A_Soothing_Blend_of_Mode-kitchen_4-20260810-120431.jpg',
+      '/images/company/indo_classical_elegance_3bhk/Indo-Classical_Elegance__A_Soothing_Blend_of_Mode-kitchen_3-20260810-120429.jpg',
+      '/images/company/indo_classical_elegance_3bhk/Indo-Classical_Elegance__A_Soothing_Blend_of_Mode-kitchen_5-20260810-120431.jpg',
+      '/images/company/2bhk_aparna_zicon/Mr.Deepak-Aparna_Zicon-Detail_Drawing-04-03-2025-Kitchen_17-20260810-122232.jpg',
+      '/images/company/2bhk_aparna_zicon/Mr.Deepak-Aparna_Zicon-Detail_Drawing-04-03-2025-Kitchen_18-20260810-122232.jpg',
+      '/images/company/2bhk_aparna_zicon/Mr.Deepak-Aparna_Zicon-Detail_Drawing-04-03-2025-Kitchen_20-20260810-122237.jpg',
+      '/images/company/3bhk_lux/kitchen_1.png',
+      '/images/company/2bhk_lux/kitchen_3_2.png',
+      '/images/company/2bhk_mordern_retro/kithen.jpg'
     ], 
     filters: ['Island Kitchen', 'Parallel Kitchen', 'L-Shape', 'Modern', 'Luxury'] 
   },
@@ -75,7 +51,7 @@ const mockCategories = [
     name: 'Master Bedroom', 
     slug: 'master-bedroom', 
     description: 'Sanctuary interiors with walnut wood headboards, warm lighting zones, and bespoke built-in wardrobes.', 
-    heroImage: 'https://images.unsplash.com/photo-1590490360182-c33d57733427?auto=format&fit=crop&w=1200&q=80', 
+    heroImage: '/images/company/indo_classical_elegance_3bhk/3BHK-Master_Bedroom_0-20260810-164320.jpg', 
     details: {
       tag: 'Restful Luxury',
       headline: 'Your Bedroom, Designed for Deep Rest',
@@ -83,14 +59,14 @@ const mockCategories = [
       includes: ['Custom Bed & Upholstered Headboard', 'Wardrobe & Walk-in Design', 'Bedside Niche & Shelf Units', 'Ambient & Task Lighting', 'False Ceiling with Cove Light', 'Study Nook or Seating Area', 'Flooring & Wall Finish Selection', 'Kids Room & Guest Room Variants'],
     },
     galleryImages: [
-      'https://images.unsplash.com/photo-1590490360182-c33d57733427?auto=format&fit=crop&w=800&q=80',
-      'https://images.unsplash.com/photo-1505693416388-ac5ce068fe85?auto=format&fit=crop&w=800&q=80',
-      '/images/materials/bedroom_3.jpg',
-      'https://images.unsplash.com/photo-1595526114035-0d45ed16cfbf?auto=format&fit=crop&w=800&q=80',
-      'https://images.unsplash.com/photo-1540518614846-7eded433c457?auto=format&fit=crop&w=800&q=80',
-      'https://images.unsplash.com/photo-1566665797739-1674de7a421a?auto=format&fit=crop&w=800&q=80',
-      'https://images.unsplash.com/photo-1522771739844-6a9f6d5f14af?auto=format&fit=crop&w=800&q=80',
-      'https://images.unsplash.com/photo-1583847268964-b28dc8f51f92?auto=format&fit=crop&w=800&q=80'
+      '/images/company/indo_classical_elegance_3bhk/3BHK-Master_Bedroom_0-20260810-164320.jpg',
+      '/images/company/indo_classical_elegance_3bhk/Indo-Classical_Elegance__A_Soothing_Blend_of_Mode-Master_Bedroom_15-20260810-120432.jpg',
+      '/images/company/indo_classical_elegance_3bhk/3BHK-Master_Bedroom_1-20260810-164322.jpg',
+      '/images/company/minimalist_beige_2bhk/Minimalist_Beige_Bedroom_and_Contemporary_Living_R-Bedroom_0-20260810-124909.jpg',
+      '/images/company/minimalist_beige_2bhk/Minimalist_Beige_Bedroom_and_Contemporary_Living_R-Bedroom_13-20260810-124909.jpg',
+      '/images/company/2bhk_aparna_zicon/Mr.Deepak-Aparna_Zicon-Detail_Drawing-04-03-2025-Bedroom_24-20260810-122233.jpg',
+      '/images/company/3bhk_lux/bedroom_1.png',
+      '/images/company/2bhk_mordern_retro/b1_2.jpg'
     ], 
     filters: ['Master Suite', 'Kids Room', 'Guest Room', 'Japandi', 'Luxury'] 
   },
@@ -98,7 +74,7 @@ const mockCategories = [
     name: 'Living Room', 
     slug: 'living-room', 
     description: 'Editorial living zones crafted around natural light, marble accents, and low-profile custom furniture.', 
-    heroImage: 'https://images.unsplash.com/photo-1600210492486-724fe5c67fb0?auto=format&fit=crop&w=1200&q=80', 
+    heroImage: '/images/company/minimalist_beige_2bhk/Minimalist_Beige_Bedroom_and_Contemporary_Living_R-Living_room_3-20260810-124909.jpg', 
     details: {
       tag: 'Curated Spaces',
       headline: 'Living Rooms That Make a Statement',
@@ -106,14 +82,14 @@ const mockCategories = [
       includes: ['Feature Wall & Textured Panelling', 'Custom Sofa & Seating Configuration', 'TV Unit & Entertainment Wall', 'Pendant & Cove Lighting Design', 'Marble or Engineered Stone Accents', 'False Ceiling Design', 'Foyer & Entry Integration', 'Open Plan Layout Planning'],
     },
     galleryImages: [
-      'https://images.unsplash.com/photo-1600210492486-724fe5c67fb0?auto=format&fit=crop&w=800&q=80',
-      'https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?auto=format&fit=crop&w=800&q=80',
-      'https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=800&q=80',
-      'https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?auto=format&fit=crop&w=800&q=80',
-      'https://images.unsplash.com/photo-1600566753190-17f0baa2a6c3?auto=format&fit=crop&w=800&q=80',
-      'https://images.unsplash.com/photo-1613490493576-7fde63acd811?auto=format&fit=crop&w=800&q=80',
-      'https://images.unsplash.com/photo-1613977257363-707ba9348227?auto=format&fit=crop&w=800&q=80',
-      'https://images.unsplash.com/photo-1512917774080-9991f1c4c750?auto=format&fit=crop&w=800&q=80'
+      '/images/company/minimalist_beige_2bhk/Minimalist_Beige_Bedroom_and_Contemporary_Living_R-Living_room_3-20260810-124909.jpg',
+      '/images/company/minimalist_beige_2bhk/Minimalist_Beige_Bedroom_and_Contemporary_Living_R-Living_room_27-20260810-124917.jpg',
+      '/images/company/3bhk_lux/open_hall.png',
+      '/images/company/indo_classical_elegance_3bhk/3BHK-Guest_restaurant_4-20260810-164320.jpg',
+      '/images/company/minimalist_beige_2bhk/Minimalist_Beige_Bedroom_and_Contemporary_Living_R-Living_room_10-20260810-124909.jpg',
+      '/images/company/3bhk_lux/open_hall2.png',
+      '/images/company/2bhk_aparna_zicon/Mr.Deepak-Aparna_Zicon-Detail_Drawing-04-03-2025-Living_room_1-20260810-122238.jpg',
+      '/images/company/2bhk_lux/hall1_1.png'
     ], 
     filters: ['Minimal', 'Luxury', 'Japandi', 'TV Wall', 'Open Layout'] 
   },
@@ -121,7 +97,7 @@ const mockCategories = [
     name: 'Wardrobe Systems', 
     slug: 'wardrobes', 
     description: 'Bespoke floor-to-ceiling storage with velvet drawer linings, mirror panels, and hidden pull-out trays.', 
-    heroImage: 'https://images.unsplash.com/photo-1505693416388-ac5ce068fe85?auto=format&fit=crop&w=1200&q=80', 
+    heroImage: '/images/company/minimalist_beige_2bhk/Minimalist_Beige_Bedroom_and_Contemporary_Living_R-Bedroom_13-20260810-124909.jpg', 
     details: {
       tag: 'Organised Living',
       headline: 'Storage That Disappears Into the Design',
@@ -129,14 +105,14 @@ const mockCategories = [
       includes: ['Sliding & Hinged Door Options', 'Walk-in Dressing Room Design', 'Custom Internal Organizers', 'Shoe Racks & Accessory Trays', 'Mirror Panel Integration', 'Soft-Close Hardware', 'Laminate / Lacquer / PU Finish', 'Loft & Overhead Storage'],
     },
     galleryImages: [
-      'https://images.unsplash.com/photo-1558882224-dda166733079?auto=format&fit=crop&w=800&q=80',
-      'https://images.unsplash.com/photo-1595428774223-ef52624120d2?auto=format&fit=crop&w=800&q=80',
-      'https://images.unsplash.com/photo-1505693416388-ac5ce068fe85?auto=format&fit=crop&w=800&q=80',
-      'https://images.unsplash.com/photo-1522771739844-6a9f6d5f14af?auto=format&fit=crop&w=800&q=80',
-      'https://images.unsplash.com/photo-1583847268964-b28dc8f51f92?auto=format&fit=crop&w=800&q=80',
-      'https://images.unsplash.com/photo-1600585154526-990dced4db0d?auto=format&fit=crop&w=800&q=80',
-      'https://images.unsplash.com/photo-1618221195710-dd6b41faaea6?auto=format&fit=crop&w=800&q=80',
-      'https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?auto=format&fit=crop&w=800&q=80'
+      '/images/company/minimalist_beige_2bhk/Minimalist_Beige_Bedroom_and_Contemporary_Living_R-Bedroom_13-20260810-124909.jpg',
+      '/images/company/minimalist_beige_2bhk/Minimalist_Beige_Bedroom_and_Contemporary_Living_R-Bedroom_14-20260810-124909.jpg',
+      '/images/company/2bhk_aparna_zicon/Mr.Deepak-Aparna_Zicon-Detail_Drawing-04-03-2025-Bedroom_25-20260810-122233.jpg',
+      '/images/company/2bhk_aparna_zicon/Mr.Deepak-Aparna_Zicon-Detail_Drawing-04-03-2025-Bedroom_27-20260810-122243.jpg',
+      '/images/company/indo_classical_elegance_3bhk/3BHK-Master_Bedroom_0-20260810-164320.jpg',
+      '/images/company/2bhk_mordern_retro/b1_tv_unit.jpg',
+      '/images/company/3bhk_lux/bedroom_2.png',
+      '/images/company/2bhk_lux/bed_room_1_1.png'
     ], 
     filters: ['Walk-in', 'Built-in', 'Sliding', 'Modern', 'Luxury'] 
   },
@@ -144,7 +120,7 @@ const mockCategories = [
     name: 'Home Office', 
     slug: 'home-office', 
     description: 'Focus zones with sound-dampening fluted panels, ergonomic wall shelving and concealed cable management.', 
-    heroImage: 'https://images.unsplash.com/photo-1524758631624-e2822e304c36?auto=format&fit=crop&w=1200&q=80', 
+    heroImage: '/images/company/2bhk_mordern_retro/office_3.jpg', 
     details: {
       tag: 'Focus First',
       headline: 'A Home Office Built for Deep Work',
@@ -152,14 +128,14 @@ const mockCategories = [
       includes: ['Ergonomic Desk & Chair Zone', 'Built-in Shelving & Storage', 'Concealed Cable Management', 'Fluted Acoustic Panels', 'Task & Ambient Lighting', 'Monitor Arm & Hardware Integration', 'Bookshelf & Display Niches', 'Folding / Murphy Bed Option'],
     },
     galleryImages: [
-      'https://images.unsplash.com/photo-1524758631624-e2822e304c36?auto=format&fit=crop&w=800&q=80',
-      'https://images.unsplash.com/photo-1497366216548-37526070297c?auto=format&fit=crop&w=800&q=80',
-      'https://images.unsplash.com/photo-1497366412874-3415097a27e7?auto=format&fit=crop&w=800&q=80',
-      'https://images.unsplash.com/photo-1497215728101-856f4ea42174?auto=format&fit=crop&w=800&q=80',
-      'https://images.unsplash.com/photo-1586023492125-27b2c045efd7?auto=format&fit=crop&w=800&q=80',
-      'https://images.unsplash.com/photo-1507679799987-c73779587ccf?auto=format&fit=crop&w=800&q=80',
-      'https://images.unsplash.com/photo-1519389950473-47ba0277781c?auto=format&fit=crop&w=800&q=80',
-      'https://images.unsplash.com/photo-1531538606174-0f90ff5dce83?auto=format&fit=crop&w=800&q=80'
+      '/images/company/2bhk_mordern_retro/office_3.jpg',
+      '/images/company/2bhk_mordern_retro/office_2.jpg',
+      '/images/company/2bhk_mordern_retro/office.jpg',
+      '/images/company/2bhk_mordern_retro/hall_paneling.jpg',
+      '/images/company/duplex/Exquisite_Fusion_of_Modern__Desi_in_a_4BHK-Boys_Room_14-20260813-110617.jpg',
+      '/images/company/3bhk_lux/open_hall2.png',
+      '/images/company/minimalist_beige_2bhk/Minimalist_Beige_Bedroom_and_Contemporary_Living_R-Living_room_4-20260810-124909.jpg',
+      '/images/company/2bhk_lux/tv_unit_2_1.png'
     ], 
     filters: ['Minimal', 'Executive', 'Creative', 'Storage'] 
   },
@@ -167,7 +143,7 @@ const mockCategories = [
     name: 'Commercial Office', 
     slug: 'commercial-office', 
     description: 'Turnkey executive workspaces designed for efficient traffic flows, acoustic panels, and brand-aligned finishes.', 
-    heroImage: 'https://images.unsplash.com/photo-1497366216548-37526070297c?auto=format&fit=crop&w=1200&q=80', 
+    heroImage: '/images/company/2bhk_mordern_retro/office_3.jpg', 
     details: {
       tag: 'Productivity-First',
       headline: 'Offices That Reflect Your Brand Standard',
@@ -175,14 +151,14 @@ const mockCategories = [
       includes: ['Open Plan & Cabin Zone Design', 'Ergonomic Workstation Systems', 'Meeting & Conference Room Build', 'Manager Cabin & Director Suite', 'Reception & Lobby Design', 'Pantry & Lounge Area', 'Acoustic Treatment', 'AV & Tech Integration'],
     },
     galleryImages: [
-      'https://images.unsplash.com/photo-1497366216548-37526070297c?auto=format&fit=crop&w=800&q=80',
-      'https://images.unsplash.com/photo-1497215728101-856f4ea42174?auto=format&fit=crop&w=800&q=80',
-      'https://images.unsplash.com/photo-1524758631624-e2822e304c36?auto=format&fit=crop&w=800&q=80',
-      'https://images.unsplash.com/photo-1497366811353-6870744d04b2?auto=format&fit=crop&w=800&q=80',
-      'https://images.unsplash.com/photo-1504384308090-c894fdcc538d?auto=format&fit=crop&w=800&q=80',
-      'https://images.unsplash.com/photo-1531973576160-7125cd663d86?auto=format&fit=crop&w=800&q=80',
-      'https://images.unsplash.com/photo-1519389950473-47ba0277781c?auto=format&fit=crop&w=800&q=80',
-      'https://images.unsplash.com/photo-1531538606174-0f90ff5dce83?auto=format&fit=crop&w=800&q=80'
+      '/images/company/2bhk_mordern_retro/office_3.jpg',
+      '/images/company/2bhk_mordern_retro/office_2.jpg',
+      '/images/company/2bhk_mordern_retro/dining_2.jpg',
+      '/images/company/3bhk_lux/open_hall.png',
+      '/images/company/duplex/Exquisite_Fusion_of_Modern__Desi_in_a_4BHK-Guest_restaurant_20-20260813-110611.jpg',
+      '/images/company/minimalist_beige_2bhk/Minimalist_Beige_Bedroom_and_Contemporary_Living_R-Living_room_27-20260810-124917.jpg',
+      '/images/company/indo_classical_elegance_3bhk/3BHK-Guest_restaurant_4-20260810-164320.jpg',
+      '/images/company/2bhk_aparna_zicon/Mr.Deepak-Aparna_Zicon-Detail_Drawing-04-03-2025-Living_room_1-20260810-122238.jpg'
     ], 
     filters: ['Executive', 'Open Plan', 'Reception', 'Collaborative'] 
   },
@@ -190,7 +166,7 @@ const mockCategories = [
     name: 'Pooja Room', 
     slug: 'pooja-room', 
     description: 'Sacred sanctuaries merging ancestral stone textures with sleek back-lit marble panels and warm lighting.', 
-    heroImage: 'https://images.unsplash.com/photo-1600566753190-17f0baa2a6c3?auto=format&fit=crop&w=1200&q=80', 
+    heroImage: '/images/company/indo_classical_elegance_3bhk/3BHK-Guest_restaurant_4-20260810-164320.jpg', 
     details: {
       tag: 'Sacred Spaces',
       headline: 'Pooja Rooms That Honour Tradition',
@@ -198,14 +174,14 @@ const mockCategories = [
       includes: ['Marble & Granite Platforms', 'Carved Wood Temple Units', 'Backlit Jali Panels', 'Integrated Diya & Lamp Holders', 'Brass & Metal Accent Details', 'Storage for Puja Items', 'Dedicated Prayer Room Design', 'Custom Temple in Teak / Rosewood'],
     },
     galleryImages: [
-      'https://images.unsplash.com/photo-1600566753190-17f0baa2a6c3?auto=format&fit=crop&w=800&q=80',
-      'https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?auto=format&fit=crop&w=800&q=80',
-      'https://images.unsplash.com/photo-1600210492486-724fe5c67fb0?auto=format&fit=crop&w=800&q=80',
-      'https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=800&q=80',
-      'https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?auto=format&fit=crop&w=800&q=80',
-      'https://images.unsplash.com/photo-1618221195710-dd6b41faaea6?auto=format&fit=crop&w=800&q=80',
-      'https://images.unsplash.com/photo-1600585154526-990dced4db0d?auto=format&fit=crop&w=800&q=80',
-      'https://images.unsplash.com/photo-1507089947368-19c1da9775ae?auto=format&fit=crop&w=800&q=80'
+      '/images/company/indo_classical_elegance_3bhk/3BHK-Guest_restaurant_4-20260810-164320.jpg',
+      '/images/company/indo_classical_elegance_3bhk/3BHK-Master_Bedroom_0-20260810-164320.jpg',
+      '/images/company/2bhk_mordern_retro/b1_2.jpg',
+      '/images/company/minimalist_beige_2bhk/Minimalist_Beige_Bedroom_and_Contemporary_Living_R-Living_room_3-20260810-124909.jpg',
+      '/images/company/2bhk_lux/tv_unit_2_1.png',
+      '/images/company/3bhk_lux/open_hall2.png',
+      '/images/company/indo_classical_elegance_3bhk/Indo-Classical_Elegance__A_Soothing_Blend_of_Mode-balcony_1-20260810-120429.jpg',
+      '/images/company/2bhk_aparna_zicon/Mr.Deepak-Aparna_Zicon-Detail_Drawing-04-03-2025-Living_room_1-20260810-122238.jpg'
     ], 
     filters: ['Traditional', 'Modern', 'Marble', 'Minimal'] 
   },
@@ -213,7 +189,7 @@ const mockCategories = [
     name: 'Dining Room', 
     slug: 'dining-room', 
     description: 'Refined gathering spaces with custom hardwood dining tables, feature pendant lighting, and plaster wall finishes.', 
-    heroImage: 'https://images.unsplash.com/photo-1617806118233-18e1de247200?auto=format&fit=crop&w=1200&q=80', 
+    heroImage: '/images/company/duplex/Exquisite_Fusion_of_Modern__Desi_in_a_4BHK-Guest_restaurant_5-20260813-110615.jpg', 
     details: {
       tag: 'Gather & Dine',
       headline: 'Dining Rooms Designed for Every Occasion',
@@ -221,14 +197,14 @@ const mockCategories = [
       includes: ['Dining Table & Chair Selection', 'Crockery Unit & Buffet Design', 'Feature Pendant & Chandelier', 'Wallpaper & Textured Accent Wall', 'Flooring Pattern & Material', 'Window Treatment & Drapes', 'Bar & Drinks Cabinet Integration', 'Open Plan Dining-Living Design'],
     },
     galleryImages: [
-      'https://images.unsplash.com/photo-1617806118233-18e1de247200?auto=format&fit=crop&w=800&q=80',
-      'https://images.unsplash.com/photo-1600489000022-c2086d79f9d4?auto=format&fit=crop&w=800&q=80',
-      'https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?auto=format&fit=crop&w=800&q=80',
-      'https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?auto=format&fit=crop&w=800&q=80',
-      'https://images.unsplash.com/photo-1484154218962-a197022b5858?auto=format&fit=crop&w=800&q=80',
-      'https://images.unsplash.com/photo-1565183997392-2f6f122e5912?auto=format&fit=crop&w=800&q=80',
-      'https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=800&q=80',
-      'https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?auto=format&fit=crop&w=800&q=80'
+      '/images/company/duplex/Exquisite_Fusion_of_Modern__Desi_in_a_4BHK-Guest_restaurant_5-20260813-110615.jpg',
+      '/images/company/3bhk_lux/open_hall.png',
+      '/images/company/indo_classical_elegance_3bhk/3BHK-Guest_restaurant_4-20260810-164320.jpg',
+      '/images/company/2bhk_mordern_retro/dining_2.jpg',
+      '/images/company/2bhk_lux/crockery1_1.png',
+      '/images/company/minimalist_beige_2bhk/Minimalist_Beige_Bedroom_and_Contemporary_Living_R-Living_room_3-20260810-124909.jpg',
+      '/images/company/duplex/Exquisite_Fusion_of_Modern__Desi_in_a_4BHK-Guest_restaurant_18-20260813-110611.jpg',
+      '/images/company/2bhk_aparna_zicon/Mr.Deepak-Aparna_Zicon-Detail_Drawing-04-03-2025-Living_room_1-20260810-122238.jpg'
     ], 
     filters: ['Formal', 'Casual', 'Luxury', 'Open Plan'] 
   },
@@ -236,7 +212,7 @@ const mockCategories = [
     name: 'TV Units', 
     slug: 'tv-units', 
     description: 'Custom TV walls and entertainment units that serve as the centrepiece of your living space — built-in storage, LED niches, and seamless cable management.', 
-    heroImage: 'https://images.unsplash.com/photo-1593696140826-c58b021acf8b?auto=format&fit=crop&w=1200&q=80', 
+    heroImage: '/images/company/2bhk_lux/tv_unit_2_1.png', 
     details: {
       tag: 'Focal Point',
       headline: 'TV Units That Define the Room',
@@ -244,14 +220,14 @@ const mockCategories = [
       includes: ['Custom TV Panel & Wall Design', 'LED Backlit Display Niches', 'Integrated Cable Management', 'Open & Closed Storage Mix', 'Floating Console Options', 'Material & Finish Coordination', 'Side Column & Tower Units', 'Soundbar & AV Equipment Integration'],
     },
     galleryImages: [
-      'https://images.unsplash.com/photo-1593696140826-c58b021acf8b?auto=format&fit=crop&w=800&q=80',
-      'https://images.unsplash.com/photo-1555041469-a586c61ea9bc?auto=format&fit=crop&w=800&q=80',
-      'https://images.unsplash.com/photo-1586023492125-27b2c045efd7?auto=format&fit=crop&w=800&q=80',
-      'https://images.unsplash.com/photo-1618219908412-a29a1bb7b86e?auto=format&fit=crop&w=800&q=80',
-      'https://images.unsplash.com/photo-1600210492486-724fe5c67fb0?auto=format&fit=crop&w=800&q=80',
-      'https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?auto=format&fit=crop&w=800&q=80',
-      'https://images.unsplash.com/photo-1613490493576-7fde63acd811?auto=format&fit=crop&w=800&q=80',
-      'https://images.unsplash.com/photo-1600566753190-17f0baa2a6c3?auto=format&fit=crop&w=800&q=80'
+      '/images/company/2bhk_lux/tv_unit_2_1.png',
+      '/images/company/2bhk_mordern_retro/b1_tv_unit.jpg',
+      '/images/company/3bhk_lux/tv_unit.png',
+      '/images/company/minimalist_beige_2bhk/Minimalist_Beige_Bedroom_and_Contemporary_Living_R-Living_room_27-20260810-124917.jpg',
+      '/images/company/2bhk_aparna_zicon/Mr.Deepak-Aparna_Zicon-Detail_Drawing-04-03-2025-Living_room_1-20260810-122238.jpg',
+      '/images/company/2bhk_mordern_retro/hall_paneling.jpg',
+      '/images/company/indo_classical_elegance_3bhk/3BHK-Guest_restaurant_4-20260810-164320.jpg',
+      '/images/company/minimalist_beige_2bhk/Minimalist_Beige_Bedroom_and_Contemporary_Living_R-Living_room_3-20260810-124909.jpg'
     ], 
     filters: ['Wall-Mount', 'Console', 'Backlit', 'Minimal', 'Luxury'] 
   },
@@ -259,7 +235,7 @@ const mockCategories = [
     name: 'False Ceilings', 
     slug: 'false-ceilings', 
     description: 'Architectural false ceilings that transform the fifth wall — gypsum coffers, cove lighting strips, and acoustic panels for every interior.', 
-    heroImage: 'https://images.unsplash.com/photo-1567767292278-a4f21aa2d36e?auto=format&fit=crop&w=1200&q=80', 
+    heroImage: '/images/company/3bhk_lux/open_hall.png', 
     details: {
       tag: 'Overhead Drama',
       headline: 'Ceilings That Complete the Room',
@@ -267,14 +243,14 @@ const mockCategories = [
       includes: ['Gypsum & POP Ceiling Systems', 'Cove Lighting & LED Strip Integration', 'Coffered & Tray Ceiling Designs', 'Fan & Fixture Positioning', 'Acoustic Panel Options', 'Moisture-Resistant Bathroom Variants', 'Multi-Level Dropped Ceiling Design', 'Coordination with Electrical & AC Points'],
     },
     galleryImages: [
-      'https://images.unsplash.com/photo-1567767292278-a4f21aa2d36e?auto=format&fit=crop&w=800&q=80',
-      'https://images.unsplash.com/photo-1600210491892-03d54bc0b4c8?auto=format&fit=crop&w=800&q=80',
-      'https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?auto=format&fit=crop&w=800&q=80',
-      'https://images.unsplash.com/photo-1613977257363-707ba9348227?auto=format&fit=crop&w=800&q=80',
-      'https://images.unsplash.com/photo-1600566752355-35792bedcfea?auto=format&fit=crop&w=800&q=80',
-      'https://images.unsplash.com/photo-1600585154526-990dced4db0d?auto=format&fit=crop&w=800&q=80',
-      'https://images.unsplash.com/photo-1556911220-e15b29be8c8f?auto=format&fit=crop&w=800&q=80',
-      'https://images.unsplash.com/photo-1590490360182-c33d57733427?auto=format&fit=crop&w=800&q=80'
+      '/images/company/3bhk_lux/open_hall.png',
+      '/images/company/3bhk_lux/open_hall2.png',
+      '/images/company/minimalist_beige_2bhk/Minimalist_Beige_Bedroom_and_Contemporary_Living_R-Living_room_3-20260810-124909.jpg',
+      '/images/company/duplex/Exquisite_Fusion_of_Modern__Desi_in_a_4BHK-Guest_restaurant_18-20260813-110611.jpg',
+      '/images/company/indo_classical_elegance_3bhk/3BHK-Guest_restaurant_4-20260810-164320.jpg',
+      '/images/company/2bhk_aparna_zicon/Mr.Deepak-Aparna_Zicon-Detail_Drawing-04-03-2025-Living_room_1-20260810-122238.jpg',
+      '/images/company/2bhk_mordern_retro/hall_paneling.jpg',
+      '/images/company/indo_classical_elegance_3bhk/3BHK-Master_Bedroom_0-20260810-164320.jpg'
     ], 
     filters: ['Gypsum', 'POP', 'Cove Lighting', 'Coffered', 'Tray'] 
   },
@@ -282,7 +258,7 @@ const mockCategories = [
     name: 'Commercial Interiors', 
     slug: 'commercial-interiors', 
     description: 'Retail showrooms, clinics, salons, and brand spaces designed to communicate identity while maximising customer experience.', 
-    heroImage: 'https://images.unsplash.com/photo-1441986300917-64674bd600d8?auto=format&fit=crop&w=1200&q=80', 
+    heroImage: '/images/company/2bhk_mordern_retro/office_3.jpg', 
     details: {
       tag: 'Brand Experience',
       headline: 'Commercial Spaces That Work as Hard as You Do',
@@ -290,68 +266,22 @@ const mockCategories = [
       includes: ['Retail Display & Merchandising Layout', 'Brand Integration Design', 'Customer Flow Zone Planning', 'Feature Lighting & Spotlighting', 'Signage & Identity Elements', 'Clinic & Salon Specific Fit-outs', 'Compliance-Ready Build', 'Custom Joinery & Counter Units'],
     },
     galleryImages: [
-      'https://images.unsplash.com/photo-1441986300917-64674bd600d8?auto=format&fit=crop&w=800&q=80',
-      'https://images.unsplash.com/photo-1604014237800-1c9102c219da?auto=format&fit=crop&w=800&q=80',
-      'https://images.unsplash.com/photo-1507679799987-c73779587ccf?auto=format&fit=crop&w=800&q=80',
-      'https://images.unsplash.com/photo-1497366216548-37526070297c?auto=format&fit=crop&w=800&q=80',
-      'https://images.unsplash.com/photo-1497366754035-f200968a6e72?auto=format&fit=crop&w=800&q=80',
-      'https://images.unsplash.com/photo-1504384308090-c894fdcc538d?auto=format&fit=crop&w=800&q=80',
-      'https://images.unsplash.com/photo-1531538606174-0f90ff5dce83?auto=format&fit=crop&w=800&q=80',
-      'https://images.unsplash.com/photo-1531973576160-7125cd663d86?auto=format&fit=crop&w=800&q=80'
+      '/images/company/2bhk_mordern_retro/office_3.jpg',
+      '/images/company/2bhk_mordern_retro/office_2.jpg',
+      '/images/company/2bhk_mordern_retro/hall_paneling.jpg',
+      '/images/company/3bhk_lux/open_hall2.png',
+      '/images/company/duplex/Exquisite_Fusion_of_Modern__Desi_in_a_4BHK-Guest_restaurant_20-20260813-110611.jpg',
+      '/images/company/minimalist_beige_2bhk/Minimalist_Beige_Bedroom_and_Contemporary_Living_R-Living_room_27-20260810-124917.jpg',
+      '/images/company/indo_classical_elegance_3bhk/3BHK-Guest_restaurant_4-20260810-164320.jpg',
+      '/images/company/2bhk_aparna_zicon/Mr.Deepak-Aparna_Zicon-Detail_Drawing-04-03-2025-Living_room_1-20260810-122238.jpg'
     ], 
-    filters: ['Retail', 'Showroom', 'Clinic', 'Salon', 'Luxury'] 
-  },
-  { 
-    name: 'Reception Areas', 
-    slug: 'reception-areas', 
-    description: 'Striking lobby and reception spaces that communicate professionalism and set the tone for the entire building experience.', 
-    heroImage: 'https://images.unsplash.com/photo-1486325212027-8081e485255e?auto=format&fit=crop&w=1200&q=80', 
-    details: {
-      tag: 'First Impressions',
-      headline: 'Receptions That Say Everything Before You Do',
-      body: 'The reception is the first physical impression of your organisation. We design statement reception desks, feature walls, curated lounge seating, and dramatic lighting that communicates authority, trust, and quality — whether for a corporate office, luxury residential tower, or healthcare facility.',
-      includes: ['Statement Reception Desk Design', 'Feature Wall & Logo Branding', 'Seating Lounge & Wait Area', 'Dramatic Lighting Design', 'Signage & Wayfinding System', 'Flooring & Ceiling Coordination', 'Security & Access Integration', 'Plant & Biophilic Design'],
-    },
-    galleryImages: [
-      'https://images.unsplash.com/photo-1486325212027-8081e485255e?auto=format&fit=crop&w=800&q=80',
-      'https://images.unsplash.com/photo-1568992687947-868a62a9f521?auto=format&fit=crop&w=800&q=80',
-      'https://images.unsplash.com/photo-1497366216548-37526070297c?auto=format&fit=crop&w=800&q=80',
-      'https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?auto=format&fit=crop&w=800&q=80',
-      'https://images.unsplash.com/photo-1600210492486-724fe5c67fb0?auto=format&fit=crop&w=800&q=80',
-      'https://images.unsplash.com/photo-1604014237800-1c9102c219da?auto=format&fit=crop&w=800&q=80',
-      'https://images.unsplash.com/photo-1524758631624-e2822e304c36?auto=format&fit=crop&w=800&q=80',
-      'https://images.unsplash.com/photo-1531973576160-7125cd663d86?auto=format&fit=crop&w=800&q=80'
-    ], 
-    filters: ['Corporate', 'Luxury Hotel', 'Medical', 'Residential'] 
-  },
-  { 
-    name: 'Cafes & Restaurants', 
-    slug: 'cafes-restaurants', 
-    description: 'Atmospheric F&B spaces built for dwell time — bespoke seating zones, bar counters, acoustic treatment, and curated ambient lighting.', 
-    heroImage: 'https://images.unsplash.com/photo-1554118811-1e0d58224f24?auto=format&fit=crop&w=1200&q=80', 
-    details: {
-      tag: 'Hospitality Design',
-      headline: 'F&B Spaces Built for Atmosphere and Dwell Time',
-      body: 'Great cafes and restaurants are designed before they are staffed. We create atmospheric F&B interiors that balance seating density with comfort, acoustics with energy, and brand identity with guest experience — from intimate specialty coffee bars to large-format restaurant builds.',
-      includes: ['Seating Zone & Table Planning', 'Bar Counter & Barista Station', 'Ambient & Task Lighting Design', 'Acoustic Treatment & Sound Zoning', 'Menu Display & Signage', 'Custom Furniture & Upholstery', 'Kitchen Pass & Service Design', 'Outdoor & Alfresco Seating'],
-    },
-    galleryImages: [
-      'https://images.unsplash.com/photo-1554118811-1e0d58224f24?auto=format&fit=crop&w=800&q=80',
-      'https://images.unsplash.com/photo-1559329007-40df8a9345d8?auto=format&fit=crop&w=800&q=80',
-      'https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?auto=format&fit=crop&w=800&q=80',
-      'https://images.unsplash.com/photo-1537047902294-62a40c20a6ae?auto=format&fit=crop&w=800&q=80',
-      'https://images.unsplash.com/photo-1555396273-367ea4eb4db5?auto=format&fit=crop&w=800&q=80',
-      'https://images.unsplash.com/photo-1544148103-0773bf10d330?auto=format&fit=crop&w=800&q=80',
-      'https://images.unsplash.com/photo-1521017432531-fbd92d768814?auto=format&fit=crop&w=800&q=80',
-      'https://images.unsplash.com/photo-1414235077428-338989a2e8c0?auto=format&fit=crop&w=800&q=80'
-    ], 
-    filters: ['Cafe', 'Restaurant', 'Bar', 'Fast Casual', 'Fine Dining'] 
+    filters: ['Retail', 'Experience Centre', 'Salon', 'Commercial'] 
   },
   { 
     name: 'Villas', 
     slug: 'villas', 
     description: 'Bespoke multi-floor villa interiors with luxury material palettes, indoor-outdoor integration, and smart home readiness.', 
-    heroImage: 'https://images.unsplash.com/photo-1613977257363-707ba9348227?auto=format&fit=crop&w=1200&q=80', 
+    heroImage: '/images/company/duplex/Exquisite_Fusion_of_Modern__Desi_in_a_4BHK-Guest_restaurant_18-20260813-110611.jpg', 
     details: {
       tag: 'Luxury Living',
       headline: 'Villa Interiors Designed Floor to Ceiling',
@@ -359,14 +289,14 @@ const mockCategories = [
       includes: ['Multi-Floor Design Coordination', 'Luxury Material & Stone Selection', 'Indoor-Outdoor Living Integration', 'Home Theatre & AV Room', 'Private Gym & Study Design', 'Smart Home Preparation', 'Staircase & Landing Design', 'Landscaping Coordination'],
     },
     galleryImages: [
-      'https://images.unsplash.com/photo-1613977257363-707ba9348227?auto=format&fit=crop&w=800&q=80',
-      'https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=800&q=80',
-      'https://images.unsplash.com/photo-1600210492486-724fe5c67fb0?auto=format&fit=crop&w=800&q=80',
-      'https://images.unsplash.com/photo-1600566752355-35792bedcfea?auto=format&fit=crop&w=800&q=80',
-      'https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?auto=format&fit=crop&w=800&q=80',
-      'https://images.unsplash.com/photo-1512917774080-9991f1c4c750?auto=format&fit=crop&w=800&q=80',
-      'https://images.unsplash.com/photo-1613490493576-7fde63acd811?auto=format&fit=crop&w=800&q=80',
-      'https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?auto=format&fit=crop&w=800&q=80'
+      '/images/company/duplex/Exquisite_Fusion_of_Modern__Desi_in_a_4BHK-Guest_restaurant_18-20260813-110611.jpg',
+      '/images/company/duplex/Exquisite_Fusion_of_Modern__Desi_in_a_4BHK-Guest_restaurant_5-20260813-110615.jpg',
+      '/images/company/indo_classical_elegance_3bhk/3BHK-Guest_restaurant_4-20260810-164320.jpg',
+      '/images/company/3bhk_lux/open_hall.png',
+      '/images/company/3bhk_lux/open_hall2.png',
+      '/images/company/duplex/Exquisite_Fusion_of_Modern__Desi_in_a_4BHK-Boys_Room_4-20260813-110616.jpg',
+      '/images/company/indo_classical_elegance_3bhk/Indo-Classical_Elegance__A_Soothing_Blend_of_Mode-balcony_1-20260810-120429.jpg',
+      '/images/company/minimalist_beige_2bhk/Minimalist_Beige_Bedroom_and_Contemporary_Living_R-Living_room_3-20260810-124909.jpg'
     ], 
     filters: ['Luxury', 'Contemporary', 'Traditional', 'Smart Home'] 
   },
@@ -374,7 +304,7 @@ const mockCategories = [
     name: 'Apartments', 
     slug: 'apartments', 
     description: 'Smart apartment interiors that maximise every square foot — optimised storage, multi-use furniture, and neutral versatile palettes.', 
-    heroImage: 'https://images.unsplash.com/photo-1522708323590-d24dbb6b0267?auto=format&fit=crop&w=1200&q=80', 
+    heroImage: '/images/company/minimalist_beige_2bhk/Minimalist_Beige_Bedroom_and_Contemporary_Living_R-Living_room_3-20260810-124909.jpg', 
     details: {
       tag: 'Optimised Spaces',
       headline: 'Apartment Interiors That Maximise Every Square Foot',
@@ -382,14 +312,14 @@ const mockCategories = [
       includes: ['Space Optimisation Floor Planning', 'Built-in Storage Throughout', 'Multi-Use & Convertible Furniture', 'Balcony & Utility Integration', 'Compact Modular Kitchen', 'Full Home Interior Package', 'Neutral & Versatile Palette', '2BHK & 3BHK Specialisation'],
     },
     galleryImages: [
-      'https://images.unsplash.com/photo-1522708323590-d24dbb6b0267?auto=format&fit=crop&w=800&q=80',
-      'https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?auto=format&fit=crop&w=800&q=80',
-      'https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?auto=format&fit=crop&w=800&q=80',
-      'https://images.unsplash.com/photo-1586023492125-27b2c045efd7?auto=format&fit=crop&w=800&q=80',
-      'https://images.unsplash.com/photo-1600585154526-990dced4db0d?auto=format&fit=crop&w=800&q=80',
-      'https://images.unsplash.com/photo-1507089947368-19c1da9775ae?auto=format&fit=crop&w=800&q=80',
-      'https://images.unsplash.com/photo-1618219908412-a29a1bb7b86e?auto=format&fit=crop&w=800&q=80',
-      'https://images.unsplash.com/photo-1616594039964-ae9021a400a0?auto=format&fit=crop&w=800&q=80'
+      '/images/company/minimalist_beige_2bhk/Minimalist_Beige_Bedroom_and_Contemporary_Living_R-Living_room_3-20260810-124909.jpg',
+      '/images/company/2bhk_aparna_zicon/Mr.Deepak-Aparna_Zicon-Detail_Drawing-04-03-2025-Living_room_1-20260810-122238.jpg',
+      '/images/company/minimalist_beige_2bhk/Minimalist_Beige_Bedroom_and_Contemporary_Living_R-Bedroom_0-20260810-124909.jpg',
+      '/images/company/2bhk_mordern_retro/b1_2.jpg',
+      '/images/company/2bhk_urban/Minimalist_Gray__A_Contemporary_Kitchen_Masterpiec-Unnamed_2-20260810-173514.jpg',
+      '/images/company/2bhk_lux/hall1_1.png',
+      '/images/company/minimalist_beige_2bhk/Minimalist_Beige_Bedroom_and_Contemporary_Living_R-Living_room_27-20260810-124917.jpg',
+      '/images/company/2bhk_aparna_zicon/Mr.Deepak-Aparna_Zicon-Detail_Drawing-04-03-2025-Bedroom_24-20260810-122233.jpg'
     ], 
     filters: ['Studio', '2BHK', '3BHK', 'Minimal', 'Modern'] 
   },
@@ -397,7 +327,7 @@ const mockCategories = [
     name: 'Luxury Homes', 
     slug: 'luxury-homes', 
     description: 'Ultra-premium residences where every material is hand-selected, every detail is bespoke, and the result is truly one of a kind.', 
-    heroImage: 'https://images.unsplash.com/photo-1600566752355-35792bedcfea?auto=format&fit=crop&w=1200&q=80', 
+    heroImage: '/images/company/indo_classical_elegance_3bhk/3BHK-Guest_restaurant_4-20260810-164320.jpg', 
     details: {
       tag: 'Signature Collection',
       headline: 'Luxury Homes With No Compromise',
@@ -405,14 +335,14 @@ const mockCategories = [
       includes: ['Italian Marble & Exotic Stone Selection', 'Custom Artisan Furniture & Joinery', 'Private Gym, Spa & Wellness Room', 'Wine Cellar & Cigar Lounge Design', 'Home Theatre & Screening Room', 'Smart Home Full Integration', 'Bespoke Lighting Design', 'White-Glove Turnkey Delivery'],
     },
     galleryImages: [
-      'https://images.unsplash.com/photo-1600566752355-35792bedcfea?auto=format&fit=crop&w=800&q=80',
-      'https://images.unsplash.com/photo-1600210492486-724fe5c67fb0?auto=format&fit=crop&w=800&q=80',
-      'https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=800&q=80',
-      'https://images.unsplash.com/photo-1613977257363-707ba9348227?auto=format&fit=crop&w=800&q=80',
-      'https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?auto=format&fit=crop&w=800&q=80',
-      'https://images.unsplash.com/photo-1512917774080-9991f1c4c750?auto=format&fit=crop&w=800&q=80',
-      'https://images.unsplash.com/photo-1613490493576-7fde63acd811?auto=format&fit=crop&w=800&q=80',
-      'https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?auto=format&fit=crop&w=800&q=80'
+      '/images/company/3bhk_lux/open_hall.png',
+      '/images/company/indo_classical_elegance_3bhk/3BHK-Guest_restaurant_4-20260810-164320.jpg',
+      '/images/company/3bhk_lux/open_hall.png',
+      '/images/company/minimalist_beige_2bhk/Minimalist_Beige_Bedroom_and_Contemporary_Living_R-Living_room_3-20260810-124909.jpg',
+      '/images/company/2bhk_aparna_zicon/Mr.Deepak-Aparna_Zicon-Detail_Drawing-04-03-2025-Living_room_1-20260810-122238.jpg',
+      '/images/company/2bhk_mordern_retro/b1_2.jpg',
+      '/images/company/2bhk_lux/tv_unit_2_1.png',
+      '/images/company/indo_classical_elegance_3bhk/3BHK-Master_Bedroom_0-20260810-164320.jpg'
     ], 
     filters: ['Penthouse', 'Villa', 'Bungalow', 'Italian Marble', 'Bespoke'] 
   },
@@ -420,18 +350,18 @@ const mockCategories = [
 
 const slides = [
   {
-    before: 'https://images.unsplash.com/photo-1513694203232-719a280e022f?auto=format&fit=crop&w=1920&q=90',
-    after: 'https://images.unsplash.com/photo-1600210492486-724fe5c67fb0?auto=format&fit=crop&w=1920&q=90',
+    before: '/images/company/minimalist_beige_2bhk/Minimalist_Beige_Bedroom_and_Contemporary_Living_R-Living_room_4-20260810-124909.jpg',
+    after: '/images/company/minimalist_beige_2bhk/Minimalist_Beige_Bedroom_and_Contemporary_Living_R-Living_room_3-20260810-124909.jpg',
     title: 'Living Rooms'
   },
   {
-    before: 'https://images.unsplash.com/photo-1556912173-3bb406ef7e77?auto=format&fit=crop&w=1920&q=90',
-    after: 'https://images.unsplash.com/photo-1556911220-e15b29be8c8f?auto=format&fit=crop&w=1920&q=90',
+    before: '/images/company/2bhk_urban/Minimalist_Gray__A_Contemporary_Kitchen_Masterpiec-Unnamed_0-20260810-173514.jpg',
+    after: '/images/company/2bhk_urban/Minimalist_Gray__A_Contemporary_Kitchen_Masterpiec-Unnamed_2-20260810-173514.jpg',
     title: 'Modular Kitchens'
   },
   {
-    before: 'https://images.unsplash.com/photo-1618221195710-dd6b41faaea6?auto=format&fit=crop&w=1920&q=90',
-    after: 'https://images.unsplash.com/photo-1590490360182-c33d57733427?auto=format&fit=crop&w=1920&q=90',
+    before: '/images/company/minimalist_beige_2bhk/Minimalist_Beige_Bedroom_and_Contemporary_Living_R-Bedroom_0-20260810-124909.jpg',
+    after: '/images/company/indo_classical_elegance_3bhk/3BHK-Master_Bedroom_0-20260810-164320.jpg',
     title: 'Master Bedrooms'
   }
 ];
@@ -574,8 +504,8 @@ const WhatWeDo = () => {
     return {
       beforeLabel: getNonEmpty(s?.spaces_before_label, 'BEFORE'),
       afterLabel: getNonEmpty(s?.spaces_after_label, 'AFTER'),
-      beforeImage: getNonEmpty(s?.spaces_before_image, 'https://images.unsplash.com/photo-1513694203232-719a280e022f?auto=format&fit=crop&w=1920&q=90'),
-      afterImage: getNonEmpty(s?.spaces_after_image, 'https://images.unsplash.com/photo-1600210492486-724fe5c67fb0?auto=format&fit=crop&w=1920&q=90'),
+      beforeImage: getNonEmpty(s?.spaces_before_image, '/images/company/minimalist_beige_2bhk/Minimalist_Beige_Bedroom_and_Contemporary_Living_R-Living_room_4-20260810-124909.jpg'),
+      afterImage: getNonEmpty(s?.spaces_after_image, '/images/company/minimalist_beige_2bhk/Minimalist_Beige_Bedroom_and_Contemporary_Living_R-Living_room_3-20260810-124909.jpg'),
       visible: s?.spaces_hero_visible !== false
     };
   });
@@ -592,8 +522,8 @@ const WhatWeDo = () => {
         setSpacesHeroState({
           beforeLabel: getNonEmpty(settings.spaces_before_label, 'BEFORE'),
           afterLabel: getNonEmpty(settings.spaces_after_label, 'AFTER'),
-          beforeImage: getNonEmpty(settings.spaces_before_image, 'https://images.unsplash.com/photo-1513694203232-719a280e022f?auto=format&fit=crop&w=1920&q=90'),
-          afterImage: getNonEmpty(settings.spaces_after_image, 'https://images.unsplash.com/photo-1600210492486-724fe5c67fb0?auto=format&fit=crop&w=1920&q=90'),
+          beforeImage: getNonEmpty(settings.spaces_before_image, '/images/company/minimalist_beige_2bhk/Minimalist_Beige_Bedroom_and_Contemporary_Living_R-Living_room_4-20260810-124909.jpg'),
+          afterImage: getNonEmpty(settings.spaces_after_image, '/images/company/minimalist_beige_2bhk/Minimalist_Beige_Bedroom_and_Contemporary_Living_R-Living_room_3-20260810-124909.jpg'),
           visible: settings.spaces_hero_visible !== false
         });
         if (Array.isArray(settings.spaces_list) && settings.spaces_list.length > 0) {
@@ -680,15 +610,19 @@ const WhatWeDo = () => {
     };
   }, []);
 
-  // Scroll-driven parallax — same as Home
-  const { scrollYProgress } = useScroll({
+  // Scroll-driven parallax & Hero exit scroll animation — exact match with Home.jsx
+  const { scrollYProgress: heroScroll } = useScroll({
     target: heroRef,
-    offset: ['start start', 'end end'],
+    offset: ["start start", "end start"]
   });
-  const bgScale = useTransform(scrollYProgress, [0, 1], [1.05, 0.95]);
-  const bgY     = useTransform(scrollYProgress, [0, 1], ['0%', '8%']);
-  const textY   = useTransform(scrollYProgress, [0, 1], ['0px', '-40px']);
-  const textOp  = useTransform(scrollYProgress, [0, 0.6, 1], [1, 0.9, 0]);
+  const heroExitScale = useTransform(heroScroll, [0, 1], [1, 0.85]);
+  const heroExitOpacity = useTransform(heroScroll, [0, 1], [1, 0]);
+  const heroExitY = useTransform(heroScroll, [0, 1], ["0%", "25%"]);
+
+  const bgScale = useTransform(heroScroll, [0, 1], [1.05, 0.95]);
+  const bgY     = useTransform(heroScroll, [0, 1], ['0%', '8%']);
+  const textY   = useTransform(heroScroll, [0, 1], ['0px', '-40px']);
+  const textOp  = useTransform(heroScroll, [0, 0.6, 1], [1, 0.9, 0]);
 
   const displayCategories = spacesList;
   const activeCategory = slug ? displayCategories.find(c => c.slug === slug) : null;
@@ -802,7 +736,7 @@ const WhatWeDo = () => {
       {spacesHeroState.visible !== false && (
         <section
           ref={heroRef}
-          className="relative h-[55vh] lg:h-[65vh] min-h-[440px] px-5 pt-5 pb-[10px] lg:px-12 select-none"
+          className="relative h-[85vh] min-h-[580px] px-4 sm:px-6 pt-2 sm:pt-2.5 lg:pt-3 pb-2 sm:pb-3 lg:px-10 z-0 select-none"
           onMouseDown={onStart}
           onMouseMove={onMouseMove}
           onTouchStart={() => { setIsPaused(true); onStart(); }}
@@ -812,19 +746,23 @@ const WhatWeDo = () => {
           onMouseLeave={() => setIsPaused(false)}
           onClick={(e) => handleMove(e.clientX)}
         >
-          {/* The rounded card container */}
-          <div className="relative w-full h-full overflow-hidden rounded-[24px] lg:rounded-[40px] cursor-ew-resize bg-bg-dark">
+          {/* The rounded card container — exact Home hero exit transition */}
+          <motion.div
+            style={{ scale: heroExitScale, opacity: heroExitOpacity, y: heroExitY }}
+            className="relative w-full h-full overflow-hidden rounded-[24px] lg:rounded-[40px] origin-top cursor-ew-resize bg-bg-dark shadow-2xl"
+          >
             {/* AFTER Image Layer */}
             <motion.div
               style={{ scale: bgScale, y: bgY }}
-              className="absolute inset-0 w-full h-full will-change-transform overflow-hidden pointer-events-none"
+              className="absolute inset-0 w-full h-full overflow-hidden pointer-events-none"
             >
               <img
-                src={getOptimizedImageUrl(spacesHeroState.afterImage || (activeSlides[0] && activeSlides[0].after) || 'https://images.unsplash.com/photo-1600210492486-724fe5c67fb0?auto=format&fit=crop&w=1200&q=75&fm=webp', 1200, 75)}
+                src={getOptimizedImageUrl(spacesHeroState.afterImage || (activeSlides[0] && activeSlides[0].after) || '/images/company/minimalist_beige_2bhk/Minimalist_Beige_Bedroom_and_Contemporary_Living_R-Living_room_3-20260810-124909.jpg', 1920, 90)}
                 alt="After Transformation"
-                loading="lazy"
+                loading="eager"
                 decoding="async"
-                className="absolute inset-0 w-full h-full object-cover"
+                style={{ imageRendering: 'high-quality', WebkitBackfaceVisibility: 'hidden', backfaceVisibility: 'hidden', transform: 'translateZ(0)' }}
+                className="absolute inset-0 w-full h-full object-cover transform-gpu"
               />
             </motion.div>
             
@@ -843,14 +781,15 @@ const WhatWeDo = () => {
               <div className="absolute inset-y-0 left-0 h-full" style={{ width: containerWidth || '100vw' }}>
                 <motion.div
                   style={{ scale: bgScale, y: bgY }}
-                  className="absolute inset-0 w-full h-full will-change-transform overflow-hidden pointer-events-none"
+                  className="absolute inset-0 w-full h-full overflow-hidden pointer-events-none"
                 >
                   <img
-                    src={getOptimizedImageUrl(spacesHeroState.beforeImage || (activeSlides[0] && activeSlides[0].before) || 'https://images.unsplash.com/photo-1513694203232-719a280e022f?auto=format&fit=crop&w=1200&q=75&fm=webp', 1200, 75)}
+                    src={getOptimizedImageUrl(spacesHeroState.beforeImage || (activeSlides[0] && activeSlides[0].before) || '/images/company/minimalist_beige_2bhk/Minimalist_Beige_Bedroom_and_Contemporary_Living_R-Living_room_4-20260810-124909.jpg', 1920, 90)}
                     alt="Before Transformation"
-                    loading="lazy"
+                    loading="eager"
                     decoding="async"
-                    className="absolute inset-0 w-full h-full object-cover"
+                    style={{ imageRendering: 'high-quality', WebkitBackfaceVisibility: 'hidden', backfaceVisibility: 'hidden', transform: 'translateZ(0)' }}
+                    className="absolute inset-0 w-full h-full object-cover transform-gpu"
                   />
                 </motion.div>
               </div>
@@ -882,37 +821,81 @@ const WhatWeDo = () => {
                 <line x1="2" y1="12" x2="22" y2="12" />
               </svg>
             </div>
-          </div>
+
+            {/* Scroll Down Indicator */}
+            <ScrollDownIndicator />
+          </motion.div>
         </section>
       )}
 
-      {/* Category Grid */}
-      <section className="max-w-[1440px] mx-auto px-6 md:px-10 py-24">
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-          {displayCategories.filter(c => c.visible !== false).map((cat, idx) => (
-            <Reveal key={cat.slug || idx} delay={Math.min((idx % 2) * 0.05, 0.1)}>
-              <Link to={`/what-we-do/${cat.slug}`}
-                className="group relative rounded-card overflow-hidden aspect-[4/3] bg-bg-dark block">
-                  <img src={cat.heroImage} alt={cat.name} loading="lazy" decoding="async"
-                    className="absolute inset-0 w-full h-full object-cover opacity-70 group-hover:opacity-50 group-hover:scale-105 transition-all duration-700" />
-                  <div className="absolute inset-0 bg-gradient-to-t from-bg-dark/90 via-bg-dark/20 to-transparent" />
-                  <div className="absolute bottom-8 left-8 right-8 flex items-end justify-between">
-                    <div>
-                      <h2 className="font-display text-[clamp(20px,2.5vw,28px)] font-bold text-bg mb-2 group-hover:text-gold transition-colors duration-300">
-                        {cat.name}
-                      </h2>
-                      <p className="font-sans text-[13px] text-bg/60 max-w-[280px] leading-relaxed opacity-0 group-hover:opacity-100 translate-y-2 group-hover:translate-y-0 transition-all duration-400">
-                        {cat.description?.substring(0, 85)}...
-                      </p>
+      {/* ── 2. Category Grid (Section 2 - smooth overlay reveal + Mobile Card Stack) ── */}
+      <section className="relative z-10 bg-bg w-full">
+        <div className="max-w-[1440px] mx-auto px-6 sm:px-8 md:px-10 pt-4 pb-20 md:pt-10 md:pb-24">
+          
+          {/* Mobile Card Stacking View (md:hidden - clean spacing with zero awkward gaps) */}
+          <div className="block md:hidden w-full px-1 sm:px-2">
+            <ScrollStack useWindowScroll={true} itemDistance={30} className="w-full !h-auto !overflow-visible">
+              {displayCategories.filter(c => c.visible !== false).map((cat, idx) => (
+                <ScrollStackItem 
+                  key={cat.slug || idx} 
+                  itemClassName="!p-0 p-0 rounded-[26px] overflow-hidden shadow-[0_8px_24px_rgba(0,0,0,0.06)] relative aspect-[4/3] w-full block border border-ink-border/20 bg-bg-dark mb-4"
+                >
+                  <Link to={`/what-we-do/${cat.slug}`} className="group relative w-full h-full block">
+                    <img 
+                      src={cat.heroImage} 
+                      alt={cat.name} 
+                      loading="lazy" 
+                      decoding="async"
+                      style={{ imageRendering: 'high-quality', WebkitBackfaceVisibility: 'hidden', backfaceVisibility: 'hidden' }}
+                      className="absolute inset-0 w-full h-full object-cover opacity-80 group-hover:opacity-60 transition-all duration-700" 
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-bg-dark/95 via-bg-dark/30 to-transparent" />
+                    <div className="absolute bottom-6 left-6 right-6 flex items-end justify-between z-10">
+                      <div>
+                        <h2 className="font-display text-[26px] font-bold text-white mb-1.5 drop-shadow-sm">
+                          {cat.name}
+                        </h2>
+                        <p className="font-sans text-[12px] text-white/75 max-w-[260px] leading-relaxed line-clamp-2">
+                          {cat.description}
+                        </p>
+                      </div>
+                      <div className="shrink-0 w-10 h-10 rounded-pill bg-white/10 backdrop-blur-md border border-white/25 flex items-center justify-center text-white group-hover:bg-gold group-hover:border-gold group-hover:text-ink transition-all duration-300 shadow-md">
+                        <ArrowUpRight size={16} />
+                      </div>
                     </div>
-                    <div className="shrink-0 w-10 h-10 rounded-pill border border-bg/20 flex items-center justify-center text-bg group-hover:bg-gold group-hover:border-gold group-hover:text-ink transition-all duration-300">
-                      <ArrowUpRight size={16} />
+                  </Link>
+                </ScrollStackItem>
+              ))}
+            </ScrollStack>
+          </div>
+
+          {/* Desktop / Tablet Grid View (hidden md:grid) */}
+          <div className="hidden md:grid md:grid-cols-2 gap-6">
+            {displayCategories.filter(c => c.visible !== false).map((cat, idx) => (
+              <Reveal key={cat.slug || idx} delay={Math.min((idx % 2) * 0.05, 0.1)}>
+                <Link to={`/what-we-do/${cat.slug}`}
+                  className="group relative rounded-card overflow-hidden aspect-[4/3] bg-bg-dark block">
+                    <img src={cat.heroImage} alt={cat.name} loading="lazy" decoding="async"
+                      style={{ imageRendering: 'high-quality', WebkitBackfaceVisibility: 'hidden', backfaceVisibility: 'hidden' }}
+                      className="absolute inset-0 w-full h-full object-cover opacity-70 group-hover:opacity-50 group-hover:scale-105 transition-all duration-700" />
+                    <div className="absolute inset-0 bg-gradient-to-t from-bg-dark/90 via-bg-dark/20 to-transparent" />
+                    <div className="absolute bottom-8 left-8 right-8 flex items-end justify-between">
+                      <div>
+                        <h2 className="font-display text-[clamp(20px,2.5vw,28px)] font-bold text-bg mb-2 group-hover:text-gold transition-colors duration-300">
+                          {cat.name}
+                        </h2>
+                        <p className="font-sans text-[13px] text-bg/60 max-w-[280px] leading-relaxed opacity-0 group-hover:opacity-100 translate-y-2 group-hover:translate-y-0 transition-all duration-400">
+                          {cat.description?.substring(0, 85)}...
+                        </p>
+                      </div>
+                      <div className="shrink-0 w-10 h-10 rounded-pill border border-bg/20 flex items-center justify-center text-bg group-hover:bg-gold group-hover:border-gold group-hover:text-ink transition-all duration-300">
+                        <ArrowUpRight size={16} />
+                      </div>
                     </div>
-                  </div>
-                </Link>
-              </Reveal>
-            ))
-          }
+                  </Link>
+                </Reveal>
+              ))}
+          </div>
         </div>
       </section>
     </div>

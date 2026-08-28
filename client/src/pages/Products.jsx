@@ -6,6 +6,7 @@ import { motion, useInView } from 'framer-motion';
 import SEO from '../components/common/SEO';
 import DomeGallery from '../components/ui/DomeGallery';
 import GooeyInput from '../components/ui/gooey-input';
+import ScrollDownIndicator from '../components/common/ScrollDownIndicator';
 import { getCMSData, STORAGE_KEYS } from '../utils/cmsStore';
 import { getOptimizedImageUrl } from '../utils/imageOptimizer';
 
@@ -190,29 +191,34 @@ const Products = () => {
     <div className="bg-bg min-h-screen pb-24">
       <SEO title="Premium Material Library — WPC, Fluted, Acrylic Panels" description="Explore ESPACIO's curated material library. WPC wall panels, fluted panels, polygranite, acrylic sheets, mosaic tiles and more. Request samples and catalogue." url="/products" />
       
-      {/* Hero with Dome Gallery — same framed-card pattern as Home & Projects */}
-      <section className="relative h-[73vh] lg:h-[86vh] px-5 pt-5 pb-[10px] lg:px-12">
+      {/* Hero with Dome Gallery — matches Home & Services rounded framed card */}
+      <section className="relative h-[94vh] lg:h-[98vh] min-h-[660px] lg:min-h-0 px-4 sm:px-6 pt-2 sm:pt-2.5 lg:pt-3 pb-2 sm:pb-3 lg:px-10 z-0">
         {/* Rounded dark card */}
-        <div className="relative w-full h-full overflow-hidden rounded-[24px] lg:rounded-[40px] bg-[#120F17]">
-        {/* Dome Gallery Container */}
-        <div className="absolute inset-0 w-full h-full z-0">
-          <DomeGallery 
-            images={domeImages}
-            fit={0.45}
-            fitBasis="auto"
-            overlayBlurColor="#120F17"
-            grayscale={false}
-            openedImageWidth="220px"
-            openedImageHeight="300px"
-            imageBorderRadius="12px"
-            openedImageBorderRadius="18px"
-          />
+        <div className="relative w-full h-full overflow-hidden rounded-[24px] lg:rounded-[40px] bg-[#120F17] shadow-2xl">
+          {/* Dome Gallery Container */}
+          <div className="absolute inset-0 w-full h-full z-0">
+            <DomeGallery 
+              images={domeImages}
+              fit={0.65}
+              minRadius={700}
+              fitBasis="auto"
+              overlayBlurColor="#120F17"
+              grayscale={false}
+              autoRotate={true}
+              autoRotateSpeed={0.08}
+              openedImageWidth="240px"
+              openedImageHeight="320px"
+              imageBorderRadius="14px"
+              openedImageBorderRadius="20px"
+            />
+          </div>
+
+          {/* Bottom vignette overlay */}
+          <div className="absolute inset-0 bg-gradient-to-t from-[#120F17] via-transparent to-transparent pointer-events-none z-10" />
+
+          {/* Scroll Down Indicator */}
+          <ScrollDownIndicator />
         </div>
-
-        {/* Bottom vignette overlay */}
-        <div className="absolute inset-0 bg-gradient-to-t from-[#120F17] via-transparent to-transparent pointer-events-none z-10" />
-
-        </div>{/* end rounded card */}
       </section>
 
       {/* Search Bar */}

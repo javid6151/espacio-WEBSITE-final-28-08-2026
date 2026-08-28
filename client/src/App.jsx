@@ -8,8 +8,10 @@ import Lenis from 'lenis';
 // Layout Components
 import Navbar from './components/layout/Navbar';
 import Footer from './components/layout/Footer';
-import CustomCursor from './components/common/CustomCursor';
 import Logo from './components/common/Logo';
+import IntroPreloader from './components/common/IntroPreloader';
+
+import Home from './pages/Home';
 
 // Dynamic imports for modals to isolate initial bundle
 const QuoteModal = React.lazy(() => import('./components/common/QuoteModal'));
@@ -17,7 +19,6 @@ const PrivacyModal = React.lazy(() => import('./components/common/PrivacyModal')
 const TermsModal = React.lazy(() => import('./components/common/TermsModal'));
 
 // Public Pages (Lazy-loaded for code-splitting & optimal performance)
-const Home = React.lazy(() => import('./pages/Home'));
 const About = React.lazy(() => import('./pages/About'));
 const Services = React.lazy(() => import('./pages/Services'));
 const Projects = React.lazy(() => import('./pages/Projects'));
@@ -43,11 +44,15 @@ const AdminPagesCMS = React.lazy(() => import('./pages/admin/AdminPagesCMS'));
 const AdminFooterCMS = React.lazy(() => import('./pages/admin/AdminFooterCMS'));
 const AdminEnquiries = React.lazy(() => import('./pages/admin/AdminEnquiries'));
 const AdminProjects = React.lazy(() => import('./pages/admin/AdminProjects'));
-const AdminProducts = React.lazy(() => import('./pages/admin/AdminProducts'));
+const AdminProducts = React.lazy(() => import('./pages/admin/AdminMaterialsCMS'));
 const AdminUsers = React.lazy(() => import('./pages/admin/AdminUsers'));
 const AdminAuditLogs = React.lazy(() => import('./pages/admin/AdminAuditLogs'));
 const AdminMedia = React.lazy(() => import('./pages/admin/AdminCMS').then(m => ({ default: m.AdminMedia })));
 const AdminSettings = React.lazy(() => import('./pages/admin/AdminCMS').then(m => ({ default: m.AdminSettings })));
+
+const PublicLoaderFallback = () => (
+  <div className="fixed inset-0 bg-[#0a0b0d] z-[99999]" />
+);
 
 const AdminLoaderFallback = () => (
   <div className="min-h-screen bg-[#0E0F11] flex items-center justify-center">
@@ -182,6 +187,7 @@ const MainLayout = () => {
 
   return (
     <div className="flex flex-col min-h-screen">
+      <IntroPreloader />
       <Navbar />
       <main className="flex-grow">
         <Outlet />
@@ -199,15 +205,15 @@ const MainLayout = () => {
 
 function App() {
   useEffect(() => {
-    // Initialize Lenis smooth scrolling with optimized settings
+    // Initialize Lenis smooth scrolling with ultra-responsive 60fps settings
     const lenis = new Lenis({
-      duration: 1.1,
+      duration: 0.8,
       easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)), // easeOutExpo
       orientation: 'vertical',
       gestureOrientation: 'vertical',
       smoothWheel: true,
-      wheelMultiplier: 1,
-      touchMultiplier: 1.8,
+      wheelMultiplier: 1.15,
+      touchMultiplier: 1.0,
       infinite: false,
     });
 
@@ -230,48 +236,56 @@ function App() {
       <AuthProvider>
         <Router>
           <ScrollToTop />
-          <CustomCursor />
-          <React.Suspense fallback={<AdminLoaderFallback />}>
-            <Routes>
-              {/* ── Public Routes (Animated) ────────────────────────── */}
-              <Route element={<MainLayout />}>
-                <Route path="/" element={<Home />} />
-                <Route path="/about" element={<About />} />
-                <Route path="/services" element={<Services />} />
-                <Route path="/projects" element={<Projects />} />
-                <Route path="/projects/:slug" element={<ProjectDetails />} />
-                <Route path="/what-we-do" element={<WhatWeDo />} />
-                <Route path="/what-we-do/:slug" element={<WhatWeDo />} />
-                <Route path="/products" element={<Products />} />
-                <Route path="/products/:slug" element={<ProductDetails />} />
-                <Route path="/contact" element={<Contact />} />
-                
-                {/* 404 fallback */}
-                <Route path="*" element={<NotFound />} />
-              </Route>
+          <Routes>
+            {/* ── Public Routes (Instant Dark Load & Preloader) ────────────────── */}
+            <Route element={<React.Suspense fallback={<PublicLoaderFallback />}><MainLayout /></React.Suspense>}>
+              <Route path="/" element={<Home />} />
+              <Route path="/about" element={<About />} />
+              <Route path="/services" element={<Services />} />
+              <Route path="/projects" element={<Projects />} />
+              <Route path="/projects/:slug" element={<ProjectDetails />} />
+              <Route path="/what-we-do" element={<WhatWeDo />} />
+              <Route path="/what-we-do/:slug" element={<WhatWeDo />} />
+              <Route path="/products" element={<Products />} />
+              <Route path="/products/:slug" element={<ProductDetails />} />
+              <Route path="/contact" element={<Contact />} />
+              
+              {/* 404 fallback */}
+              <Route path="*" element={<NotFound />} />
+            </Route>
 
-              {/* ── Admin Routes (No Navbar/Footer) ───────────────────── */}
-              <Route path="/admin" element={<AdminLogin />} />
-              <Route path="/admin/dashboard" element={<AdminLayout><AdminDashboardHome /></AdminLayout>} />
-              <Route path="/admin/hero" element={<AdminLayout><AdminHomeHeroCMS /></AdminLayout>} />
-              <Route path="/admin/services" element={<AdminLayout><AdminServicesCMS /></AdminLayout>} />
-              <Route path="/admin/spaces" element={<AdminLayout><AdminSpacesCMS /></AdminLayout>} />
-              <Route path="/admin/materials" element={<AdminLayout><AdminMaterialsCMS /></AdminLayout>} />
-              <Route path="/admin/about" element={<AdminLayout><AdminAboutCMS /></AdminLayout>} />
-              <Route path="/admin/faqs" element={<AdminLayout><AdminFAQCMS /></AdminLayout>} />
-              <Route path="/admin/contact" element={<AdminLayout><AdminContactCMS /></AdminLayout>} />
-              <Route path="/admin/testimonials" element={<AdminLayout><AdminTestimonialsCMS /></AdminLayout>} />
-              <Route path="/admin/pages" element={<AdminLayout><AdminPagesCMS /></AdminLayout>} />
-              <Route path="/admin/footer" element={<AdminLayout><AdminFooterCMS /></AdminLayout>} />
-              <Route path="/admin/enquiries" element={<AdminLayout><AdminEnquiries /></AdminLayout>} />
-              <Route path="/admin/projects" element={<AdminLayout><AdminProjects /></AdminLayout>} />
-              <Route path="/admin/products" element={<AdminLayout><AdminMaterialsCMS /></AdminLayout>} />
-              <Route path="/admin/users" element={<AdminLayout><AdminUsers /></AdminLayout>} />
-              <Route path="/admin/audit" element={<AdminLayout><AdminAuditLogs /></AdminLayout>} />
-              <Route path="/admin/gallery" element={<AdminLayout><AdminMedia /></AdminLayout>} />
-              <Route path="/admin/settings" element={<AdminLayout><AdminSettings /></AdminLayout>} />
-            </Routes>
-          </React.Suspense>
+            {/* ── Admin Routes (Isolated Admin Portal Suspense) ───────────────── */}
+            <Route path="/admin/*" element={
+              <React.Suspense fallback={<AdminLoaderFallback />}>
+                <Routes>
+                  <Route path="" element={<AdminLogin />} />
+                  <Route path="dashboard" element={<AdminLayout><AdminDashboardHome /></AdminLayout>} />
+                  <Route path="hero" element={<AdminLayout><AdminHomeHeroCMS /></AdminLayout>} />
+                  <Route path="services" element={<AdminLayout><AdminServicesCMS /></AdminLayout>} />
+                  <Route path="spaces" element={<AdminLayout><AdminSpacesCMS /></AdminLayout>} />
+                  <Route path="materials" element={<AdminLayout><AdminMaterialsCMS /></AdminLayout>} />
+                  <Route path="about" element={<AdminLayout><AdminAboutCMS /></AdminLayout>} />
+                  <Route path="faqs" element={<AdminLayout><AdminFAQCMS /></AdminLayout>} />
+                  <Route path="contact" element={<AdminLayout><AdminContactCMS /></AdminLayout>} />
+                  <Route path="testimonials" element={<AdminLayout><AdminTestimonialsCMS /></AdminLayout>} />
+                  <Route path="pages" element={<AdminLayout><AdminPagesCMS /></AdminLayout>} />
+                  <Route path="footer" element={<AdminLayout><AdminFooterCMS /></AdminLayout>} />
+                  <Route path="enquiries" element={<AdminLayout><AdminEnquiries /></AdminLayout>} />
+                  <Route path="projects" element={<AdminLayout><AdminProjects /></AdminLayout>} />
+                  <Route path="products" element={<AdminLayout><AdminMaterialsCMS /></AdminLayout>} />
+                  <Route path="users" element={<AdminLayout><AdminUsers /></AdminLayout>} />
+                  <Route path="audit" element={<AdminLayout><AdminAuditLogs /></AdminLayout>} />
+                  <Route path="gallery" element={<AdminLayout><AdminMedia /></AdminLayout>} />
+                  <Route path="settings" element={<AdminLayout><AdminSettings /></AdminLayout>} />
+                </Routes>
+              </React.Suspense>
+            } />
+            <Route path="/admin" element={
+              <React.Suspense fallback={<AdminLoaderFallback />}>
+                <AdminLogin />
+              </React.Suspense>
+            } />
+          </Routes>
         </Router>
       </AuthProvider>
     </HelmetProvider>

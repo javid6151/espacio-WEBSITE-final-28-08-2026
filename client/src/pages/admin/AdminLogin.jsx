@@ -92,9 +92,10 @@ const AdminLogin = () => {
     <div className="min-h-screen bg-charcoal flex">
       {/* Left – Brand Panel */}
       <div className="hidden lg:flex flex-col justify-between w-[45%] relative overflow-hidden">
-        <img src="https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?auto=format&fit=crop&w=900&q=80"
-          alt="ESPACIO Admin" className="absolute inset-0 w-full h-full object-cover opacity-40" />
-        <div className="absolute inset-0 bg-gradient-to-br from-charcoal via-charcoal/80 to-transparent" />
+        <img src="/images/company/3bhk_lux/open_hall.png"
+          alt="ESPACIO Interiors"
+          className="w-full h-full object-cover opacity-60"
+        /><div className="absolute inset-0 bg-gradient-to-br from-charcoal via-charcoal/80 to-transparent" />
         <div className="relative z-10 px-12 pt-14">
           <span className="font-editorial text-xl font-bold text-gold tracking-widest">ESPACIO</span>
         </div>

@@ -8,3 +8,5 @@ server/uploads/
 .gemini/
 *.zip
 server/google-credentials.json
+scratch/
+

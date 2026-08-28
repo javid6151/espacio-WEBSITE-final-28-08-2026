@@ -122,7 +122,9 @@ export default function DomeGallery({
   openedImageHeight = '350px',
   imageBorderRadius = '30px',
   openedImageBorderRadius = '30px',
-  grayscale = true
+  grayscale = true,
+  autoRotate = true,
+  autoRotateSpeed = 0.08
 }) {
   const rootRef = useRef(null);
   const mainRef = useRef(null);
@@ -254,6 +256,29 @@ export default function DomeGallery({
   useEffect(() => {
     applyTransform(rotationRef.current.x, rotationRef.current.y);
   }, []);
+
+  // Continuous Auto-Rotation loop (runs smoothly when user is not manually interacting)
+  useEffect(() => {
+    if (!autoRotate) return;
+    let animId;
+    let lastTime = performance.now();
+
+    const loop = (now) => {
+      const delta = Math.min((now - lastTime) / 16.67, 2);
+      lastTime = now;
+
+      // Only auto-rotate if not manually dragging, not running flung inertia, and not focused on enlarged image
+      if (!draggingRef.current && !inertiaRAF.current && !focusedElRef.current && !openingRef.current) {
+        const nextY = wrapAngleSigned(rotationRef.current.y + autoRotateSpeed * delta);
+        rotationRef.current.y = nextY;
+        applyTransform(rotationRef.current.x, nextY);
+      }
+      animId = requestAnimationFrame(loop);
+    };
+
+    animId = requestAnimationFrame(loop);
+    return () => cancelAnimationFrame(animId);
+  }, [autoRotate, autoRotateSpeed]);
 
   const stopInertia = useCallback(() => {
     if (inertiaRAF.current) {

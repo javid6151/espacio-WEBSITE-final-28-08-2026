@@ -157,10 +157,16 @@ app.use('/api/media', mediaRoutes);
 app.use('/api/dashboard', dashboardRoutes);
 
 // Serve user-uploaded bedroom image
-app.get('/api/user-uploaded-bedroom.jpg', (req, res) => {
-  const imgPath = path.resolve('C:/Users/aksha/.gemini/antigravity-ide/brain/0deea551-f1f4-49b8-819e-76cdf5f937f0/.user_uploaded/media_1787072367913.jpg');
-  res.sendFile(imgPath);
-});
+const serveBedroomImage = (req, res) => {
+  const imgPath = path.resolve(__dirname, '../client/public/images/user_uploaded_bedroom.jpg');
+  if (fs.existsSync(imgPath)) {
+    res.sendFile(imgPath);
+  } else {
+    res.status(404).send('Image not found');
+  }
+};
+app.get('/api/user-uploaded-bedroom.jpg', serveBedroomImage);
+app.get('/user-uploaded-bedroom.jpg', serveBedroomImage);
 
 // Health check
 app.get('/api/health', (req, res) => {

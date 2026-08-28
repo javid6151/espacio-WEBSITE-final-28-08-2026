@@ -18,13 +18,16 @@ export const SITE_STATS = [
   }
 ];
 
-export const DEFAULT_CTA_BG = 'https://images.unsplash.com/photo-1512917774080-9991f1c4c750?auto=format&fit=crop&w=1000&q=70&fm=webp';
+import { COMPANY_CTA_BG } from './companyAssets.js';
+
+export const DEFAULT_CTA_BG = COMPANY_CTA_BG;
 
 export const PAGE_CTAS = {
   HOME: {
-    headline: "Ready to Transform\nYour Space?",
-    subtext: "Every great space starts with a single conversation. Let's talk about your vision and bring it to life together.",
-    buttonText: "LET'S TALK ↗",
+    headline: "Engineering. Elegance.\nExperience.",
+    subtext: "From concept to handover, we build luxury spaces with master craftsmanship and transparent pricing.",
+    buttonText: "Book Free Consultation ↗",
+    buttonHoverText: "Let's Connect ↗",
     path: "/contact",
     bgImage: DEFAULT_CTA_BG,
     opacity: 80,
@@ -33,7 +36,8 @@ export const PAGE_CTAS = {
   PROJECTS: {
     headline: "Have a Project Like\nThis in Mind?",
     subtext: "Whether you need full turnkey execution or bespoke interior design, let's build your dream space together.",
-    buttonText: "GET A FORMAL QUOTE ↗",
+    buttonText: "Get A Formal Quote ↗",
+    buttonHoverText: "Request BOQ ↗",
     path: "/contact",
     bgImage: DEFAULT_CTA_BG,
     opacity: 80,
@@ -42,7 +46,8 @@ export const PAGE_CTAS = {
   SERVICES: {
     headline: "Engineered First,\nStyled Second.",
     subtext: "Tailored interior solutions built to last generations. Contact our principal design team to discuss your scope.",
-    buttonText: "DISCUSS YOUR SERVICE ↗",
+    buttonText: "Discuss Your Project ↗",
+    buttonHoverText: "Let's Talk ↗",
     path: "/contact",
     bgImage: DEFAULT_CTA_BG,
     opacity: 80,
@@ -51,7 +56,8 @@ export const PAGE_CTAS = {
   SPACES: {
     headline: "Sculpt Your Sanctuary\nWith ESPACIO.",
     subtext: "Explore how our space planning specialists can optimize every square foot of your home or commercial suite.",
-    buttonText: "START SPACE PLANNING ↗",
+    buttonText: "Start Space Planning ↗",
+    buttonHoverText: "Book Consultation ↗",
     path: "/contact",
     bgImage: DEFAULT_CTA_BG,
     opacity: 80,
@@ -60,7 +66,8 @@ export const PAGE_CTAS = {
   MATERIALS: {
     headline: "Touch, Feel & Select\nPremium Materials.",
     subtext: "Visit our Aziznagar Experience Studio to explore over 200+ live WPC, polygranite, and acrylic samples.",
-    buttonText: "SCHEDULE STUDIO VISIT ↗",
+    buttonText: "Schedule Studio Visit ↗",
+    buttonHoverText: "Explore Samples ↗",
     path: "/contact",
     bgImage: DEFAULT_CTA_BG,
     opacity: 80,
@@ -69,7 +76,8 @@ export const PAGE_CTAS = {
   FAQS: {
     headline: "Still Have Questions\nAbout Your Project?",
     subtext: "Our design engineers are here to provide clear answers and guide your spatial decisions.",
-    buttonText: "ASK OUR TEAM ↗",
+    buttonText: "Ask Our Team ↗",
+    buttonHoverText: "Get Answers ↗",
     path: "/contact",
     bgImage: DEFAULT_CTA_BG,
     opacity: 80,
@@ -78,7 +86,8 @@ export const PAGE_CTAS = {
   ABOUT: {
     headline: "Craftsmanship That\nDefies Time.",
     subtext: "Learn how our architectural heritage and precision engineering create spaces that stand out.",
-    buttonText: "TALK TO OUR DIRECTORS ↗",
+    buttonText: "Talk To Our Directors ↗",
+    buttonHoverText: "Meet The Team ↗",
     path: "/contact",
     bgImage: DEFAULT_CTA_BG,
     opacity: 80,
@@ -87,7 +96,8 @@ export const PAGE_CTAS = {
   CONTACT: {
     headline: "Ready to Transform\nYour Space?",
     subtext: "Every great space starts with a single conversation. Let's talk about your vision and bring it to life together.",
-    buttonText: "LET'S TALK ↗",
+    buttonText: "Let's Talk ↗",
+    buttonHoverText: "Get Free Quote ↗",
     path: "/contact",
     bgImage: DEFAULT_CTA_BG,
     opacity: 80,

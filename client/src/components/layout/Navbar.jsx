@@ -95,14 +95,14 @@ const Navbar = () => {
 
   return (
     <>
-      <nav className={`${navPosition} top-0 left-0 w-full z-[100] transition-all duration-700 ${
+      <nav className={`${navPosition} top-0 left-0 w-full z-[100] transition-all duration-500 ${
         isBgTransparent
-          ? 'bg-transparent px-5 pt-[9px] lg:px-12 lg:pt-[5px]'
+          ? 'bg-transparent px-5 pt-[6px] lg:px-12 lg:pt-[3px]'
           : 'bg-bg/95 backdrop-blur-md shadow-sm px-0 pt-0'
       }`}
       >
-        <div className={`max-w-[1440px] mx-auto pl-6 pr-10 flex items-center justify-between transition-all duration-700 ${
-          isBgTransparent ? 'pt-[9px] pb-[3px]' : 'py-[5px]'
+        <div className={`max-w-[1440px] mx-auto pl-6 pr-10 flex items-center justify-between transition-all duration-500 ${
+          isBgTransparent ? 'pt-[6px] pb-[3px]' : 'py-[5px]'
         }`}>
 
           {/* Logo */}

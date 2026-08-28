@@ -10,165 +10,190 @@ const BULB   = '#FFC46B';
 /* ═══════════════════════════════════════════════════════════════════
    LARGE  – disc logo (preloader / hero), 420×420 viewBox
 ═══════════════════════════════════════════════════════════════════ */
+/* ═══════════════════════════════════════════════════════════════════
+   LARGE  – disc logo (preloader / hero), 420×420 viewBox
+═══════════════════════════════════════════════════════════════════ */
 const LargeLogo = ({ scrolled, onComplete }) => {
   const ink  = scrolled ? INK     : '#ffffff';
-  const gold = scrolled ? GOLD    : '#d4aa7d';
+  const gold = scrolled ? GOLD    : '#C9A96E';
+
+  // Precision optical kerning for ESPACIO centered at x = 210
+  const letterPositions = [
+    { ch: 'E', x: 82 },
+    { ch: 'S', x: 125 },
+    { ch: 'P', x: 168 },
+    { ch: 'A', x: 210 },
+    { ch: 'C', x: 252 },
+    { ch: 'I', x: 290 },
+    { ch: 'O', x: 330 },
+  ];
 
   return (
     <svg
-      width="320"
-      height="320"
+      width="340"
+      height="340"
       viewBox="0 0 420 420"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
       style={{ userSelect: 'none' }}
     >
       <defs>
-        <radialGradient id="glowGradLarge" cx="50%" cy="50%" r="50%">
-          <stop offset="0%"   stopColor={BULB} stopOpacity="0.9" />
-          <stop offset="100%" stopColor={BULB} stopOpacity="0"   />
+        <radialGradient id="glowGradLarge" cx="50%" cy="30%" r="60%">
+          <stop offset="0%"   stopColor={BULB} stopOpacity="1" />
+          <stop offset="45%"  stopColor={BULB} stopOpacity="0.45" />
+          <stop offset="100%" stopColor={BULB} stopOpacity="0" />
         </radialGradient>
         <linearGradient id="spotlightGlowLarge" x1="0" y1="0" x2="0" y2="1">
-          <stop offset="0%" stopColor={BULB} stopOpacity="0.35" />
-          <stop offset="40%" stopColor={BULB} stopOpacity="0.15" />
+          <stop offset="0%" stopColor={BULB} stopOpacity="0.5" />
+          <stop offset="30%" stopColor={BULB} stopOpacity="0.25" />
           <stop offset="100%" stopColor={BULB} stopOpacity="0" />
         </linearGradient>
       </defs>
 
-      {/* bulb glow (behind cone) */}
-      <motion.circle
-        cx="185" cy="175" r="32"
+      {/* ── 1. BULB GLOW & SPOTLIGHT (Warm ambient illumination under lamp) ── */}
+      <motion.ellipse
+        cx="151" cy="150" rx="38" ry="24"
         fill="url(#glowGradLarge)"
-        initial={{ opacity: 0 }}
-        animate={{ opacity: [0, 0.55, 0.15, 0.7, 0.3, 0.6, 0.55] }}
-        transition={{ delay: 1.5, duration: 1.6, repeat: Infinity, ease: 'easeInOut' }}
+        initial={{ opacity: 0, scale: 0.7 }}
+        animate={{ 
+          opacity: [0, 0.85, 0.4, 0.95, 0.6, 0.9, 0.85],
+          scale: [0.7, 1.05, 0.95, 1.1, 1, 1.05, 1]
+        }}
+        transition={{ delay: 1.1, duration: 2.2, repeat: Infinity, ease: 'easeInOut' }}
       />
 
-      {/* spotlight cone of light */}
+      {/* Spotlight cone extending downward */}
       <motion.path
-        d="M 176 178 L 118 255 H 252 L 194 178 Z"
+        d="M 133 136 L 90 230 H 212 L 169 136 Z"
         fill="url(#spotlightGlowLarge)"
         initial={{ opacity: 0 }}
-        animate={{ opacity: [0.65, 0.8, 0.7, 0.9, 0.75, 0.8] }}
-        transition={{ delay: 1.2, duration: 2.2, repeat: Infinity, ease: 'easeInOut' }}
+        animate={{ opacity: [0.6, 0.9, 0.7, 0.95, 0.75, 0.85] }}
+        transition={{ delay: 1.1, duration: 2.2, repeat: Infinity, ease: 'easeInOut' }}
         style={{ pointerEvents: 'none' }}
       />
 
-      {/* T-bar */}
+      {/* ── 2. HANGING LAMP FIXTURE (Top Left) ── */}
+      {/* T-bar horizontal top */}
       <motion.path
-        d="M155 108 H215"
-        fill="none" stroke={ink} strokeWidth="6" strokeLinecap="square"
+        d="M120 70 H182"
+        stroke={ink} strokeWidth="7" strokeLinecap="square"
         initial={{ pathLength: 0 }} animate={{ pathLength: 1 }}
-        transition={{ delay: 0.35, duration: 0.55, ease: [0.65, 0, 0.35, 1] }}
+        transition={{ delay: 0.2, duration: 0.45, ease: [0.65, 0, 0.35, 1] }}
       />
-      {/* T-stem */}
+      {/* T-stem vertical line */}
       <motion.path
-        d="M185 108 V150"
-        fill="none" stroke={ink} strokeWidth="6" strokeLinecap="square"
+        d="M151 70 V108"
+        stroke={ink} strokeWidth="7" strokeLinecap="square"
         initial={{ pathLength: 0 }} animate={{ pathLength: 1 }}
-        transition={{ delay: 0.55, duration: 0.45, ease: [0.65, 0, 0.35, 1] }}
+        transition={{ delay: 0.4, duration: 0.35, ease: [0.65, 0, 0.35, 1] }}
       />
-
-      {/* lamp cone */}
+      {/* Lamp cone shade */}
       <motion.path
-        d="M185 150 L165 178 H205 Z"
+        d="M151 108 L133 136 H169 Z"
         fill={ink}
-        style={{ transformOrigin: '185px 150px' }}
-        initial={{ opacity: 0, y: -14, scaleY: 0.6 }}
-        animate={{ opacity: 1,  y: 0,   scaleY: 1   }}
-        transition={{ delay: 0.9, duration: 0.7, ease: [0.2, 0.9, 0.3, 1.2] }}
+        style={{ transformOrigin: '151px 108px' }}
+        initial={{ opacity: 0, y: -12, scaleY: 0.6 }}
+        animate={{ opacity: 1, y: 0, scaleY: 1 }}
+        transition={{ delay: 0.7, duration: 0.55, ease: [0.2, 0.9, 0.3, 1.2] }}
       />
-
-      {/* bulb core */}
-      <motion.circle
-        cx="185" cy="182" r="6"
-        fill={BULB}
+      {/* Bulb light filament */}
+      <motion.line
+        x1="140" y1="138" x2="162" y2="138"
+        stroke={BULB} strokeWidth="3" strokeLinecap="round"
         initial={{ opacity: 0 }}
-        animate={{ opacity: [0, 1, 0.3, 1, 0.5, 1] }}
-        transition={{ delay: 1.5, duration: 1.6, repeat: Infinity, ease: 'easeInOut' }}
+        animate={{ opacity: [0, 1, 0.4, 1, 0.7, 1] }}
+        transition={{ delay: 1.1, duration: 1.8, repeat: Infinity, ease: 'easeInOut' }}
       />
 
-      {/* right bracket */}
+      {/* ── 3. OUTER FRAMING CORNERS ── */}
+      {/* Top-Right Bracket: Starts right of T-bar, goes right to corner, then down to bottom right */}
       <motion.path
-        d="M225 108 H290 V255"
-        fill="none" stroke={ink} strokeWidth="6" strokeLinecap="square" strokeLinejoin="miter"
+        d="M204 70 H300 V250"
+        fill="none" stroke={ink} strokeWidth="7" strokeLinecap="square" strokeLinejoin="miter"
         initial={{ pathLength: 0 }} animate={{ pathLength: 1 }}
-        transition={{ delay: 0.45, duration: 0.9, ease: [0.65, 0, 0.35, 1] }}
+        transition={{ delay: 0.35, duration: 0.75, ease: [0.65, 0, 0.35, 1] }}
       />
-      {/* L-shape left + bottom */}
+
+      {/* Bottom-Left Bracket: Starts below lamp, goes down to bottom left corner, then across to bottom right */}
       <motion.path
-        d="M155 178 V255 H290"
-        fill="none" stroke={ink} strokeWidth="6" strokeLinecap="square" strokeLinejoin="miter"
+        d="M120 160 V250 H300"
+        fill="none" stroke={ink} strokeWidth="7" strokeLinecap="square" strokeLinejoin="miter"
         initial={{ pathLength: 0 }} animate={{ pathLength: 1 }}
-        transition={{ delay: 0.75, duration: 0.9, ease: [0.65, 0, 0.35, 1] }}
+        transition={{ delay: 0.6, duration: 0.8, ease: [0.65, 0, 0.35, 1] }}
       />
 
-      {/* E glyph (right side) */}
+      {/* ── 4. ARCHITECTURAL 'E' GLYPH (Inside Lower Right) ── */}
       <motion.path
-        d="M240 168 H278 M240 168 V210 M240 190 H270 M240 210 H278"
-        fill="none" stroke={ink} strokeWidth="6" strokeLinecap="square"
-        initial={{ opacity: 0, y: 8 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ delay: 1.05, duration: 0.6, ease: 'easeOut' }}
+        d="M236 152 H280 M236 152 V226 M236 189 H270 M236 226 H280"
+        fill="none" stroke={ink} strokeWidth="7" strokeLinecap="square" strokeLinejoin="miter"
+        initial={{ pathLength: 0, opacity: 0 }}
+        animate={{ pathLength: 1, opacity: 1 }}
+        transition={{ delay: 0.9, duration: 0.65, ease: [0.25, 1, 0.5, 1] }}
       />
 
-      {/* wordmark ESPACIO – each letter rises individually */}
-      {['E','S','P','A','C','I','O'].map((ch, i) => (
+      {/* ── 5. WORDMARK ESPACIO ── */}
+      {letterPositions.map(({ ch, x }, i) => (
         <motion.text
           key={i}
-          fontSize="50"
-          fontFamily="'Gotham Medium', 'Gotham Book', 'Gotham', 'Montserrat', sans-serif"
-          fontWeight="500"
+          fontSize="46"
+          fontFamily="'Montserrat', 'Gotham Medium', 'Gotham Book', sans-serif"
+          fontWeight="600"
           fill={ink}
           textAnchor="middle"
-          x={210 - 3 * 38 + i * 38}
-          y="308"
-          initial={{ opacity: 0, y: 10 }}
+          x={x}
+          y="306"
+          initial={{ opacity: 0, y: 14 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 1.65 + i * 0.07, duration: 0.55, ease: 'easeOut' }}
+          transition={{ delay: 1.4 + i * 0.07, duration: 0.45, ease: [0.25, 1, 0.5, 1] }}
         >
           {ch}
         </motion.text>
       ))}
 
-      {/* gold divider – left arm */}
+      {/* ── 6. GOLD DIVIDER & ROTATED DIAMOND ── */}
+      {/* Left arm */}
       <motion.line
-        x1="90" y1="335" x2="170" y2="335"
-        stroke={gold} strokeWidth="2"
-        style={{ transformOrigin: '170px 335px' }}
+        x1="86" y1="332" x2="186" y2="332"
+        stroke={gold} strokeWidth="1.8"
+        style={{ transformOrigin: '186px 332px' }}
         initial={{ scaleX: 0 }} animate={{ scaleX: 1 }}
-        transition={{ delay: 2.35, duration: 0.5, ease: 'easeOut' }}
+        transition={{ delay: 2.1, duration: 0.45, ease: 'easeOut' }}
       />
-      {/* diamond dot */}
+      {/* Central Gold Diamond */}
       <motion.rect
-        x="206" y="331" width="8" height="8"
+        x="206.5" y="328.5" width="7" height="7"
         fill={gold}
-        style={{ transformOrigin: '210px 335px' }}
+        style={{ transformOrigin: '210px 332px', transform: 'rotate(45deg)' }}
         initial={{ opacity: 0, scale: 0 }} animate={{ opacity: 1, scale: 1 }}
-        transition={{ delay: 2.55, duration: 0.4, ease: [0, 0, 0.4, 1.4] }}
+        transition={{ delay: 2.3, duration: 0.35, ease: [0, 0, 0.4, 1.4] }}
       />
-      {/* gold divider – right arm */}
+      {/* Right arm */}
       <motion.line
-        x1="250" y1="335" x2="330" y2="335"
-        stroke={gold} strokeWidth="2"
-        style={{ transformOrigin: '250px 335px' }}
+        x1="234" y1="332" x2="334" y2="332"
+        stroke={gold} strokeWidth="1.8"
+        style={{ transformOrigin: '234px 332px' }}
         initial={{ scaleX: 0 }} animate={{ scaleX: 1 }}
-        transition={{ delay: 2.35, duration: 0.5, ease: 'easeOut' }}
+        transition={{ delay: 2.1, duration: 0.45, ease: 'easeOut' }}
       />
 
-      {/* subtitle */}
+      {/* ── 7. SUBTITLE: INTERIORS AND MODULAR ── */}
       <motion.text
-        fontSize="13"
-        fontFamily="'Gotham Medium', 'Gotham Book', 'Gotham', 'Montserrat', sans-serif"
-        letterSpacing="8"
+        fontSize="11"
+        fontFamily="'Montserrat', 'Gotham Medium', 'Gotham Book', sans-serif"
+        letterSpacing="7"
         fontWeight="500"
         fill={ink}
         textAnchor="middle"
-        x="210" y="362"
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ delay: 2.7, duration: 0.7, ease: 'easeOut' }}
-        onAnimationComplete={() => onComplete && onComplete()}
+        x="210" y="358"
+        initial={{ opacity: 0, y: 5 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ delay: 2.45, duration: 0.55, ease: 'easeOut' }}
+        onAnimationComplete={() => {
+          // Allow tagline animation & hold before triggering curtain lift
+          setTimeout(() => {
+            if (onComplete) onComplete();
+          }, 1900);
+        }}
       >
         INTERIORS AND MODULAR
       </motion.text>
@@ -177,8 +202,7 @@ const LargeLogo = ({ scrolled, onComplete }) => {
 };
 
 /* ═══════════════════════════════════════════════════════════════════
-   EMBLEM – reusable compact icon with glowing/flickering bulb
-   and inner 'E' glyph. Used in both headers and bottom menus.
+   EMBLEM – reusable compact icon with exact matching geometry
    ═══════════════════════════════════════════════════════════════════ */
 const LogoEmblem = ({ scrolled, size = 52, isHovered = false }) => {
   const ink = scrolled ? INK : '#ffffff';
@@ -186,73 +210,82 @@ const LogoEmblem = ({ scrolled, size = 52, isHovered = false }) => {
   return (
     <svg width={size} height={size} viewBox="0 0 120 120" fill="none" xmlns="http://www.w3.org/2000/svg">
       <defs>
-        <radialGradient id={`glowGradEmblem-${scrolled ? 'light' : 'dark'}`} cx="42%" cy="45%" r="40%">
-          <stop offset="0%"   stopColor={BULB} stopOpacity="0.85" />
-          <stop offset="100%" stopColor={BULB} stopOpacity="0"    />
+        <radialGradient id={`glowGradEmblem-${scrolled ? 'light' : 'dark'}`} cx="50%" cy="30%" r="55%">
+          <stop offset="0%"   stopColor={BULB} stopOpacity="0.9" />
+          <stop offset="100%" stopColor={BULB} stopOpacity="0"   />
         </radialGradient>
         <linearGradient id={`spotlightGlowEmblem-${scrolled ? 'light' : 'dark'}`} x1="0" y1="0" x2="0" y2="1">
           <stop offset="0%" stopColor={BULB} stopOpacity="0.4" />
-          <stop offset="40%" stopColor={BULB} stopOpacity="0.18" />
           <stop offset="100%" stopColor={BULB} stopOpacity="0" />
         </linearGradient>
       </defs>
 
-      {/* frame */}
+      {/* Top-Right Bracket */}
       <motion.path
-        d="M32 55 V95 H95 V30 H50"
-        stroke={ink} strokeWidth="5" strokeLinecap="round" strokeLinejoin="round"
+        d="M58 20 H98 V98"
+        stroke={ink} strokeWidth="4.5" strokeLinecap="square" strokeLinejoin="miter"
         initial={{ pathLength: 0 }} animate={{ pathLength: 1 }}
-        transition={{ duration: 0.7, ease: [0.25, 1, 0.5, 1] }}
+        transition={{ duration: 0.6, ease: [0.25, 1, 0.5, 1] }}
       />
+
+      {/* Bottom-Left Bracket */}
+      <motion.path
+        d="M22 60 V98 H98"
+        stroke={ink} strokeWidth="4.5" strokeLinecap="square" strokeLinejoin="miter"
+        initial={{ pathLength: 0 }} animate={{ pathLength: 1 }}
+        transition={{ duration: 0.6, delay: 0.15, ease: [0.25, 1, 0.5, 1] }}
+      />
+
       {/* T-bar */}
       <motion.path
-        d="M32 30 H57"
-        stroke={ink} strokeWidth="4" strokeLinecap="round"
+        d="M22 20 H50"
+        stroke={ink} strokeWidth="4.5" strokeLinecap="square"
         initial={{ pathLength: 0 }} animate={{ pathLength: 1 }}
-        transition={{ delay: 0.2, duration: 0.35, ease: 'easeInOut' }}
+        transition={{ delay: 0.1, duration: 0.35, ease: 'easeInOut' }}
       />
-      {/* bulb glow (glows only when hovered) */}
-      <motion.circle cx="43" cy="53" r="16" fill={`url(#glowGradEmblem-${scrolled ? 'light' : 'dark'})`}
-        initial={{ opacity: 0 }}
-        animate={isHovered ? { opacity: [0.3, 0.8, 0.2, 0.9, 0.3, 0.8] } : { opacity: 0 }}
-        transition={isHovered ? { duration: 1.8, repeat: Infinity, ease: 'easeInOut' } : { duration: 0.3 }}
-      />
-      {/* spotlight cone of light (glows only when hovered) */}
+
+      {/* T-stem */}
       <motion.path
-        d="M 40 54 L 24 95 H 65 L 49 54 Z"
-        fill={`url(#spotlightGlowEmblem-${scrolled ? 'light' : 'dark'})`}
-        initial={{ opacity: 0 }}
-        animate={isHovered ? { opacity: [0.65, 0.8, 0.7, 0.9, 0.75, 0.8] } : { opacity: 0 }}
-        transition={isHovered ? { duration: 2.2, repeat: Infinity, ease: 'easeInOut' } : { duration: 0.3 }}
-        style={{ pointerEvents: 'none' }}
+        d="M36 20 V38"
+        stroke={ink} strokeWidth="4.5" strokeLinecap="square"
+        initial={{ pathLength: 0 }} animate={{ pathLength: 1 }}
+        transition={{ delay: 0.2, duration: 0.25, ease: 'easeInOut' }}
       />
-      {/* swinging lamp body */}
-      <motion.g
-        style={{ transformOrigin: '44.5px 30px' }}
-        initial={{ rotate: 0, opacity: 0, scaleY: 0.6 }}
-        animate={{ rotate: [0, 10, -7, 4, -2, 0], opacity: 1, scaleY: 1 }}
-        transition={{ delay: 0.55, duration: 1.3, ease: [0.16, 1, 0.3, 1] }}
-      >
-        <path d="M44.5 30 V44" stroke={ink} strokeWidth="3.5" strokeLinecap="round" />
-        <polygon points="44.5,44 36,54 53,54" fill={ink} />
-        {/* filament/light line (glows only when hovered) */}
-        <motion.line x1="39" y1="56" x2="50" y2="56"
-          stroke={BULB} strokeWidth="2.5" strokeLinecap="round"
-          initial={{ opacity: 0 }}
-          animate={isHovered ? { opacity: [0.1, 1, 0.3, 1, 0.4, 1] } : { opacity: 0 }}
-          transition={isHovered ? { duration: 1.8, repeat: Infinity, ease: 'easeInOut' } : { duration: 0.3 }}
-        />
-      </motion.g>
+
+      {/* Lamp cone */}
+      <motion.path
+        d="M36 38 L25 52 H47 Z"
+        fill={ink}
+        initial={{ opacity: 0, scaleY: 0.6 }}
+        animate={{ opacity: 1, scaleY: 1 }}
+        transition={{ delay: 0.3, duration: 0.4 }}
+      />
+
+      {/* Bulb filament line (glows continuously or on hover) */}
+      <motion.line
+        x1="29" y1="53" x2="43" y2="53"
+        stroke={BULB} strokeWidth="2" strokeLinecap="round"
+        initial={{ opacity: 0 }}
+        animate={isHovered ? { opacity: [0.2, 1, 0.4, 1] } : { opacity: 0.8 }}
+        transition={{ duration: 1.5, repeat: Infinity, ease: 'easeInOut' }}
+      />
+
+      {/* Bulb glow under lamp */}
+      <motion.ellipse
+        cx="36" cy="58" rx="14" ry="9"
+        fill={`url(#glowGradEmblem-${scrolled ? 'light' : 'dark'})`}
+        initial={{ opacity: 0 }}
+        animate={isHovered ? { opacity: [0.4, 0.9, 0.3, 0.9] } : { opacity: 0.65 }}
+        transition={{ duration: 1.8, repeat: Infinity, ease: 'easeInOut' }}
+      />
+
       {/* E glyph */}
-      <motion.g stroke={ink} strokeWidth="4" strokeLinecap="round"
+      <motion.path
+        d="M68 52 H90 M68 52 V86 M68 69 H85 M68 86 H90"
+        stroke={ink} strokeWidth="4.5" strokeLinecap="square" strokeLinejoin="miter"
         initial={{ opacity: 0 }} animate={{ opacity: 1 }}
-        transition={{ delay: 0.7, duration: 0.4 }}
-      >
-        <line x1="70" y1="54" x2="70" y2="86" />
-        <line x1="70" y1="54" x2="88" y2="54" />
-        <line x1="70" y1="70" x2="85" y2="70" />
-        <line x1="70" y1="86" x2="88" y2="86" />
-      </motion.g>
+        transition={{ delay: 0.45, duration: 0.4 }}
+      />
     </svg>
   );
 };
@@ -262,26 +295,26 @@ const LogoEmblem = ({ scrolled, size = 52, isHovered = false }) => {
    ═══════════════════════════════════════════════════════════════════ */
 const SmallLogo = ({ scrolled, isHovered }) => {
   const ink  = scrolled ? INK     : '#ffffff';
-  const gold = scrolled ? GOLD    : '#d4aa7d';
-  const sub  = scrolled ? '#3d3d47' : 'rgba(255,255,255,0.6)';
+  const gold = scrolled ? GOLD    : '#C9A96E';
+  const sub  = scrolled ? '#3d3d47' : 'rgba(255,255,255,0.7)';
 
   return (
-    <div className="flex flex-row items-center gap-1 select-none">
+    <div className="flex flex-row items-center gap-1.5 select-none">
       {/* compact emblem */}
-      <LogoEmblem scrolled={scrolled} size={74} isHovered={isHovered} />
+      <LogoEmblem scrolled={scrolled} size={70} isHovered={isHovered} />
 
       {/* text block */}
       <motion.div
-        className="flex flex-col justify-center -ml-2"
+        className="flex flex-col justify-center -ml-1.5"
         initial={{ opacity: 0, x: -6 }}
         animate={{ opacity: 1, x: 0 }}
-        transition={{ delay: 0.7, duration: 0.45, ease: 'easeOut' }}
+        transition={{ delay: 0.4, duration: 0.45, ease: 'easeOut' }}
       >
         <span style={{
-          fontFamily: "'Gotham Medium', 'Gotham Book', 'Gotham', 'Montserrat', sans-serif",
-          fontSize: '22px',
-          letterSpacing: '0.4em',
-          fontWeight: 500,
+          fontFamily: "'Montserrat', 'Gotham Medium', 'Gotham Book', sans-serif",
+          fontSize: '21px',
+          letterSpacing: '0.38em',
+          fontWeight: 600,
           color: ink,
           lineHeight: 1,
           transition: 'color 0.3s',
@@ -289,14 +322,14 @@ const SmallLogo = ({ scrolled, isHovered }) => {
           ESPACIO
         </span>
         <div style={{ display: 'flex', alignItems: 'center', gap: '5px', margin: '3px 0' }}>
-          <span style={{ height: '1px', width: '36px', background: gold, display: 'block', transition: 'background 0.3s' }} />
+          <span style={{ height: '1px', width: '34px', background: gold, display: 'block', transition: 'background 0.3s' }} />
           <span style={{ width: '4px', height: '4px', background: gold, transform: 'rotate(45deg)', display: 'block', transition: 'background 0.3s' }} />
-          <span style={{ height: '1px', width: '36px', background: gold, display: 'block', transition: 'background 0.3s' }} />
+          <span style={{ height: '1px', width: '34px', background: gold, display: 'block', transition: 'background 0.3s' }} />
         </div>
         <span style={{
-          fontFamily: "'Gotham Medium', 'Gotham Book', 'Gotham', 'Montserrat', sans-serif",
-          fontSize: '7.5px',
-          letterSpacing: '0.38em',
+          fontFamily: "'Montserrat', 'Gotham Medium', 'Gotham Book', sans-serif",
+          fontSize: '7px',
+          letterSpacing: '0.36em',
           fontWeight: 500,
           color: sub,
           textTransform: 'uppercase',

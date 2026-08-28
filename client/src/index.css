@@ -56,10 +56,10 @@
   --color-ink-border:    #e6e6e6;
   --color-ink-line:      #d0d1db;
 
-  /* Accent — Warm Luxury Gold (WCAG AA Compliant) */
-  --color-gold:          #8C662D;
-  --color-gold-light:    #C9A96E;
-  --color-gold-hover:    #735322;
+  /* Accent — Warm Luxury Gold */
+  --color-gold:          #C9A96E;
+  --color-gold-light:    #E8D5AD;
+  --color-gold-hover:    #B8924A;
 
   /* Legacy aliases */
   --color-cream:         #F8F5F0;
@@ -122,6 +122,13 @@
     background-color: #C9A96E;
     color: #101014;
   }
+
+  img {
+    image-rendering: -webkit-optimize-contrast;
+    image-rendering: high-quality;
+    -webkit-backface-visibility: hidden;
+    backface-visibility: hidden;
+  }
 }
 
 /* ── Scrollbar ───────────────────────────────────────────────────────────────── */
@@ -129,25 +136,6 @@
 ::-webkit-scrollbar-track { background: #fafafa; }
 ::-webkit-scrollbar-thumb { background: #d0d1db; border-radius: 999px; }
 ::-webkit-scrollbar-thumb:hover { background: #C9A96E; }
-
-/* ── Custom Cursor ───────────────────────────────────────────────────────────── */
-.custom-cursor {
-  width: 20px; height: 20px;
-  border: 1.5px solid #101014;
-  border-radius: 50%; position: fixed;
-  transform: translate(-50%, -50%);
-  pointer-events: none; z-index: 9999;
-  transition: width 0.3s cubic-bezier(0.16, 1, 0.3, 1),
-              height 0.3s cubic-bezier(0.16, 1, 0.3, 1),
-              background-color 0.3s ease,
-              border-color 0.3s ease;
-  mix-blend-mode: multiply;
-}
-.custom-cursor-hover {
-  width: 44px; height: 44px;
-  background-color: rgba(201, 169, 110, 0.15);
-  border-color: #C9A96E;
-}
 
 /* ── Slider ──────────────────────────────────────────────────────────────────── */
 .slider-handle-drag { cursor: ew-resize; }
@@ -301,9 +289,13 @@
 
 /* ── sliding-rolling cta button ─────────────────────────────────────────────── */
 .btn-sliding-cta {
-  display: inline-block;
-  width: 160px;
-  height: 52px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 0;
+  width: auto;
+  padding: 0 22px;
+  height: 44px;
   background: transparent;
   color: #fff !important;
   border-radius: 50px;
@@ -314,21 +306,24 @@
   overflow: hidden;
   font-family: var(--font-sans), system-ui, sans-serif;
   text-decoration: none;
+  white-space: nowrap;
   transition: background-color 0.45s ease, border-color 0.45s ease, color 0.45s ease, box-shadow 0.45s ease;
 }
 
 .btn-sliding-cta span {
-  font-size: 13px;
+  font-size: 12px;
   font-weight: 600;
   text-transform: uppercase;
-  letter-spacing: 1px;
+  letter-spacing: 0.8px;
   transition: top 0.4s cubic-bezier(0.16, 1, 0.3, 1);
   display: block;
+  white-space: nowrap;
 }
 
 .btn-sliding-cta-text-one {
   position: absolute;
   width: 100%;
+  text-align: center;
   top: 50%;
   left: 0;
   transform: translateY(-50%);
@@ -337,6 +332,7 @@
 .btn-sliding-cta-text-two {
   position: absolute;
   width: 100%;
+  text-align: center;
   top: 150%;
   left: 0;
   transform: translateY(-50%);
@@ -359,9 +355,13 @@
 
 /* ── sliding-rolling cta button (dark version for light backgrounds) ── */
 .btn-sliding-cta-dark {
-  display: inline-block;
-  width: 160px;
-  height: 48px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 0;
+  width: auto;
+  padding: 0 22px;
+  height: 44px;
   background: transparent;
   color: #101014 !important;
   border-radius: 50px;
@@ -372,22 +372,24 @@
   overflow: hidden;
   font-family: var(--font-sans), system-ui, sans-serif;
   text-decoration: none;
-  text-align: center;
+  white-space: nowrap;
   transition: background-color 0.45s ease, border-color 0.45s ease, color 0.45s ease, box-shadow 0.45s ease;
 }
 
 .btn-sliding-cta-dark span {
-  font-size: 13px;
+  font-size: 12px;
   font-weight: 600;
   text-transform: uppercase;
-  letter-spacing: 1px;
+  letter-spacing: 0.8px;
   transition: top 0.4s cubic-bezier(0.16, 1, 0.3, 1);
   display: block;
+  white-space: nowrap;
 }
 
 .btn-sliding-cta-dark-text-one {
   position: absolute;
   width: 100%;
+  text-align: center;
   top: 50%;
   left: 0;
   transform: translateY(-50%);
@@ -396,6 +398,7 @@
 .btn-sliding-cta-dark-text-two {
   position: absolute;
   width: 100%;
+  text-align: center;
   top: 150%;
   left: 0;
   transform: translateY(-50%);
@@ -517,5 +520,39 @@ html.lenis, html.lenis body {
 
 .lenis-scrolling iframe {
   pointer-events: none;
+}
+
+/* ── Hardware-Accelerated Infinite Marquee for Hero Parallax ── */
+@keyframes marquee-left {
+  0% {
+    transform: translate3d(0, 0, 0);
+  }
+  100% {
+    transform: translate3d(-33.333%, 0, 0);
+  }
+}
+
+@keyframes marquee-right {
+  0% {
+    transform: translate3d(-33.333%, 0, 0);
+  }
+  100% {
+    transform: translate3d(0, 0, 0);
+  }
+}
+
+.animate-marquee-row1 {
+  animation: marquee-left 42s linear infinite;
+  will-change: transform;
+}
+
+.animate-marquee-row2 {
+  animation: marquee-right 42s linear infinite;
+  will-change: transform;
+}
+
+.animate-marquee-row1:hover,
+.animate-marquee-row2:hover {
+  animation-play-state: paused;
 }
 

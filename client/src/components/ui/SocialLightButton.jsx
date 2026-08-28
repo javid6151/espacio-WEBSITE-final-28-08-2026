@@ -12,7 +12,7 @@ export const SocialLightButton = ({
       href={href}
       target="_blank"
       rel="noopener noreferrer"
-      className="relative h-[110px] w-[80px] flex items-end justify-center select-none outline-none group"
+      className="social-light-btn relative h-[110px] w-[80px] flex items-end justify-center select-none outline-none group"
       aria-label={`Follow us on ${label}`}
     >
       {/* 1. Vertical Light Emitter Holder (spotlight dot + beam) */}
@@ -63,14 +63,14 @@ export const SocialLightButton = ({
 
       {/* Hover class overrides for icon filling */}
       <style>{`
-        .group:hover div {
-          color: var(--hover-color) !important;
+        .social-light-btn:hover div {
+          color: var(--hover-color);
         }
-        .group:hover span {
-          color: var(--hover-color) !important;
+        .social-light-btn:hover span {
+          color: var(--hover-color);
         }
-        .group:hover svg {
-          stroke: var(--hover-color) !important;
+        .social-light-btn:hover svg {
+          stroke: var(--hover-color);
         }
       `}</style>
     </a>

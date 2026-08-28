@@ -4,6 +4,7 @@ import { motion, AnimatePresence, useInView, useScroll, useTransform } from 'fra
 import { ArrowUpRight, CheckCircle2, MessageSquare, Compass, Layers, Palette, Settings } from 'lucide-react';
 import SEO from '../components/common/SEO';
 import HeroSlideshow from '../components/common/HeroSlideshow';
+import ScrollDownIndicator from '../components/common/ScrollDownIndicator';
 import { Button as MovingBorderButton } from '../components/ui/moving-border';
 import { BorderDrawingCard } from '../components/ui/BorderDrawingCard';
 import { getOptimizedImageUrl } from '../utils/imageOptimizer';
@@ -47,7 +48,7 @@ const services = [
     tag: 'Turnkey Design & Build', 
     desc: 'Bespoke residential interior architecture engineered from concept to final handover. We integrate custom modular joinery, lighting layouts, and premium wall finishes into a seamless turnkey execution.', 
     includes: ['Living & Dining Spatial Architecture', 'Custom Modular Wardrobe Systems', 'Ergonomic Modular Kitchen Layouts', 'Ambient Cove & Architectural Lighting', 'Curated Wall & Surface Textures', 'Turnkey Execution & Project Oversight'], 
-    img: 'https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=900&q=80',
+    img: '/images/company/2bhk_mordern_retro/hall.jpg',
     ctaText: 'Enquire About Interior Design'
   },
   { 
@@ -56,7 +57,7 @@ const services = [
     tag: 'Workspaces & Retail', 
     desc: 'High-tolerance commercial fit-outs for corporate offices, experience centers, and retail environments. Engineered for acoustic optimization, brand elevation, and maximum workspace efficiency.', 
     includes: ['Corporate Office Spatial Planning', 'Retail & Studio Flow Optimization', 'Acoustic WPC Conference Suites', 'Ergonomic Workstation Clusters', 'Tech & AV Concealed Channels', 'Turnkey Commercial Buildout'], 
-    img: 'https://images.unsplash.com/photo-1497366754035-f200968a6e72?auto=format&fit=crop&w=900&q=90',
+    img: '/images/company/2bhk_mordern_retro/office_3.jpg',
     ctaText: 'Enquire About Modular Solutions'
   },
   { 
@@ -65,7 +66,7 @@ const services = [
     tag: 'Curated Styling', 
     desc: 'Tailored aesthetic curation, soft furnishings, and architectural accent styling. Designed to harmonize color palettes, art installations, and spatial lighting into a cohesive luxury statement.', 
     includes: ['Bespoke Art & Wall Installations', 'Luxury Soft Furnishing Selection', 'Architectural Accent & Mood Lighting', 'Indoor Botanical & Greenery Curation', 'Harmonized Color & Texture Audits', 'Turnkey Final Styling Installation'], 
-    img: 'https://images.unsplash.com/photo-1586023492125-27b2c045efd7?auto=format&fit=crop&w=900&q=80',
+    img: '/images/company/indo_classical_elegance_3bhk/3BHK-Guest_restaurant_4-20260810-164320.jpg',
     ctaText: 'Enquire About Styling & Decor'
   },
   { 
@@ -74,7 +75,7 @@ const services = [
     tag: 'Upgrade Existing Spaces', 
     desc: 'Transforming existing residential and commercial properties into modern architectural showcases. Complete structural upgrades, re-wiring, and finish overhauls handled without multi-vendor hassle.', 
     includes: ['Full Kitchen & Bath Overhauls', 'Living Area Structural Spatial Redesign', 'Precision Electrical & Plumbing Re-lay', 'Italian Marble & Flooring Replacement', 'Custom Ceiling & Louver Upgrades', 'Complete Turnkey Project Management'], 
-    img: 'https://images.unsplash.com/photo-1600566753190-17f0baa2a6c3?auto=format&fit=crop&w=900&q=80',
+    img: '/images/company/3bhk_lux/open_hall2.png',
     ctaText: 'Enquire About Turnkey Renovation'
   },
   { 
@@ -83,7 +84,7 @@ const services = [
     tag: 'Direct Warehouse Sourcing', 
     desc: 'Direct access to our extensive inventory of WPC wall & ceiling panels, polygranite sheets, acrylic fluted louvers, and hardware. Available for standalone purchase directly from our Aziznagar warehouse.', 
     includes: ['WPC Wall & Exterior Cladding Panels', 'Polygranite & High-Gloss Acrylic Sheets', 'Charcoal & Wood Grain Fluted Louvers', 'Architectural Trim & Edge Hardware', 'Standalone Wholesale & Retail Purchase', 'Rapid Delivery from Hyderabad Godowns'], 
-    img: 'https://images.unsplash.com/photo-1618219908412-a29a1bb7b86e?auto=format&fit=crop&w=900&q=80',
+    img: '/images/services/service_materials.jpg',
     ctaText: 'Enquire About Materials',
     hasSecondaryLink: true
   },
@@ -111,12 +112,10 @@ const getStepIcon = (step) => {
 };
 
 const heroImages = [
-  'https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?auto=format&fit=crop&w=1920&q=90',
-  'https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=1920&q=90',
-  'https://images.unsplash.com/photo-1616594039964-ae9021a400a0?auto=format&fit=crop&w=1920&q=90',
-  'https://images.unsplash.com/photo-1618219908412-a29a1bb7b86e?auto=format&fit=crop&w=1920&q=90',
-  'https://images.unsplash.com/photo-1497366216548-37526070297c?auto=format&fit=crop&w=1920&q=90',
-  'https://images.unsplash.com/photo-1613977257363-707ba9348227?auto=format&fit=crop&w=1920&q=90',
+  '/images/services/service_hero_1.jpg',
+  '/images/services/service_hero_2.jpg',
+  '/images/services/service_hero_3.jpg',
+  '/images/services/service_hero_4.jpg'
 ];
 
 import { getCMSData, STORAGE_KEYS } from '../utils/cmsStore';
@@ -139,7 +138,7 @@ const Services = () => {
       badge: getNonEmpty(s?.services_hero_badge, 'Services'),
       title: getNonEmpty(s?.services_hero_title, 'Our Services'),
       subtitle: getNonEmpty(s?.services_hero_subtitle, 'Turnkey design and build with engineering tolerances. No templates. No hidden package tricks.'),
-      images: (Array.isArray(s?.services_hero_images) && s.services_hero_images.length > 0) ? s.services_hero_images : heroImages,
+      images: heroImages,
       visible: true
     };
   });
@@ -195,44 +194,54 @@ const Services = () => {
     };
   }, []);
 
-
-  const { scrollYProgress } = useScroll({ target: heroRef, offset: ['start start', 'end end'] });
-  const bgScale = useTransform(scrollYProgress, [0, 1], [1.05, 0.95]);
-  const bgY     = useTransform(scrollYProgress, [0, 1], ['0%', '8%']);
+  const { scrollYProgress } = useScroll({ target: heroRef, offset: ['start start', 'end start'] });
+  const bgScale = useTransform(scrollYProgress, [0, 1], [1.0, 1.15]);
+  const bgY     = useTransform(scrollYProgress, [0, 1], ['0%', '16%']);
+  const textY   = useTransform(scrollYProgress, [0, 0.8], ['0px', '-45px']);
+  const textOpacity = useTransform(scrollYProgress, [0, 0.7], [1, 0.25]);
 
   return (
     <div className="bg-bg overflow-x-hidden">
       <SEO title="Services — ESPACIO Interiors" description="Full home interiors, modular kitchens, commercial spaces, and renovations. Engineering-first luxury design executed by ESPACIO." url="/services" />
 
       {heroContent.visible !== false && (
-        <section ref={heroRef} className="relative h-[66vh] lg:h-[78vh] min-h-[530px] px-5 pt-5 pb-[10px] lg:px-12">
-          <div className="relative w-full h-full overflow-hidden will-change-transform rounded-[24px] lg:rounded-[40px]">
-            <motion.div style={{ scale: bgScale, y: bgY }} className="absolute inset-0 will-change-transform overflow-hidden">
+        <section ref={heroRef} className="relative h-[92vh] lg:h-[96vh] min-h-[640px] lg:min-h-0 px-5 pt-2 sm:pt-2.5 lg:pt-3 pb-2 lg:px-12 z-0">
+          <div className="relative w-full h-full overflow-hidden rounded-[24px] lg:rounded-[40px] origin-top shadow-2xl">
+            <motion.div style={{ scale: bgScale, y: bgY }} className="absolute inset-0 overflow-hidden">
               <HeroSlideshow
                 images={heroContent.images && heroContent.images.length > 0 ? heroContent.images : heroImages}
-                intervalMs={3800}
-                transitionDuration={1.2}
+                intervalMs={4000}
+                transitionDuration={1.3}
                 showGradient={false}
+                onIndexChange={setCurrentImageIdx}
               />
             </motion.div>
-            <div className="absolute inset-0 bg-gradient-to-b from-black/50 via-transparent to-black/75 z-10 pointer-events-none" />
-            <div className="absolute inset-0 bg-gradient-to-r from-black/25 to-transparent z-10 pointer-events-none" />
+            <div className="absolute inset-0 bg-gradient-to-b from-black/50 via-transparent to-black/80 z-10 pointer-events-none" />
+            <div className="absolute inset-0 bg-gradient-to-r from-black/35 via-transparent to-black/20 z-10 pointer-events-none" />
+            
+            {/* Hero Text Content with Dynamic Scroll Parallax */}
             <div className="absolute inset-0 z-20 flex flex-col justify-end pointer-events-none">
-              <div className="w-full px-8 md:px-12 pb-10 md:pb-12 pointer-events-auto">
+              <motion.div 
+                style={{ y: textY, opacity: textOpacity }}
+                className="w-full px-8 md:px-12 pb-10 md:pb-14 pointer-events-auto"
+              >
                 <div className="flex flex-col items-start gap-3">
-                  <div className="inline-flex items-center gap-2 bg-black/55 backdrop-blur-md border border-white/20 text-white px-4 py-1.5 rounded-full">
-                    <span className="w-1.5 h-1.5 rounded-full bg-gold animate-pulse" />
-                    <span className="font-sans text-[11px] font-semibold uppercase tracking-[0.2em]">{heroContent.badge}</span>
+                  <div className="inline-flex items-center gap-2 bg-white text-[#101014] px-4 py-1.5 rounded-full text-[13px] font-sans font-medium shadow-lg border border-black/5 select-none tracking-normal mb-1">
+                    <Layers size={14} className="text-[#101014] shrink-0" />
+                    <span>{heroContent.badge || 'Services'}</span>
                   </div>
-                  <h1 className="font-display font-bold leading-none tracking-tight text-white" style={{ fontSize: 'clamp(40px, 6vw, 84px)' }}>
+                  <h1 className="font-display font-bold leading-none tracking-tight text-white drop-shadow-[0_4px_16px_rgba(0,0,0,0.6)]" style={{ fontSize: 'clamp(40px, 6vw, 84px)' }}>
                     {heroContent.title}
                   </h1>
-                  <p className="font-sans text-[14px] md:text-[15px] text-white/70 max-w-[500px] leading-relaxed">
+                  <p className="font-sans text-[14px] md:text-[15.5px] text-white/90 max-w-[520px] leading-relaxed drop-shadow-[0_2px_8px_rgba(0,0,0,0.7)]">
                     {heroContent.subtitle}
                   </p>
                 </div>
-              </div>
+              </motion.div>
             </div>
+
+            {/* Scroll Down Indicator */}
+            <ScrollDownIndicator />
           </div>
         </section>
       )}

@@ -36,16 +36,16 @@ export const StickyScroll = ({ content, className }) => {
       {/* Desktop Sticky Scroll (lg and above) - Full Screen Height */}
       <div
         ref={ref}
-        className={`hidden lg:block relative w-full h-[350vh] ${className || ""}`}
+        className={`hidden lg:block relative w-full h-[180vh] ${className || ""}`}
       >
         {/* Sticky box locked in viewport occupying full screen height */}
-        <div className="sticky top-[95px] w-full h-[82vh] flex justify-between gap-10 rounded-[32px] p-6 lg:p-10 bg-bg-card/50 border border-ink-border/30 backdrop-blur-md items-center shadow-2xl">
+        <div className="sticky top-[95px] w-full h-[82vh] flex justify-between gap-10 rounded-[32px] p-6 lg:p-10 bg-bg border border-ink-border/30 items-center shadow-2xl">
           
           {/* Left: interactive scrolling text column */}
           <div className="relative w-[36%] shrink-0 h-full overflow-hidden pt-[120px] px-2 lg:px-6">
             {/* Top/Bottom gradient mask overlays for text fade */}
-            <div className="absolute top-0 left-0 right-0 h-24 bg-gradient-to-b from-bg/95 via-bg/70 to-transparent z-10 pointer-events-none" />
-            <div className="absolute bottom-0 left-0 right-0 h-24 bg-gradient-to-t from-bg/95 via-bg/70 to-transparent z-10 pointer-events-none" />
+            <div className="absolute top-0 left-0 right-0 h-24 bg-gradient-to-b from-bg via-bg/80 to-transparent z-10 pointer-events-none" />
+            <div className="absolute bottom-0 left-0 right-0 h-24 bg-gradient-to-t from-bg via-bg/80 to-transparent z-10 pointer-events-none" />
 
             <motion.div 
               style={{ y: textTranslateY }}
@@ -73,7 +73,7 @@ export const StickyScroll = ({ content, className }) => {
           </div>
 
           {/* Right: full screen height animated image panel */}
-          <div className="w-[60%] shrink-0 h-full rounded-[24px] bg-bg-card overflow-hidden border border-ink-border/40 shadow-2xl relative">
+          <div className="w-[60%] shrink-0 h-full rounded-[24px] bg-bg overflow-hidden border border-ink-border/40 shadow-2xl relative">
             <AnimatePresence mode="sync">
               <motion.div
                 key={activeCard}

@@ -119,6 +119,14 @@ const Footer = () => {
   const ctaHeadline = activePageCta.headline;
   const ctaSubtext = activePageCta.subtext;
   const ctaButtonText = activePageCta.buttonText;
+  const ctaHoverText = activePageCta.buttonHoverText || (
+    pageKey === 'services' ? "Let's Talk ↗" :
+    pageKey === 'projects' ? "Request BOQ ↗" :
+    pageKey === 'spaces' ? "Book Consultation ↗" :
+    pageKey === 'materials' ? "Explore Samples ↗" :
+    pageKey === 'faqs' ? "Get Answers ↗" :
+    "Let's Connect ↗"
+  );
   const ctaButtonLink = activePageCta.buttonLink;
   const ctaBgImage = activePageCta.bgImage;
   const ctaOpacity = activePageCta.opacity;
@@ -202,7 +210,7 @@ const Footer = () => {
   const emailHref = `mailto:${emailText}`;
 
   return (
-    <footer className="bg-bg-dark text-bg pb-10">
+    <footer className="bg-bg-dark text-bg min-h-[45vh] flex flex-col justify-between pt-8 pb-8">
       {/* 1. Center CTA Banner with Dusk Architectural Background */}
       {ctaEnabled && (
         <motion.div 
@@ -235,18 +243,21 @@ const Footer = () => {
               to={ctaButtonLink}
               className="btn-sliding-cta"
             >
+              <span className="invisible select-none pointer-events-none whitespace-nowrap opacity-0">
+                {ctaButtonText.length >= ctaHoverText.length ? ctaButtonText : ctaHoverText}
+              </span>
               <span className="btn-sliding-cta-text-one">{ctaButtonText}</span>
-              <span className="btn-sliding-cta-text-two">{ctaButtonText}</span>
+              <span className="btn-sliding-cta-text-two">{ctaHoverText}</span>
             </Link>
           </motion.div>
         </motion.div>
       )}
 
-      {/* Thin Divider line */}
-      <div className="max-w-[1440px] mx-auto px-6 md:px-12 border-t border-white/10 mb-12" />
+      {/* Spacing below CTA banner */}
+      <div className="mb-4" />
 
       {/* 2. Combined Footer Info Row */}
-      <div className="max-w-[1440px] mx-auto px-6 md:px-12 flex flex-col lg:flex-row lg:justify-between items-start gap-12 pb-16 mb-4">
+      <div className="max-w-[1440px] w-full mx-auto px-6 md:px-12 flex flex-col lg:flex-row lg:justify-between items-start gap-10 pb-10 pt-2">
         
         {/* Left Side Group (Location, Gmail, and Explore on desktop) */}
         <div className="flex flex-col items-start gap-8 w-full lg:max-w-[480px]">
@@ -267,7 +278,8 @@ const Footer = () => {
           </div>
 
           {/* B. Contact Info */}
-          <div>            <p className="font-sans text-[13px] text-white/70 mb-1 select-none uppercase tracking-wider">
+          <div>
+            <p className="font-sans text-[13px] text-white/70 mb-1 select-none uppercase tracking-wider">
               {contactTitle}
             </p>
             <div className="space-y-1">
@@ -351,13 +363,16 @@ const Footer = () => {
       {/* 4. Giant Cinematic Typography Wordmark */}
       <div 
         ref={brandRef} 
-        className="w-full flex justify-center overflow-hidden border-t border-white/5 py-4 select-none relative z-10 px-4"
+        className="w-full flex justify-center overflow-hidden py-6 md:py-8 select-none relative z-10 px-4"
       >
         <div 
-          className="font-sans font-black tracking-[-0.04em] uppercase text-white/10 leading-[0.8] whitespace-nowrap text-center"
+          className="font-sans tracking-[-0.04em] uppercase text-white leading-[0.8] whitespace-nowrap text-center select-none"
           style={{ 
-            fontSize: 'clamp(60px, 14vw, 240px)',
-            fontFamily: 'Montserrat, sans-serif'
+            fontSize: 'clamp(65px, 15vw, 240px)',
+            fontFamily: 'Montserrat, sans-serif',
+            fontWeight: brandWeight || 800,
+            color: '#FFFFFF',
+            opacity: brandOpacity || 1
           }}
         >
           {/* LEFT HALF */}
@@ -397,11 +412,11 @@ const Footer = () => {
       </div>
 
       {/* 5. Copyright Strip */}
-      <div className="max-w-[1440px] mx-auto px-6 md:px-12 flex flex-col items-center justify-center gap-2 pt-6 pb-4 border-t border-white/5 text-center">
-        <p className="font-sans text-[12px] text-bg/80">
+      <div className="max-w-[1440px] w-full mx-auto px-6 md:px-12 flex flex-col items-center justify-center gap-2 pt-6 pb-4 text-center">
+        <p className="font-sans text-[12.5px] text-bg/80">
           {copyrightText}
         </p>
-        <div className="flex flex-wrap items-center justify-center gap-x-6 gap-y-1 text-[12px] text-bg/80 mt-1">
+        <div className="flex flex-wrap items-center justify-center gap-x-6 gap-y-1 text-[12px] text-bg/80 mt-0.5">
           <button
             onClick={(e) => {
               e.preventDefault();

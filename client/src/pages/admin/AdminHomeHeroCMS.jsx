@@ -21,10 +21,10 @@ const AdminHomeHeroCMS = () => {
   // Home Hero CMS State
   const [heroState, setHeroState] = useState({
     hero_bg_images: [
-      '/images/user_uploaded_bedroom.jpg',
-      'https://images.unsplash.com/photo-1616594039964-ae9021a400a0?auto=format&fit=crop&w=1920&q=90',
-      'https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=1920&q=90',
-      'https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?auto=format&fit=crop&w=1920&q=90'
+      '/images/hero/hero_bedroom.jpg',
+      '/images/hero/hero_kitchen.jpg',
+      '/images/hero/hero_kids_bedroom.jpg',
+      '/images/hero/hero_dining.jpg'
     ],
     hero_card_image: '',
     hero_card_heading: 'We Craft the Future Dwelling',
@@ -64,10 +64,10 @@ const AdminHomeHeroCMS = () => {
 
     // Showcase Carousel Slides
     showcase_slides: [
-      { projectImg: "https://images.unsplash.com/photo-1618221195710-dd6b41faaea6?auto=format&fit=crop&w=800&q=80", projectLabel: "Banjara Hills Villa" },
-      { projectImg: "https://images.unsplash.com/photo-1618219908412-a29a1bb7b86e?auto=format&fit=crop&w=800&q=80", projectLabel: "Italian Kitchen Fitout" },
-      { projectImg: "https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?auto=format&fit=crop&w=800&q=80", projectLabel: "Jubilee Hills Penthouse" },
-      { projectImg: "https://images.unsplash.com/photo-1497366216548-37526070297c?auto=format&fit=crop&w=800&q=80", projectLabel: "Gachibowli Tech Hub" }
+      { projectImg: "/images/company/3bhk_lux/open_hall.png", projectLabel: "Kokapet Luxury Duplex" },
+      { projectImg: "/images/company/2bhk_urban/Minimalist_Gray__A_Contemporary_Kitchen_Masterpiec-Unnamed_2-20260810-173514.jpg", projectLabel: "Modular Kitchen Fitout" },
+      { projectImg: "/images/company/3bhk_lux/open_hall.png", projectLabel: "Jubilee Hills 3BHK" },
+      { projectImg: "/images/company/2bhk_mordern_retro/office_3.jpg", projectLabel: "Gachibowli Modern Office" }
     ]
   });
 

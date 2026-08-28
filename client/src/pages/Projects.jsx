@@ -2,9 +2,10 @@ import React, { useState, useEffect, useRef } from 'react';
 import { Link } from 'react-router-dom';
 import { motion, AnimatePresence, useInView, useScroll, useTransform } from 'framer-motion';
 import axios from 'axios';
-import { Search, ArrowUpRight } from 'lucide-react';
+import { Search, ArrowUpRight, FolderKanban } from 'lucide-react';
 import SEO from '../components/common/SEO';
 import HeroSlideshow from '../components/common/HeroSlideshow';
+import ScrollDownIndicator from '../components/common/ScrollDownIndicator';
 import GooeyInput from '../components/ui/gooey-input';
 import { getOptimizedImageUrl } from '../utils/imageOptimizer';
 
@@ -22,10 +23,22 @@ const Reveal = ({ children, delay = 0, className = '' }) => {
 };
 
 const heroImages = [
-  'https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=1200&q=75&fm=webp',
-  'https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?auto=format&fit=crop&w=1200&q=75&fm=webp',
-  'https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?auto=format&fit=crop&w=1200&q=75&fm=webp',
-  'https://images.unsplash.com/photo-1600210492486-724fe5c67fb0?auto=format&fit=crop&w=1200&q=75&fm=webp',
+  // 1. Duplex 4BHK: Grand Luxury 4K Dining Suite & Ambient Bar (Folder: duplex)
+  '/images/company/duplex/Exquisite_Fusion_of_Modern__Desi_in_a_4BHK-Guest_restaurant_8-20260813-110617.jpg',
+  // 2. Minimalist Beige 2BHK: Panoramic 4K Designer Living Room (Folder: minimalist_beige_2bhk)
+  '/images/company/minimalist_beige_2bhk/Minimalist_Beige_Bedroom_and_Contemporary_Living_R-Living_room_6-20260810-124909.jpg',
+  // 3. Indo-Classical Elegance 3BHK: Majestic 4K Dining Hall & Classical Arches (Folder: indo_classical_elegance_3bhk)
+  '/images/company/indo_classical_elegance_3bhk/Indo-Classical_Elegance__A_Soothing_Blend_of_Mode-Guest_restaurant_19-20260810-120432.jpg',
+  // 4. 2BHK Modern Retro: 4K Panoramic Timber Louvered Living Room (Folder: 2bhk_mordern_retro)
+  '/images/company/2bhk_mordern_retro/hall_5.jpg',
+  // 5. 3BHK Luxury: Bespoke Master Suite with Fluted Backlit Paneling (Folder: 3bhk_lux)
+  '/images/company/3bhk_lux/bedroom_1.png',
+  // 6. 2BHK Aparna Zicon: Ultra-HD 8K Grand Living Lounge (Folder: 2bhk_aparna_zicon)
+  '/images/company/2bhk_aparna_zicon/Mr.Deepak-Aparna_Zicon-Detail_Drawing-04-03-2025-Living_room_31-20260810-122245.jpg',
+  // 7. 2BHK Luxury: Luxury Master Suite with Floating Joinery (Folder: 2bhk_lux)
+  '/images/company/2bhk_lux/bed_room_2.png',
+  // 8. 2BHK Urban: 4K Contemporary Kitchen & Island Breakfast Bar (Folder: 2bhk_urban)
+  '/images/company/2bhk_urban/Ideas_2_2-_5-20260810-173541.jpg'
 ];
 
 const Projects = () => {
@@ -110,67 +123,67 @@ const Projects = () => {
     };
   }, []);
 
-  // Unsplash image pools for each category type to ensure realistic real-world images
+  // Authentic company project image pools for each category type
   const unsplashPool = {
     villa: [
-      'https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=800&q=80',
-      'https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?auto=format&fit=crop&w=800&q=80',
-      'https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?auto=format&fit=crop&w=800&q=80',
-      'https://images.unsplash.com/photo-1600210492486-724fe5c67fb0?auto=format&fit=crop&w=800&q=80',
-      'https://images.unsplash.com/photo-1600566753190-17f0baa2a6c3?auto=format&fit=crop&w=800&q=80',
-      'https://images.unsplash.com/photo-1613490493576-7fde63acd811?auto=format&fit=crop&w=800&q=80',
-      'https://images.unsplash.com/photo-1613977257363-707ba9348227?auto=format&fit=crop&w=800&q=80',
-      'https://images.unsplash.com/photo-1512917774080-9991f1c4c750?auto=format&fit=crop&w=800&q=80'
+      '/images/company/duplex/Exquisite_Fusion_of_Modern__Desi_in_a_4BHK-Guest_restaurant_18-20260813-110611.jpg',
+      '/images/company/duplex/Exquisite_Fusion_of_Modern__Desi_in_a_4BHK-Guest_restaurant_5-20260813-110615.jpg',
+      '/images/company/indo_classical_elegance_3bhk/3BHK-Guest_restaurant_4-20260810-164320.jpg',
+      '/images/company/indo_classical_elegance_3bhk/3BHK-Master_Bedroom_0-20260810-164320.jpg',
+      '/images/company/3bhk_lux/open_hall.png',
+      '/images/company/3bhk_lux/open_hall2.png',
+      '/images/company/duplex/Exquisite_Fusion_of_Modern__Desi_in_a_4BHK-Boys_Room_4-20260813-110616.jpg',
+      '/images/company/indo_classical_elegance_3bhk/Indo-Classical_Elegance__A_Soothing_Blend_of_Mode-balcony_1-20260810-120429.jpg'
     ],
     apartment: [
-      'https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?auto=format&fit=crop&w=800&q=80',
-      'https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?auto=format&fit=crop&w=800&q=80',
-      'https://images.unsplash.com/photo-1522708323590-d24dbb6b0267?auto=format&fit=crop&w=800&q=80',
-      'https://images.unsplash.com/photo-1484154218962-a197022b5858?auto=format&fit=crop&w=800&q=80',
-      'https://images.unsplash.com/photo-1505693416388-ac5ce068fe85?auto=format&fit=crop&w=800&q=80',
-      'https://images.unsplash.com/photo-1586023492125-27b2c045efd7?auto=format&fit=crop&w=800&q=80',
-      'https://images.unsplash.com/photo-1583847268964-b28dc8f51f92?auto=format&fit=crop&w=800&q=80',
-      'https://images.unsplash.com/photo-1552321554-5fefe8c9ef14?auto=format&fit=crop&w=800&q=80'
+      '/images/company/minimalist_beige_2bhk/Minimalist_Beige_Bedroom_and_Contemporary_Living_R-Living_room_3-20260810-124909.jpg',
+      '/images/company/2bhk_aparna_zicon/Mr.Deepak-Aparna_Zicon-Detail_Drawing-04-03-2025-Living_room_1-20260810-122238.jpg',
+      '/images/company/minimalist_beige_2bhk/Minimalist_Beige_Bedroom_and_Contemporary_Living_R-Bedroom_0-20260810-124909.jpg',
+      '/images/company/2bhk_mordern_retro/b1_2.jpg',
+      '/images/company/2bhk_urban/Minimalist_Gray__A_Contemporary_Kitchen_Masterpiec-Unnamed_2-20260810-173514.jpg',
+      '/images/company/2bhk_lux/hall1_1.png',
+      '/images/company/minimalist_beige_2bhk/Minimalist_Beige_Bedroom_and_Contemporary_Living_R-Living_room_27-20260810-124917.jpg',
+      '/images/company/2bhk_aparna_zicon/Mr.Deepak-Aparna_Zicon-Detail_Drawing-04-03-2025-Bedroom_24-20260810-122233.jpg'
     ],
     office: [
-      'https://images.unsplash.com/photo-1497366216548-37526070297c?auto=format&fit=crop&w=800&q=80',
-      'https://images.unsplash.com/photo-1497215728101-856f4ea42174?auto=format&fit=crop&w=800&q=80',
-      'https://images.unsplash.com/photo-1524758631624-e2822e304c36?auto=format&fit=crop&w=800&q=80',
-      'https://images.unsplash.com/photo-1497366811353-6870744d04b2?auto=format&fit=crop&w=800&q=80',
-      'https://images.unsplash.com/photo-1504384308090-c894fdcc538d?auto=format&fit=crop&w=800&q=80',
-      'https://images.unsplash.com/photo-1531973576160-7125cd663d86?auto=format&fit=crop&w=800&q=80',
-      'https://images.unsplash.com/photo-1519389950473-47ba0277781c?auto=format&fit=crop&w=800&q=80',
-      'https://images.unsplash.com/photo-1531538606174-0f90ff5dce83?auto=format&fit=crop&w=800&q=80'
+      '/images/company/2bhk_mordern_retro/office_3.jpg',
+      '/images/company/2bhk_mordern_retro/office_2.jpg',
+      '/images/company/2bhk_mordern_retro/office.jpg',
+      '/images/company/3bhk_lux/open_hall2.png',
+      '/images/company/2bhk_mordern_retro/hall_paneling.jpg',
+      '/images/company/duplex/Exquisite_Fusion_of_Modern__Desi_in_a_4BHK-Boys_Room_14-20260813-110617.jpg',
+      '/images/company/2bhk_lux/tv_unit_2_1.png',
+      '/images/company/minimalist_beige_2bhk/Minimalist_Beige_Bedroom_and_Contemporary_Living_R-Living_room_4-20260810-124909.jpg'
     ],
     commercial: [
-      'https://images.unsplash.com/photo-1524758631624-e2822e304c36?auto=format&fit=crop&w=800&q=80',
-      'https://images.unsplash.com/photo-1497366216548-37526070297c?auto=format&fit=crop&w=800&q=80',
-      'https://images.unsplash.com/photo-1497215728101-856f4ea42174?auto=format&fit=crop&w=800&q=80',
-      'https://images.unsplash.com/photo-1504384308090-c894fdcc538d?auto=format&fit=crop&w=800&q=80',
-      'https://images.unsplash.com/photo-1531973576160-7125cd663d86?auto=format&fit=crop&w=800&q=80',
-      'https://images.unsplash.com/photo-1519389950473-47ba0277781c?auto=format&fit=crop&w=800&q=80',
-      'https://images.unsplash.com/photo-1531538606174-0f90ff5dce83?auto=format&fit=crop&w=800&q=80',
-      'https://images.unsplash.com/photo-1507679799987-c73779587ccf?auto=format&fit=crop&w=800&q=80'
+      '/images/company/2bhk_mordern_retro/office_3.jpg',
+      '/images/company/2bhk_mordern_retro/dining_2.jpg',
+      '/images/company/duplex/Exquisite_Fusion_of_Modern__Desi_in_a_4BHK-Guest_restaurant_20-20260813-110611.jpg',
+      '/images/company/indo_classical_elegance_3bhk/Indo-Classical_Elegance__A_Soothing_Blend_of_Mode-Guest_restaurant_0-20260810-120429.jpg',
+      '/images/company/2bhk_urban/Ideas_2_2-_0-20260810-173541.jpg',
+      '/images/company/minimalist_beige_2bhk/Minimalist_Beige_Bedroom_and_Contemporary_Living_R-Living_room_11-20260810-124912.jpg',
+      '/images/company/indo_classical_elegance_3bhk/Indo-Classical_Elegance__A_Soothing_Blend_of_Mode-Guest_restaurant_18-20260810-120436.jpg',
+      '/images/company/2bhk_aparna_zicon/Mr.Deepak-Aparna_Zicon-Detail_Drawing-04-03-2025-Kitchen_18-20260810-122232.jpg'
     ],
     renovation: [
-      'https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?auto=format&fit=crop&w=800&q=80',
-      'https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=800&q=80',
-      'https://images.unsplash.com/photo-1600210492486-724fe5c67fb0?auto=format&fit=crop&w=800&q=80',
-      'https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?auto=format&fit=crop&w=800&q=80',
-      'https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?auto=format&fit=crop&w=800&q=80',
-      'https://images.unsplash.com/photo-1522708323590-d24dbb6b0267?auto=format&fit=crop&w=800&q=80',
-      'https://images.unsplash.com/photo-1484154218962-a197022b5858?auto=format&fit=crop&w=800&q=80',
-      'https://images.unsplash.com/photo-1505693416388-ac5ce068fe85?auto=format&fit=crop&w=800&q=80'
+      '/images/company/indo_classical_elegance_3bhk/Indo-Classical_Elegance__A_Soothing_Blend_of_Mode-kitchen_4-20260810-120431.jpg',
+      '/images/company/3bhk_lux/kitchen_1.png',
+      '/images/company/2bhk_lux/kitchen_3_2.png',
+      '/images/company/2bhk_lux/crockery1_1.png',
+      '/images/company/minimalist_beige_2bhk/Minimalist_Beige_Bedroom_and_Contemporary_Living_R-Bedroom_13-20260810-124909.jpg',
+      '/images/company/indo_classical_elegance_3bhk/3BHK-bedroom_3-20260810-121312.jpg',
+      '/images/company/2bhk_aparna_zicon/Mr.Deepak-Aparna_Zicon-Detail_Drawing-04-03-2025-Kitchen_17-20260810-122232.jpg',
+      '/images/company/minimalist_beige_2bhk/Minimalist_Beige_Bedroom_and_Contemporary_Living_R-Bedroom_14-20260810-124909.jpg'
     ],
     luxury_home: [
-      'https://images.unsplash.com/photo-1600210492486-724fe5c67fb0?auto=format&fit=crop&w=800&q=80',
-      'https://images.unsplash.com/photo-1600566753190-17f0baa2a6c3?auto=format&fit=crop&w=800&q=80',
-      'https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=800&q=80',
-      'https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?auto=format&fit=crop&w=800&q=80',
-      'https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?auto=format&fit=crop&w=800&q=80',
-      'https://images.unsplash.com/photo-1613490493576-7fde63acd811?auto=format&fit=crop&w=800&q=80',
-      'https://images.unsplash.com/photo-1613977257363-707ba9348227?auto=format&fit=crop&w=800&q=80',
-      'https://images.unsplash.com/photo-1512917774080-9991f1c4c750?auto=format&fit=crop&w=800&q=80'
+      '/images/company/duplex/Exquisite_Fusion_of_Modern__Desi_in_a_4BHK-Guest_restaurant_18-20260813-110611.jpg',
+      '/images/company/indo_classical_elegance_3bhk/3BHK-bedroom_2-20260810-121310.jpg',
+      '/images/company/3bhk_lux/bedroom_1.png',
+      '/images/company/minimalist_beige_2bhk/Minimalist_Beige_Bedroom_and_Contemporary_Living_R-Living_room_26-20260810-124913.jpg',
+      '/images/company/2bhk_aparna_zicon/Mr.Deepak-Aparna_Zicon-Detail_Drawing-04-03-2025-Bedroom_25-20260810-122233.jpg',
+      '/images/company/2bhk_mordern_retro/b1_tv_unit.jpg',
+      '/images/company/indo_classical_elegance_3bhk/Indo-Classical_Elegance__A_Soothing_Blend_of_Mode-bedroom_10-20260810-120431.jpg',
+      '/images/company/duplex/Exquisite_Fusion_of_Modern__Desi_in_a_4BHK-Guest_restaurant_20-20260813-110611.jpg'
     ]
   };
 
@@ -240,21 +253,22 @@ const Projects = () => {
       {/* ── ROUNDED CARD HERO (same as Home & Services) ── */}
       <section
         ref={heroRef}
-        className="relative h-[80vh] lg:h-[95vh] px-5 pt-5 pb-[10px] lg:px-12"
+        className="relative h-[82vh] lg:h-[96vh] px-5 pt-2 sm:pt-2.5 lg:pt-3 pb-[10px] lg:px-12"
       >
         <div
-          className="relative w-full h-full overflow-hidden will-change-transform rounded-[24px] lg:rounded-[40px]"
+          className="relative w-full h-full overflow-hidden rounded-[24px] lg:rounded-[40px]"
         >
           {/* Parallax background + auto-cycling images */}
           <motion.div
             style={{ scale: bgScale, y: bgY }}
-            className="absolute inset-0 will-change-transform overflow-hidden"
+            className="absolute inset-0 overflow-hidden"
           >
             <HeroSlideshow
               images={heroContent.images && heroContent.images.length > 0 ? heroContent.images : heroImages}
               intervalMs={3800}
               transitionDuration={1.2}
               showGradient={false}
+              onIndexChange={setCurrentImageIdx}
             />
           </motion.div>
 
@@ -274,10 +288,10 @@ const Projects = () => {
                 transition={{ duration: 0.6, delay: 0.1, ease: [0.16, 1, 0.3, 1] }}
                 className="flex flex-col items-start gap-4"
               >
-                {/* Pill label */}
-                <div className="inline-flex items-center gap-2 bg-black/55 backdrop-blur-md border border-white/20 text-white px-4 py-2 rounded-full">
-                  <span className="w-1.5 h-1.5 rounded-full bg-gold animate-pulse" />
-                  <span className="font-sans text-[11px] font-semibold uppercase tracking-[0.2em]">{heroContent.badge}</span>
+                {/* Clean White Pill label */}
+                <div className="inline-flex items-center gap-2 bg-white text-[#101014] px-4 py-1.5 rounded-full text-[13px] font-sans font-medium shadow-lg border border-black/5 select-none tracking-normal mb-1">
+                  <FolderKanban size={14} className="text-[#101014] shrink-0" />
+                  <span>{heroContent.badge || 'Portfolio & Case Studies'}</span>
                 </div>
 
                 {/* Heading */}
@@ -291,28 +305,11 @@ const Projects = () => {
                 <p className="font-sans text-[14px] md:text-[15px] text-white/60 max-w-[500px] leading-relaxed">
                   {heroContent.subtitle}
                 </p>
-
-                {/* Image dot indicators */}
-                <div className="flex items-center gap-1 mt-1">
-                  {(heroContent.images || heroImages).map((_, i) => (
-                    <button
-                      key={i}
-                      aria-label={`Show project image ${i + 1}`}
-                      onClick={() => setCurrentImageIdx(i)}
-                      className="p-2 flex items-center justify-center cursor-pointer bg-transparent border-0 outline-none"
-                    >
-                      <span
-                        className={`block rounded-full transition-all duration-300 ${
-                          i === currentImageIdx
-                            ? 'w-6 h-1.5 bg-gold'
-                            : 'w-1.5 h-1.5 bg-white/40 hover:bg-white/70'
-                        }`}
-                      />
-                    </button>
-                  ))}
-                </div>
               </motion.div>
             </div>
+
+            {/* Scroll Down Indicator */}
+            <ScrollDownIndicator />
           </motion.div>
         </div>
       </section>

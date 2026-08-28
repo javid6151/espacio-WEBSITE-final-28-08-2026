@@ -6,22 +6,6 @@ import fs from 'fs'
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url))
 
-// Auto-sync uploaded image from conversation artifacts to client public and src/assets
-try {
-  const sourcePath = 'C:/Users/aksha/.gemini/antigravity-ide/brain/0deea551-f1f4-49b8-819e-76cdf5f937f0/.user_uploaded/media_1787072367913.jpg';
-  const targetPublicPath = path.resolve(__dirname, 'public/images/user_uploaded_bedroom.jpg');
-  const targetAssetJsPath = path.resolve(__dirname, 'src/assets/userUploadedBedroom.js');
-
-  if (fs.existsSync(sourcePath)) {
-    const fileBuffer = fs.readFileSync(sourcePath);
-    fs.writeFileSync(targetPublicPath, fileBuffer);
-    const jsContent = `export const USER_UPLOADED_BEDROOM_IMAGE = "/images/user_uploaded_bedroom.jpg";\nexport default USER_UPLOADED_BEDROOM_IMAGE;\n`;
-    fs.writeFileSync(targetAssetJsPath, jsContent);
-  }
-} catch (e) {
-  console.warn('Image sync notice:', e);
-}
-
 // https://vite.dev/config/
 export default defineConfig({
   plugins: [react()],
@@ -29,7 +13,8 @@ export default defineConfig({
     postcss: path.resolve(__dirname, 'postcss.config.js'),
   },
   server: {
-    port: 5173,
+    port: 5174,
+    strictPort: false,
     proxy: {
       '/api': {
         target: 'http://127.0.0.1:5000',

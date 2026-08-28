@@ -6,61 +6,61 @@ const faqItems = [
   {
     q: "How long does a project usually take?",
     a: "Typically 2–3 months, depending on the level of detailing and customization involved in your project.",
-    img: "https://images.unsplash.com/photo-1600585154526-990dced4db0d?auto=format&fit=crop&w=800&q=80",
+    img: "/images/faq/faq_1_timeline.jpg",
     tag: "Timeline"
   },
   {
     q: "Do you provide turnkey interior solutions?",
     a: "Yes. Every project we take on, residential or commercial, is delivered turnkey, with design, materials, execution, and finishing handled entirely by our team.",
-    img: "https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?auto=format&fit=crop&w=800&q=80",
+    img: "/images/faq/faq_2_services.jpg",
     tag: "Services"
   },
   {
     q: "What is your consultation process?",
     a: "We begin with a free consultation to understand your space, requirements, and vision, before moving into detailed design and planning.",
-    img: "https://images.unsplash.com/photo-1507089947368-19c1da9775ae?auto=format&fit=crop&w=800&q=80",
+    img: "/images/faq/faq_3_process.jpg",
     tag: "Process"
   },
   {
     q: "Which locations do you currently serve?",
     a: "We're proudly based in Hyderabad and have delivered residential and commercial projects across the city.",
-    img: "https://images.unsplash.com/photo-1513694203232-719a280e022f?auto=format&fit=crop&w=800&q=80",
+    img: "/images/faq/faq_4_location.jpg",
     tag: "Location"
   },
   {
     q: "How can customers request a quotation?",
     a: "Simply fill out our contact form on the website, and our team will get back to you to discuss your project.",
-    img: "https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&w=800&q=80",
+    img: "/images/faq/faq_5_pricing.jpg",
     tag: "Pricing"
   },
   {
     q: "Do you sell materials separately from design services?",
     a: "Yes. Our materials including WPC panels, polygranite sheets, acrylic sheets, and more are available for standalone purchase, without needing to book a full design or execution project with us.",
-    img: "https://images.unsplash.com/photo-1600566753190-17f0baa2a6c3?auto=format&fit=crop&w=800&q=80",
+    img: "/images/faq/faq_6_materials.jpg",
     tag: "Materials"
   },
   {
     q: "Do I need to be involved throughout the project, or can it be handled remotely?",
     a: "We keep you informed at every key stage with regular updates and site visits, so you're never left in the dark, but you don't need to manage day-to-day execution yourself. That's what turnkey means.",
-    img: "https://images.unsplash.com/photo-1586023492125-27b2c045efd7?auto=format&fit=crop&w=800&q=80",
+    img: "/images/faq/faq_7_involvement.jpg",
     tag: "Involvement"
   },
   {
     q: "What if I already have a design in mind, can you just execute it?",
     a: "Absolutely. Whether you come with a finalized design or need us to design from scratch, we can adapt to execution-only or full design-and-build depending on what you need.",
-    img: "https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?auto=format&fit=crop&w=800&q=80",
+    img: "/images/faq/faq_8_custom.jpg",
     tag: "Custom"
   },
   {
     q: "Can I customize designs, or do you offer fixed packages?",
     a: "Every project is fully customized around your space and preferences — we don't work off fixed templates or set packages.",
-    img: "https://images.unsplash.com/photo-1556911220-e15b29be8c8f?auto=format&fit=crop&w=800&q=80",
+    img: "/images/faq/faq_9_design.jpg",
     tag: "Design"
   },
   {
     q: "What happens if something needs repair after project completion?",
     a: "Any issues within our warranty period are addressed directly by our team. Reach out through the contact form and we'll take care of it.",
-    img: "https://images.unsplash.com/photo-1618221195710-dd6b41faaea6?auto=format&fit=crop&w=800&q=80",
+    img: "/images/faq/faq_10_support.jpg",
     tag: "Support"
   }
 ];
@@ -199,11 +199,11 @@ const FAQ = () => {
   });
 
   const defaultSlides = [
-    { image: 'https://images.unsplash.com/photo-1600585154526-990dced4db0d?auto=format&fit=crop&w=800&q=80', tag: 'TIMELINE', caption: 'How long does a project usually take?' },
-    { image: 'https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?auto=format&fit=crop&w=800&q=80', tag: 'SERVICES', caption: 'Do you provide turnkey interior solutions?' },
-    { image: 'https://images.unsplash.com/photo-1507089947368-19c1da9775ae?auto=format&fit=crop&w=800&q=80', tag: 'PROCESS', caption: 'What is your consultation process?' },
-    { image: 'https://images.unsplash.com/photo-1513694203232-719a280e022f?auto=format&fit=crop&w=800&q=80', tag: 'LOCATION', caption: 'Which locations do you currently serve?' },
-    { image: 'https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&w=800&q=80', tag: 'PRICING', caption: 'How can customers request a quotation?' }
+    { image: '/images/company/minimalist_beige_2bhk/Minimalist_Beige_Bedroom_and_Contemporary_Living_R-Living_room_3-20260810-124909.jpg', tag: 'TIMELINE', caption: 'How long does a project usually take?' },
+    { image: '/images/company/duplex/Exquisite_Fusion_of_Modern__Desi_in_a_4BHK-Guest_restaurant_18-20260813-110611.jpg', tag: 'SERVICES', caption: 'Do you provide turnkey interior solutions?' },
+    { image: '/images/company/indo_classical_elegance_3bhk/3BHK-Guest_restaurant_4-20260810-164320.jpg', tag: 'PROCESS', caption: 'What is your consultation process?' },
+    { image: '/images/company/3bhk_lux/open_hall.png', tag: 'LOCATION', caption: 'Which locations do you currently serve?' },
+    { image: '/images/company/2bhk_lux/hall1_1.png', tag: 'PRICING', caption: 'How can customers request a quotation?' }
   ];
 
   const [showcaseSlides, setShowcaseSlides] = useState(() => {
@@ -302,7 +302,7 @@ const FAQ = () => {
   };
 
   return (
-    <div className="relative bg-[#F8F5F0] min-h-screen pt-24 pb-14 overflow-hidden">
+    <div className="relative bg-[#F8F5F0] min-h-screen pt-16 sm:pt-20 pb-14 overflow-hidden">
       <SEO
         title="FAQ — ESPACIO Interiors"
         description="Frequently asked questions about design process, timeline, turnkey execution, and custom materials by ESPACIO."
@@ -419,34 +419,29 @@ const FAQ = () => {
                   <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent" />
 
                   {/* Active tag & caption */}
-                  <AnimatePresence mode="wait">
-                    <motion.div
-                      key={activeImageIdx}
-                      className="absolute bottom-5 left-5 right-5"
-                      initial={{ opacity: 0, y: 20 }}
-                      animate={{ opacity: 1, y: 0 }}
-                      exit={{ opacity: 0, y: -10 }}
-                      transition={{ duration: 0.5 }}
-                    >
-                      <span className="inline-block bg-gold/90 backdrop-blur-sm text-white text-[10px] font-bold uppercase tracking-widest px-3 py-1.5 rounded-full mb-2">
-                        {showcaseSlides[activeImageIdx % showcaseSlides.length]?.tag || 'FAQ'}
-                      </span>
-                      <p className="text-white font-display text-[16px] font-medium leading-snug line-clamp-2">
-                        {showcaseSlides[activeImageIdx % showcaseSlides.length]?.caption || ''}
-                      </p>
-                    </motion.div>
-                  </AnimatePresence>
-
-                  {/* Gloss shimmer */}
-                  <motion.div
-                    className="absolute inset-0 pointer-events-none"
-                    style={{
-                      background: 'linear-gradient(105deg, transparent 40%, rgba(255,255,255,0.08) 50%, transparent 60%)',
-                      backgroundSize: '200% 100%',
-                    }}
-                    animate={{ backgroundPosition: ['200% 0', '-200% 0'] }}
-                    transition={{ duration: 3.5, repeat: Infinity, ease: 'linear', repeatDelay: 1 }}
-                  />
+                    <AnimatePresence mode="wait">
+                      <motion.div
+                        key={activeImageIdx}
+                        className="absolute bottom-5 left-5 right-5 pointer-events-none"
+                        initial={{ opacity: 0, y: 10 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        exit={{ opacity: 0, y: -6 }}
+                        transition={{ duration: 0.35, ease: [0.22, 1, 0.36, 1] }}
+                      >
+                        <div className="flex items-center gap-2 mb-1.5">
+                          <span className="text-[11px] font-sans font-semibold uppercase tracking-[0.16em] text-[#C9A96E]">
+                            {showcaseSlides[activeImageIdx % showcaseSlides.length]?.tag || 'FAQ'}
+                          </span>
+                          <span className="w-1 h-1 rounded-full bg-white/40" />
+                          <span className="text-[11px] font-sans font-medium tracking-[0.12em] text-white/70 uppercase">
+                            Featured Space
+                          </span>
+                        </div>
+                        <p className="text-[#FAF8F5] font-sans text-[15px] sm:text-[16px] font-medium leading-snug tracking-tight">
+                          {showcaseSlides[activeImageIdx % showcaseSlides.length]?.caption || ''}
+                        </p>
+                      </motion.div>
+                    </AnimatePresence>
                 </div>
 
                 {/* Floating 3D layer depth effect */}

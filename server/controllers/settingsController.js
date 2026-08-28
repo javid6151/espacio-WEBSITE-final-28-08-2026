@@ -25,17 +25,27 @@ export const getAllSettings = async (req, res, next) => {
     // Individual updated settings keys take priority over legacy site_settings object defaults
     const finalMap = { ...(siteSettingsVal || {}), ...settingsMap };
 
+    // Default 4 curated luxury company images
+    const defaultHeroImages = [
+      '/images/company/3bhk_lux/open_hall.png',
+      '/images/company/minimalist_beige_2bhk/Minimalist_Beige_Bedroom_and_Contemporary_Living_R-Living_room_3-20260810-124909.jpg',
+      '/images/company/2bhk_urban/Minimalist_Gray__A_Contemporary_Kitchen_Masterpiec-Unnamed_2-20260810-173514.jpg',
+      '/images/company/minimalist_beige_2bhk/Minimalist_Beige_Bedroom_and_Contemporary_Living_R-Living_room_27-20260810-124917.jpg'
+    ];
+
     // Synchronize hero_bg_images and hero_images array references
-    const heroBgImgs = (Array.isArray(finalMap.hero_bg_images) && finalMap.hero_bg_images.length > 0)
+    let heroBgImgs = (Array.isArray(finalMap.hero_bg_images) && finalMap.hero_bg_images.length > 0)
       ? finalMap.hero_bg_images
       : (Array.isArray(finalMap.hero_images) && finalMap.hero_images.length > 0)
         ? finalMap.hero_images
-        : undefined;
+        : defaultHeroImages;
 
-    if (heroBgImgs) {
-      finalMap.hero_bg_images = heroBgImgs;
-      finalMap.hero_images = heroBgImgs;
+    if (heroBgImgs.some(img => typeof img === 'string' && (img.includes('unsplash.com') || img.includes('user_uploaded')))) {
+      heroBgImgs = defaultHeroImages;
     }
+
+    finalMap.hero_bg_images = heroBgImgs;
+    finalMap.hero_images = heroBgImgs;
 
     res.status(200).json({
       success: true,

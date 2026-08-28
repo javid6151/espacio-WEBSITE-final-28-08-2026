@@ -6,6 +6,7 @@ import axios from 'axios';
 import SEO from '../components/common/SEO';
 import Logo from '../components/common/Logo';
 import HeroSlideshow from '../components/common/HeroSlideshow';
+import ScrollDownIndicator from '../components/common/ScrollDownIndicator';
 import { getCMSData, STORAGE_KEYS } from '../utils/cmsStore';
 import { USER_UPLOADED_BEDROOM_IMAGE } from '../assets/userUploadedBedroom';
 import { getOptimizedImageUrl } from '../utils/imageOptimizer';
@@ -112,12 +113,13 @@ const AutoScrollingInteriorBox = ({ activeIdx, items }) => {
     }
   }, [activeIdx]);
 
+  // Pure continuous auto-slide animation
   useEffect(() => {
     if (activeIdx !== null && activeIdx !== undefined) return;
     const listLen = items && items.length > 0 ? items.length : 1;
     const interval = setInterval(() => {
       setIndex((prev) => (prev + 1) % listLen);
-    }, 2200);
+    }, 2800);
     return () => clearInterval(interval);
   }, [activeIdx, items]);
 
@@ -130,58 +132,54 @@ const AutoScrollingInteriorBox = ({ activeIdx, items }) => {
   const activeCaption = activeItem?.q || '';
 
   return (
-    <TiltCard className="relative w-full">
-      <div className="relative aspect-[3/4] sm:aspect-[4/5] lg:aspect-[3/4] min-h-[400px] w-full overflow-hidden rounded-[28px] shadow-2xl bg-stone-100 cursor-pointer border border-black/10">
+    <TiltCard className="relative w-full max-w-[520px] xl:max-w-[560px] mx-auto">
+      <div className="relative aspect-[16/11] w-full overflow-hidden rounded-[26px] shadow-2xl bg-stone-900 cursor-pointer border border-black/10">
         <AnimatePresence mode="sync">
           <motion.img
             key={index}
             src={activeImg}
             alt={activeCaption || 'ESPACIO Showcase'}
             decoding="async"
-            initial={{ opacity: 0, scale: 1.05 }}
+            initial={{ opacity: 0, scale: 1.04 }}
             animate={{ opacity: 1, scale: 1 }}
-            exit={{ opacity: 0, scale: 0.97 }}
-            transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
+            exit={{ opacity: 0, scale: 0.98 }}
+            transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
             style={{
               willChange: 'transform, opacity',
-              transform: 'translate3d(0,0,0)',
+              imageRendering: 'auto',
+              backfaceVisibility: 'hidden',
             }}
-            className="absolute inset-0 w-full h-full object-cover"
+            className="absolute inset-0 w-full h-full object-cover object-center transform-gpu"
           />
         </AnimatePresence>
 
         {/* Overlay gradient */}
-        <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/10 to-transparent pointer-events-none" />
+        <div className="absolute inset-0 bg-gradient-to-t from-black/75 via-black/15 to-transparent pointer-events-none" />
 
         {/* Active tag & caption */}
         <AnimatePresence mode="wait">
           <motion.div
             key={index}
             className="absolute bottom-5 left-5 right-5 text-left pointer-events-none z-10"
-            initial={{ opacity: 0, y: 15 }}
+            initial={{ opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -10 }}
-            transition={{ duration: 0.4 }}
+            exit={{ opacity: 0, y: -6 }}
+            transition={{ duration: 0.35, ease: [0.22, 1, 0.36, 1] }}
           >
-            <span className="inline-block bg-[#c5a572]/90 backdrop-blur-sm text-white text-[10px] font-bold uppercase tracking-widest px-3 py-1.5 rounded-full mb-2 shadow-sm">
-              {activeTag}
-            </span>
-            <p className="text-white font-display text-[15px] sm:text-[16px] font-medium leading-snug line-clamp-2 drop-shadow-sm">
+            <div className="flex items-center gap-2 mb-1.5">
+              <span className="text-[11px] font-sans font-semibold uppercase tracking-[0.16em] text-[#C9A96E]">
+                {activeTag}
+              </span>
+              <span className="w-1 h-1 rounded-full bg-white/40" />
+              <span className="text-[11px] font-sans font-medium tracking-[0.12em] text-white/70 uppercase">
+                Featured Space
+              </span>
+            </div>
+            <p className="text-[#FAF8F5] font-sans text-[15px] sm:text-[16px] font-medium leading-snug tracking-tight">
               {activeCaption}
             </p>
           </motion.div>
         </AnimatePresence>
-
-        {/* Gloss shimmer */}
-        <motion.div
-          className="absolute inset-0 pointer-events-none"
-          style={{
-            background: 'linear-gradient(105deg, transparent 40%, rgba(255,255,255,0.08) 50%, transparent 60%)',
-            backgroundSize: '200% 100%',
-          }}
-          animate={{ backgroundPosition: ['200% 0', '-200% 0'] }}
-          transition={{ duration: 3.5, repeat: Infinity, ease: 'linear', repeatDelay: 1 }}
-        />
       </div>
 
       {/* Floating 3D layer depth effect */}
@@ -195,43 +193,43 @@ const AutoScrollingInteriorBox = ({ activeIdx, items }) => {
 
 const teamProjectsData = [
   {
-    projectImg: "https://images.unsplash.com/photo-1618221195710-dd6b41faaea6?auto=format&fit=crop&w=800&q=80",
-    memberImg: "https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=400&q=80",
-    name: "Sarah Jenkins",
-    role: "Principal Designer",
-    projectLabel: "Banjara Hills Villa"
+    projectImg: "/images/about/about_showcase_1.jpg",
+    memberImg: "/reviews/paladugu_raju.png",
+    name: "Spatial Design Lead",
+    role: "Thematic Spatial Planning",
+    projectLabel: "Cosmic Odyssey Kids Suite"
   },
   {
-    projectImg: "https://images.unsplash.com/photo-1618219908412-a29a1bb7b86e?auto=format&fit=crop&w=800&q=80",
-    memberImg: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=400&q=80",
-    name: "Marcus Chen",
-    role: "Kitchen Specialist",
-    projectLabel: "Italian Kitchen Fitout"
+    projectImg: "/images/about/about_showcase_2.jpg",
+    memberImg: "/reviews/kishor_kumar.png",
+    name: "Interior Specialist",
+    role: "Classical Boiserie Styling",
+    projectLabel: "Sage Classical Lounge"
   },
   {
-    projectImg: "https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?auto=format&fit=crop&w=800&q=80",
-    memberImg: "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&w=400&q=80",
-    name: "Vikram Malhotra",
-    role: "Structural Lead",
-    projectLabel: "Jubilee Hills Penthouse"
+    projectImg: "/images/about/about_showcase_3.jpg",
+    memberImg: "/reviews/amresh_kumar.png",
+    name: "Joinery & Detailing",
+    role: "Bespoke Study & Atelier",
+    projectLabel: "Executive Study & Atelier"
   },
   {
-    projectImg: "https://images.unsplash.com/photo-1497366216548-37526070297c?auto=format&fit=crop&w=800&q=80",
-    memberImg: "https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&w=400&q=80",
-    name: "Elena Rostova",
-    role: "Workspace Director",
-    projectLabel: "Gachibowli Tech Hub"
+    projectImg: "/images/about/about_showcase_4.jpg",
+    memberImg: "/reviews/imtiyaz_shaik.png",
+    name: "Modular Specialist",
+    role: "High-Gloss Modular Kitchens",
+    projectLabel: "Modern Quartzite Kitchen"
   }
 ];
 
 const TeamProjectsShowcase = ({ customSlides }) => {
-  const slides = (Array.isArray(customSlides) && customSlides.length > 0) ? customSlides : teamProjectsData;
+  const slides = (Array.isArray(customSlides) && customSlides.length > 0 && !customSlides.some(s => s.projectImg?.includes('company/'))) ? customSlides : teamProjectsData;
   const [idx, setIdx] = useState(0);
   const [direction, setDirection] = useState(1);
   const progressBarRef = useRef(null);
   const timerRef = useRef(null);
   const progressRef = useRef(null);
-  const INTERVAL = 3600;
+  const INTERVAL = 2200;
 
   const startProgress = () => {
     if (progressBarRef.current) progressBarRef.current.style.width = '0%';
@@ -281,12 +279,15 @@ const TeamProjectsShowcase = ({ customSlides }) => {
   };
 
   const current = slides[idx % slides.length] || teamProjectsData[0];
+  const currentImg = (typeof current.projectImg === 'string' && current.projectImg.includes('/images/about/about_') && !current.projectImg.includes('_thumb'))
+    ? current.projectImg.replace('.jpg', '_thumb.jpg')
+    : current.projectImg;
 
   const slideVariants = {
     enter: (dir) => ({
-      x: dir > 0 ? '50%' : '-50%',
+      x: dir > 0 ? 35 : -35,
       opacity: 0,
-      scale: 1.05,
+      scale: 1.04,
     }),
     center: {
       x: 0,
@@ -294,7 +295,7 @@ const TeamProjectsShowcase = ({ customSlides }) => {
       scale: 1,
     },
     exit: (dir) => ({
-      x: dir < 0 ? '35%' : '-35%',
+      x: dir < 0 ? 35 : -35,
       opacity: 0,
       scale: 0.97,
     }),
@@ -304,8 +305,8 @@ const TeamProjectsShowcase = ({ customSlides }) => {
     <div className="relative w-[85%] sm:w-[80%] mx-auto aspect-[4/3.2] group">
 
       {/* ── Main Card ── */}
-      <div className="w-full h-full rounded-[24px] overflow-hidden shadow-2xl border border-ink-border/10 relative z-10">
-        <AnimatePresence custom={direction} mode="popLayout" initial={false}>
+      <div className="w-full h-full rounded-[24px] overflow-hidden shadow-2xl border border-ink-border/10 relative z-10 bg-stone-950">
+        <AnimatePresence custom={direction} initial={false} mode="sync">
           <motion.div
             key={`proj-${idx}`}
             custom={direction}
@@ -314,60 +315,53 @@ const TeamProjectsShowcase = ({ customSlides }) => {
             animate="center"
             exit="exit"
             transition={{
-              duration: 0.35,
-              ease: [0.25, 0.46, 0.45, 0.94],
-              opacity: { duration: 0.25 },
+              duration: 0.55,
+              ease: [0.22, 1, 0.36, 1],
+              opacity: { duration: 0.45, ease: 'easeInOut' },
             }}
             style={{ willChange: 'transform, opacity' }}
             drag="x"
             dragConstraints={{ left: 0, right: 0 }}
-            dragElastic={0.5}
+            dragElastic={0.4}
             onDragEnd={(e, info) => {
-              if (info.offset.x < -50) handleNext();
-              else if (info.offset.x > 50) handlePrev();
+              if (info.offset.x < -40) handleNext();
+              else if (info.offset.x > 40) handlePrev();
             }}
-            className="absolute inset-0 cursor-grab active:cursor-grabbing select-none"
+            className="absolute inset-0 cursor-grab active:cursor-grabbing select-none transform-gpu"
           >
-            {/* Ken Burns zoom-pan */}
-            <motion.img
-              src={current.projectImg}
+            {/* Pure Ultra HD Crisp Image Layer */}
+            <img
+              src={currentImg}
               alt={current.projectLabel}
               decoding="async"
-              className="w-full h-full object-cover select-none pointer-events-none"
+              className="w-full h-full object-cover select-none pointer-events-none transform-gpu"
+              style={{ imageRendering: 'auto', backfaceVisibility: 'hidden' }}
               draggable="false"
-              initial={{ scale: 1.1, x: '2%' }}
-              animate={{ scale: 1.0, x: '0%' }}
-              transition={{ duration: INTERVAL / 1000 + 0.5, ease: 'linear' }}
             />
 
-            {/* Gradient overlays */}
-            <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/10 to-transparent" />
-            <div className="absolute inset-0 bg-gradient-to-r from-black/20 via-transparent to-transparent" />
+            {/* Soft bottom vignette for text contrast */}
+            <div className="absolute inset-0 bg-gradient-to-t from-black/75 via-black/15 to-transparent pointer-events-none" />
 
-            {/* Gloss shimmer sweep */}
+            {/* Architectural Space Caption (matching FAQ style) */}
             <motion.div
-              className="absolute inset-0 pointer-events-none"
-              style={{
-                background: 'linear-gradient(105deg, transparent 35%, rgba(255,255,255,0.07) 50%, transparent 65%)',
-                backgroundSize: '200% 100%',
-              }}
-              animate={{ backgroundPosition: ['200% 0', '-200% 0'] }}
-              transition={{ duration: 1.6, ease: 'linear', repeat: Infinity, repeatDelay: 0.4 }}
-            />
-
-            {/* Animated label badge */}
-            <motion.div
-              className="absolute bottom-4 right-4 bg-black/75 backdrop-blur-md !text-white group-hover:text-white text-[11px] uppercase tracking-widest px-4 py-2 rounded-full font-bold border border-white/20 z-20 shadow-md flex items-center gap-1.5 select-none"
-              initial={{ opacity: 0, y: 12, scale: 0.9 }}
-              animate={{ opacity: 1, y: 0, scale: 1 }}
+              className="absolute bottom-5 left-5 right-5 text-left pointer-events-none z-20 select-none"
+              initial={{ opacity: 0, y: 10 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -6 }}
               transition={{ delay: 0.1, duration: 0.35, ease: [0.22, 1, 0.36, 1] }}
             >
-              <motion.span
-                className="w-1.5 h-1.5 rounded-full bg-gold"
-                animate={{ scale: [1, 1.5, 1], opacity: [1, 0.5, 1] }}
-                transition={{ duration: 1.2, repeat: Infinity }}
-              />
-              <span className="!text-white group-hover:text-white">{current.projectLabel}</span>
+              <div className="flex items-center gap-2 mb-1.5">
+                <span className="text-[11px] font-sans font-semibold uppercase tracking-[0.16em] text-[#C9A96E]">
+                  {current.role || 'INTERIOR SHOWCASE'}
+                </span>
+                <span className="w-1 h-1 rounded-full bg-white/40" />
+                <span className="text-[11px] font-sans font-medium tracking-[0.12em] text-white/70 uppercase">
+                  Featured Space
+                </span>
+              </div>
+              <p className="text-[#FAF8F5] font-sans text-[16px] sm:text-[18px] font-medium leading-snug tracking-tight drop-shadow-sm">
+                {current.projectLabel}
+              </p>
             </motion.div>
 
 
@@ -383,27 +377,6 @@ const TeamProjectsShowcase = ({ customSlides }) => {
             transition={{ duration: 0 }}
           />
         </div>
-      </div>
-
-      {/* ── Dot indicators ── */}
-      <div className="absolute -bottom-6 left-1/2 -translate-x-1/2 flex gap-1 z-20">
-        {slides.map((_, i) => (
-          <button
-            key={i}
-            aria-label={`Show slide ${i + 1}`}
-            onClick={() => { setDirection(i > idx ? 1 : -1); setIdx(i); resetTimer(); }}
-            className="p-2 flex items-center justify-center cursor-pointer bg-transparent border-0 outline-none"
-          >
-            <span
-              className="block rounded-full transition-all duration-300"
-              style={{
-                width: i === idx ? '20px' : '6px',
-                height: '6px',
-                background: i === idx ? '#c5a572' : 'rgba(0,0,0,0.18)'
-              }}
-            />
-          </button>
-        ))}
       </div>
 
       {/* ── Nav Buttons ── */}
@@ -553,10 +526,10 @@ const faqItemVariants = {
 };
 
 const HERO_IMAGES = [
-  '/images/user_uploaded_bedroom.jpg',
-  'https://images.unsplash.com/photo-1616594039964-ae9021a400a0?auto=format&fit=crop&w=1400&q=75&fm=webp',
-  'https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=1400&q=75&fm=webp',
-  'https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?auto=format&fit=crop&w=1400&q=75&fm=webp'
+  '/images/hero/hero_bedroom.jpg',
+  '/images/hero/hero_kitchen.jpg',
+  '/images/hero/hero_kids_bedroom.jpg',
+  '/images/hero/hero_dining.jpg'
 ];
 
 const Home = () => {
@@ -564,7 +537,6 @@ const Home = () => {
   const heroRef = useRef(null);
   const faqSectionRef = useRef(null);
   const [openFaqIdx, setOpenFaqIdx] = useState(null);
-  const [showIntro, setShowIntro] = useState(false);
   const [hoveredStatIdx, setHoveredStatIdx] = useState(null);
 
   const [homeSettings, setHomeSettings] = useState({
@@ -574,7 +546,7 @@ const Home = () => {
     hero_visible: true,
 
     hero_bg_images: HERO_IMAGES,
-    hero_card_image: '',
+    hero_card_image: '/images/hero/hero_bedroom.jpg',
     hero_card_heading: 'We Craft the Future Dwelling',
     hero_card_cta_text: 'Our Projects',
     hero_card_cta_link: '/projects',
@@ -631,82 +603,65 @@ const Home = () => {
     };
   }, []);
 
-
-  const handleIntroComplete = () => {
-    setShowIntro(false);
-    sessionStorage.setItem('espacio_intro_played', 'true');
-  };
-
-  useEffect(() => {
-    if (sessionStorage.getItem('espacio_intro_played')) {
-      return;
-    }
-    // Safety fallback timer if onComplete doesn't fire (e.g. background tab)
-    const timer = setTimeout(() => {
-      handleIntroComplete();
-    }, 800);
-    return () => clearTimeout(timer);
-  }, []);
-
   const defaultHomeFaqItems = [
     {
       q: "How long does a project usually take?",
       a: "Typically 2–3 months, depending on the level of detailing and customization involved in your project.",
-      img: "https://images.unsplash.com/photo-1600585154526-990dced4db0d?auto=format&fit=crop&w=800&q=80",
+      img: "/images/faq/faq_1_timeline.jpg",
       tag: "TIMELINE"
     },
     {
       q: "Do you provide turnkey interior solutions?",
       a: "Yes. Every project we take on, residential or commercial, is delivered turnkey, with design, materials, execution, and finishing handled entirely by our team.",
-      img: "https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?auto=format&fit=crop&w=800&q=80",
+      img: "/images/faq/faq_2_services.jpg",
       tag: "SERVICES"
     },
     {
       q: "What is your consultation process?",
       a: "We begin with a free consultation to understand your space, requirements, and vision, before moving into detailed design and planning.",
-      img: "https://images.unsplash.com/photo-1507089947368-19c1da9775ae?auto=format&fit=crop&w=800&q=80",
+      img: "/images/faq/faq_3_process.jpg",
       tag: "PROCESS"
     },
     {
       q: "Which locations do you currently serve?",
       a: "We're proudly based in Hyderabad and have delivered residential and commercial projects across the city.",
-      img: "https://images.unsplash.com/photo-1513694203232-719a280e022f?auto=format&fit=crop&w=800&q=80",
+      img: "/images/faq/faq_4_location.jpg",
       tag: "LOCATION"
     },
     {
       q: "How can customers request a quotation?",
       a: "Simply fill out our contact form on the website, and our team will get back to you to discuss your project.",
-      img: "https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&w=800&q=80",
+      img: "/images/faq/faq_5_pricing.jpg",
       tag: "PRICING"
     },
     {
       q: "Do you sell materials separately from design services?",
       a: "Yes. Our materials including WPC panels, polygranite sheets, acrylic sheets, and more are available for standalone purchase, without needing to book a full design or execution project with us.",
-      img: "https://images.unsplash.com/photo-1600566753190-17f0baa2a6c3?auto=format&fit=crop&w=800&q=80",
+      img: "/images/faq/faq_6_materials.jpg",
       tag: "MATERIALS"
     },
     {
       q: "Do I need to be involved throughout the project, or can it be handled remotely?",
       a: "We keep you informed at every key stage with regular updates and site visits, so you're never left in the dark, but you don't need to manage day-to-day execution yourself. That's what turnkey means.",
-      img: "https://images.unsplash.com/photo-1586023492125-27b2c045efd7?auto=format&fit=crop&w=800&q=80",
+      img: "/images/faq/faq_7_involvement.jpg",
       tag: "INVOLVEMENT"
     },
     {
       q: "What if I already have a design in mind, can you just execute it?",
       a: "Absolutely. Whether you come with a finalized design or need us to design from scratch, we can adapt to execution-only or full design-and-build depending on what you need.",
-      img: "https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?auto=format&fit=crop&w=800&q=80",
+      img: "/images/faq/faq_8_custom.jpg",
       tag: "CUSTOM"
     },
     {
       q: "Can I customize designs, or do you offer fixed packages?",
       a: "Every project is fully customized around your space and preferences — we don't work off fixed templates or set packages.",
-      img: "https://images.unsplash.com/photo-1556911220-e15b29be8c8f?auto=format&fit=crop&w=800&q=80",
+      img: "/images/faq/faq_9_design.jpg",
       tag: "DESIGN"
     },
     {
       q: "What happens if something needs repair after project completion?",
       a: "Any issues within our warranty period are addressed directly by our team. Reach out through the contact form and we'll take care of it.",
-      img: "https://images.unsplash.com/photo-1618221195710-dd6b41faaea6?auto=format&fit=crop&w=800&q=80",
+      img: "/images/faq/faq_10_support.jpg",
       tag: "SUPPORT"
     }
   ];
@@ -761,15 +716,11 @@ const Home = () => {
     };
   }, []);
 
-  const rawBgImages = (Array.isArray(homeSettings.hero_bg_images) && homeSettings.hero_bg_images.length > 0)
+  const rawBgImages = (Array.isArray(homeSettings.hero_bg_images) && homeSettings.hero_bg_images.length === 4 && homeSettings.hero_bg_images.some(img => typeof img === 'string' && img.includes('/images/hero/')))
     ? homeSettings.hero_bg_images
-    : (Array.isArray(homeSettings.hero_images) && homeSettings.hero_images.length > 0)
-      ? homeSettings.hero_images
-      : HERO_IMAGES;
+    : HERO_IMAGES;
 
-  const activeHeroBgImages = rawBgImages.map(img => 
-    (!img || img === '/api/user-uploaded-bedroom.jpg') ? USER_UPLOADED_BEDROOM_IMAGE : img
-  );
+  const activeHeroBgImages = HERO_IMAGES;
 
   const activeHomeStats = [
     { 
@@ -796,7 +747,6 @@ const Home = () => {
   ].filter(s => s.visible).sort((a, b) => a.order - b.order);
 
   const [currentImageIdx, setCurrentImageIdx] = useState(0);
-
 
   // Page-level scroll for subtle parallax on the background image
   const { scrollYProgress } = useScroll();
@@ -847,40 +797,40 @@ const Home = () => {
 
   const mockProjects = [
     { 
-      title: 'The Lakeside Sanctuary', location: 'Banjara Hills', category: 'Villa', 
-      heroImage: 'https://images.unsplash.com/photo-1613977257363-707ba9348227?auto=format&fit=crop&w=1200&q=85', 
-      slug: 'lakeside-sanctuary',
-      description: 'A serene 5,200 sq.ft villa in Banjara Hills featuring organic warm walnut wood paneling, floor-to-ceiling glass walls, and a custom modular island kitchen.'
+      title: 'Indo-Classical Elegance 3BHK', location: 'Jubilee Hills', category: '3BHK Villa', 
+      heroImage: '/images/company/indo_classical_elegance_3bhk/3BHK-Guest_restaurant_4-20260810-164320.jpg', 
+      slug: 'indo-classical-elegance-3bhk',
+      description: 'A masterclass in spatial refinement blending traditional classical motifs with sleek modern lines, custom fluted panelling, and bespoke brass accents.'
     },
     { 
-      title: 'Modernist Penthouse', location: 'Jubilee Hills', category: 'Apartment', 
-      heroImage: 'https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?auto=format&fit=crop&w=1200&q=85', 
-      slug: 'modernist-penthouse',
-      description: 'A high-rise penthouse in Jubilee Hills designed with Italian marble flooring, custom acrylic fluted accent walls, and ambient LED cove lighting.'
+      title: 'Minimalist Beige Sanctuary 2BHK', location: 'Financial District', category: 'Apartment', 
+      heroImage: '/images/company/minimalist_beige_2bhk/Minimalist_Beige_Bedroom_and_Contemporary_Living_R-Living_room_3-20260810-124909.jpg', 
+      slug: 'minimalist-beige-2bhk',
+      description: 'Designed around soft earthen palettes, warm ambient profile lighting, and concealed handle-less joinery high above the city.'
     },
     { 
-      title: 'Executive Office Hub', location: 'HITEC City', category: 'Commercial', 
-      heroImage: 'https://images.unsplash.com/photo-1497366811353-6870744d04b2?auto=format&fit=crop&w=1200&q=85', 
-      slug: 'exec-office',
-      description: 'A modern commercial workplace in HITEC City engineered with acoustic WPC panels, modular glass cabins, and ergonomic workstation clusters.'
+      title: 'Exquisite Duplex Fusion 4BHK', location: 'Kokapet', category: 'Duplex Villa', 
+      heroImage: '/images/company/duplex/Exquisite_Fusion_of_Modern__Desi_in_a_4BHK-Guest_restaurant_18-20260813-110611.jpg', 
+      slug: 'exquisite-duplex-fusion-4bhk',
+      description: 'A bespoke double-height villa interior blending Italian marble flooring, custom fluted glass partitions, and an open show kitchen.'
     },
     { 
-      title: 'The Lumen Apartment', location: 'Gachibowli', category: 'Apartment', 
-      heroImage: 'https://images.unsplash.com/photo-1586023492125-27b2c045efd7?auto=format&fit=crop&w=1200&q=85', 
-      slug: 'lumen-apartment',
-      description: 'A sun-lit luxury residence in Gachibowli combining minimalist Scandinavian spatial planning with brass inlay details and bespoke soft-close wardrobes.'
+      title: 'Aparna Zicon High-Rise 2BHK', location: 'Nanakramguda', category: 'Apartment', 
+      heroImage: '/images/company/2bhk_aparna_zicon/Mr.Deepak-Aparna_Zicon-Detail_Drawing-04-03-2025-Living_room_1-20260810-122238.jpg', 
+      slug: 'aparna-zicon-high-rise-2bhk',
+      description: 'Precision engineered for maximum spatial efficiency, featuring custom TV media units, acrylic modular kitchen, and integrated wardrobes.'
     },
     { 
-      title: 'Slate Residence', location: 'Kondapur', category: 'Luxury Home', 
-      heroImage: 'https://images.unsplash.com/photo-1618221195710-dd6b41faaea6?auto=format&fit=crop&w=1200&q=85', 
-      slug: 'slate-residence',
-      description: 'An opulent home in Kondapur showcasing dark slate stone textured walls, custom veneer storage suites, and an open-plan lounge environment.'
+      title: 'Modern Retro Haven 2BHK', location: 'Madhapur', category: 'Luxury Home', 
+      heroImage: '/images/company/2bhk_mordern_retro/b1_2.jpg', 
+      slug: 'modern-retro-haven-2bhk',
+      description: 'A cozy interplay of mid-century aesthetics, rich natural walnut veneers, custom fluted wall paneling, and warm cove ambient illumination.'
     },
     { 
-      title: 'The Granite Villa', location: 'Shamshabad', category: 'Villa', 
-      heroImage: 'https://images.unsplash.com/photo-1580587771525-78b9dba3b914?auto=format&fit=crop&w=1200&q=85', 
-      slug: 'granite-villa',
-      description: 'A grand countryside estate in Shamshabad engineered with weather-resistant exterior WPC cladding, double-height ceilings, and handcrafted modular furniture.'
+      title: 'Grand 3BHK Penthouse Luxe', location: 'Banjara Hills', category: 'Penthouse', 
+      heroImage: '/images/company/3bhk_lux/open_hall.png', 
+      slug: 'grand-3bhk-penthouse-luxe',
+      description: 'An expansive open-concept living and dining layout featuring architectural false ceilings, minimalist island kitchen, and master suite.'
     },
   ];
 
@@ -922,149 +872,137 @@ const Home = () => {
 
   const rawParallaxProducts = [
     {
-      title: "Lakeside Villa Interior",
-      category: "Residential Villa",
-      link: "/projects/lakeside-sanctuary",
-      thumbnail: "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=600&q=65&fm=webp",
+      title: "Duplex Dining & Glass Partition",
+      category: "Glass Partitions",
+      link: "/projects/exquisite-duplex-fusion-4bhk",
+      thumbnail: "/images/company/duplex/Exquisite_Fusion_of_Modern__Desi_in_a_4BHK-Guest_restaurant_5-20260813-110615.jpg",
     },
     {
-      title: "Italian Modular Kitchen",
+      title: "Open Pantry & Kitchen Storage",
       category: "Modular Kitchen",
       link: "/what-we-do/modular-kitchen",
-      thumbnail: "https://images.unsplash.com/photo-1618219908412-a29a1bb7b86e?auto=format&fit=crop&w=600&q=65&fm=webp",
+      thumbnail: "/images/company/2bhk_urban/Minimalist_Gray__A_Contemporary_Kitchen_Masterpiec-Unnamed_2-20260810-173514.jpg",
     },
     {
-      title: "Jubilee Hills Penthouse",
-      category: "Penthouse Apartment",
-      link: "/projects/modernist-penthouse",
-      thumbnail: "https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?auto=format&fit=crop&w=600&q=65&fm=webp",
+      title: "Beige Modular Kitchen Counter",
+      category: "Modular Kitchen",
+      link: "/what-we-do/modular-kitchen",
+      thumbnail: "/images/company/minimalist_beige_2bhk/Minimalist_Beige_Bedroom_and_Contemporary_Living_R-Living_room_3-20260810-124909.jpg",
     },
     {
-      title: "Corporate Office Hub",
-      category: "Commercial Fitout",
-      link: "/projects/exec-office",
-      thumbnail: "https://images.unsplash.com/photo-1497366216548-37526070297c?auto=format&fit=crop&w=600&q=65&fm=webp",
+      title: "Classical Dining & Bar Console",
+      category: "Dining Room",
+      link: "/projects/indo-classical-elegance-3bhk",
+      thumbnail: "/images/company/indo_classical_elegance_3bhk/3BHK-Guest_restaurant_4-20260810-164320.jpg",
     },
     {
-      title: "Bespoke Dining Hall",
-      category: "Residential Space",
-      link: "/what-we-do",
-      thumbnail: "https://images.unsplash.com/photo-1615874959474-d609969a20ed?auto=format&fit=crop&w=600&q=65&fm=webp",
+      title: "Penthouse Minimalist Suite",
+      category: "Penthouse Suite",
+      link: "/projects/grand-3bhk-penthouse-luxe",
+      thumbnail: "/images/company/3bhk_lux/bedroom_3.png",
     },
     {
-      title: "The Lumen Suite",
-      category: "Luxury Apartment",
-      link: "/projects/lumen-apartment",
-      thumbnail: "https://images.unsplash.com/photo-1600210492486-724fe5c67fb0?auto=format&fit=crop&w=600&q=65&fm=webp",
+      title: "Bespoke Mandir & Pooja Unit",
+      category: "Pooja Room & Mandir",
+      link: "/projects/aparna-zicon-high-rise-2bhk",
+      thumbnail: "/images/company/2bhk_aparna_zicon/Mr.Deepak-Aparna_Zicon-Detail_Drawing-04-03-2025-Living_room_1-20260810-122238.jpg",
     },
     {
-      title: "Slate Living Room",
-      category: "Residential Living",
-      link: "/projects/slate-residence",
-      thumbnail: "https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?auto=format&fit=crop&w=600&q=65&fm=webp",
+      title: "Marble TV Media Unit",
+      category: "TV & Media Unit",
+      link: "/products",
+      thumbnail: "/images/company/2bhk_lux/tv_unit_2_1.png",
     },
     {
-      title: "Executive Conference Room",
-      category: "Commercial Office",
-      link: "/projects/exec-office",
-      thumbnail: "https://images.unsplash.com/photo-1618221195710-dd6b41faaea6?auto=format&fit=crop&w=600&q=65&fm=webp",
+      title: "Indo-Classical Master Bedroom",
+      category: "Master Bedroom",
+      link: "/what-we-do/master-bedroom",
+      thumbnail: "/images/company/indo_classical_elegance_3bhk/3BHK-Master_Bedroom_0-20260810-164320.jpg",
     },
     {
-      title: "Contemporary Bedroom Design",
-      category: "Bespoke Bedroom",
-      link: "/what-we-do",
-      thumbnail: "https://images.unsplash.com/photo-1616594039964-ae9021a400a0?auto=format&fit=crop&w=600&q=65&fm=webp",
+      title: "Illuminated Crockery & Bar",
+      category: "Crockery & Bar",
+      link: "/products",
+      thumbnail: "/images/company/2bhk_lux/crockery1_1.png",
     },
     {
-      title: "Cozy Open Floor Studio",
-      category: "Luxury Apartment",
-      link: "/projects",
-      thumbnail: "https://images.unsplash.com/photo-1586023492125-27b2c045efd7?auto=format&fit=crop&w=600&q=65&fm=webp",
+      title: "Indo-Classical Luxury Suite",
+      category: "Master Bedroom",
+      link: "/what-we-do/master-bedroom",
+      thumbnail: "/images/company/indo_classical_elegance_3bhk/Indo-Classical_Elegance__A_Soothing_Blend_of_Mode-Master_Bedroom_15-20260810-120432.jpg",
     },
     {
-      title: "Fluted Panel Accent Hall",
-      category: "Residential Space",
-      link: "/what-we-do",
-      thumbnail: "https://images.unsplash.com/photo-1600566753190-17f0baa2a6c3?auto=format&fit=crop&w=600&q=65&fm=webp",
+      title: "Natural Oak Modular Wardrobe",
+      category: "Wardrobes",
+      link: "/what-we-do/wardrobes",
+      thumbnail: "/images/company/minimalist_beige_2bhk/Minimalist_Beige_Bedroom_and_Contemporary_Living_R-Bedroom_0-20260810-124909.jpg",
     },
     {
-      title: "Luxury Washroom Suite",
-      category: "Bespoke Bath",
-      link: "/what-we-do",
-      thumbnail: "https://images.unsplash.com/photo-1584622650111-993a426fbf0a?auto=format&fit=crop&w=600&q=65&fm=webp",
+      title: "Thematic Kids Bedroom",
+      category: "Kids Bedroom",
+      link: "/projects/exquisite-duplex-fusion-4bhk",
+      thumbnail: "/images/company/duplex/Exquisite_Fusion_of_Modern__Desi_in_a_4BHK-Boys_Room_4-20260813-110616.jpg",
     },
     {
-      title: "Corporate Reception Lounge",
-      category: "Commercial Space",
-      link: "/projects",
-      thumbnail: "https://images.unsplash.com/photo-1497215728101-856f4ea42174?auto=format&fit=crop&w=600&q=65&fm=webp",
+      title: "High-Gloss Modular Kitchen",
+      category: "Modular Kitchen",
+      link: "/what-we-do/modular-kitchen",
+      thumbnail: "/images/company/2bhk_aparna_zicon/Mr.Deepak-Aparna_Zicon-Detail_Drawing-04-03-2025-Kitchen_17-20260810-122232.jpg",
     },
     {
-      title: "Vibrant Lounge Living Room",
-      category: "Residential Space",
-      link: "/what-we-do",
-      thumbnail: "https://images.unsplash.com/photo-1618219908412-a29a1bb7b86e?auto=format&fit=crop&w=600&q=65&fm=webp",
+      title: "Minimalist Beige Living Lounge",
+      category: "Living Room",
+      link: "/projects/minimalist-beige-2bhk",
+      thumbnail: "/images/company/minimalist_beige_2bhk/Minimalist_Beige_Bedroom_and_Contemporary_Living_R-Living_room_27-20260810-124917.jpg",
     },
     {
-      title: "Panoramic Penthouse Lounge",
-      category: "Luxury Penthouse",
-      link: "/projects",
-      thumbnail: "https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?auto=format&fit=crop&w=600&q=65&fm=webp",
+      title: "Foyer Wall Panelling & Console",
+      category: "Foyer & Panelling",
+      link: "/products",
+      thumbnail: "/images/company/2bhk_mordern_retro/dining_2.jpg",
     },
     {
-      title: "Luxury Living Room",
-      category: "Luxury Apartment",
-      link: "/projects/lumen-apartment",
-      thumbnail: "https://images.unsplash.com/photo-1600210492486-724fe5c67fb0?auto=format&fit=crop&w=600&q=65&fm=webp",
+      title: "Executive Open Living Hall",
+      category: "Living Room",
+      link: "/projects/executive-2bhk-residence",
+      thumbnail: "/images/company/2bhk_lux/hall1_1.png",
     },
     {
-      title: "Marble Dining Area",
-      category: "Residential Dining",
-      link: "/what-we-do",
-      thumbnail: "https://images.unsplash.com/photo-1617103996702-96ff29b1c467?auto=format&fit=crop&w=600&q=65&fm=webp",
+      title: "Parallel Modular Kitchen",
+      category: "Modular Kitchen",
+      link: "/what-we-do/modular-kitchen",
+      thumbnail: "/images/company/indo_classical_elegance_3bhk/Indo-Classical_Elegance__A_Soothing_Blend_of_Mode-kitchen_4-20260810-120431.jpg",
     },
     {
-      title: "Master Suite Sanctuary",
-      category: "Bespoke Bedroom",
-      link: "/what-we-do",
-      thumbnail: "https://images.unsplash.com/photo-1616594039964-ae9021a400a0?auto=format&fit=crop&w=600&q=65&fm=webp",
+      title: "Penthouse Master Bedroom",
+      category: "Master Bedroom",
+      link: "/projects/grand-3bhk-penthouse-luxe",
+      thumbnail: "/images/company/3bhk_lux/bedroom_1.png",
     },
     {
-      title: "Sleek Workspace Studio",
-      category: "Commercial Office",
-      link: "/projects/exec-office",
-      thumbnail: "https://images.unsplash.com/photo-1524758631624-e2822e304c36?auto=format&fit=crop&w=600&q=65&fm=webp",
+      title: "Sliding Mirror Wardrobe",
+      category: "Wardrobes",
+      link: "/what-we-do/wardrobes",
+      thumbnail: "/images/company/minimalist_beige_2bhk/Minimalist_Beige_Bedroom_and_Contemporary_Living_R-Bedroom_13-20260810-124909.jpg",
     },
     {
-      title: "Minimalist Walk-in Closet",
-      category: "Residential Space",
-      link: "/what-we-do",
-      thumbnail: "https://images.unsplash.com/photo-1616486338812-3dadae4b4ace?auto=format&fit=crop&w=600&q=65&fm=webp",
+      title: "Fluted Accent Wall Panelling",
+      category: "Wall Panelling",
+      link: "/products",
+      thumbnail: "/images/company/2bhk_mordern_retro/hall_paneling.jpg",
     },
     {
-      title: "Designer Penthouse Terrace",
-      category: "Luxury Penthouse",
-      link: "/projects",
-      thumbnail: "https://images.unsplash.com/photo-1512917774080-9991f1c4c750?auto=format&fit=crop&w=600&q=65&fm=webp",
+      title: "Green Balcony & Outdoor Deck",
+      category: "Balcony & Deck",
+      link: "/projects/indo-classical-elegance-3bhk",
+      thumbnail: "/images/company/indo_classical_elegance_3bhk/Indo-Classical_Elegance__A_Soothing_Blend_of_Mode-balcony_1-20260810-120429.jpg",
     },
     {
-      title: "Cozy Fireplace Den",
-      category: "Residential Space",
-      link: "/what-we-do",
-      thumbnail: "https://images.unsplash.com/photo-160058515526-990dced4db0d?auto=format&fit=crop&w=600&q=65&fm=webp",
-    },
-    {
-      title: "Bespoke Wine Cellar",
-      category: "Luxury Home",
-      link: "/projects",
-      thumbnail: "https://images.unsplash.com/photo-1513694203232-719a280e022f?auto=format&fit=crop&w=600&q=65&fm=webp",
-    },
-    {
-      title: "Luxury Bathroom Oasis",
-      category: "Bespoke Bath",
-      link: "/what-we-do",
-      thumbnail: "https://images.unsplash.com/photo-1584622650111-993a426fbf0a?auto=format&fit=crop&w=600&q=65&fm=webp",
-    },
+      title: "Urban Contemporary Living Lounge",
+      category: "Living Room",
+      link: "/projects/urban-contemporary-flat-2bhk",
+      thumbnail: "/images/company/2bhk_urban/Ideas_2_2-_0-20260810-173541.jpg",
+    }
   ];
 
   const parallaxProducts = rawParallaxProducts.map(item => ({
@@ -1085,7 +1023,7 @@ const Home = () => {
           name: 'ESPACIO Interiors & Modular',
           url: 'https://www.theespacio.in',
           logo: 'https://www.theespacio.in/favicon.svg',
-          image: 'https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=1200&q=80',
+          image: '/images/company/3bhk_lux/open_hall.png',
           description: "ESPACIO is Hyderabad's premier luxury interior design studio. Full-home interiors, modular kitchens, commercial offices, and material supply.",
           address: {
             '@type': 'PostalAddress',
@@ -1106,64 +1044,22 @@ const Home = () => {
         }}
       />
 
-      {/* Premium Fullscreen Logo Intro Preloader */}
-      <AnimatePresence>
-        {showIntro && (
-          <motion.div
-            initial={{ opacity: 1 }}
-            exit={{ 
-              y: '-100%',
-              transition: { duration: 2.2, ease: [0.16, 1, 0.3, 1] }
-            }}
-            className="fixed inset-0 bg-bg-dark z-[9999] flex flex-col items-center justify-center cursor-pointer select-none"
-            onClick={() => setShowIntro(false)}
-          >
-            <motion.div
-              initial={{ opacity: 1, y: 0, scale: 1 }}
-              exit={{ 
-                opacity: 0,
-                y: -180,
-                scale: 0.8,
-                transition: { duration: 1.9, ease: [0.16, 1, 0.3, 1] }
-              }}
-              className="flex flex-col items-center"
-            >
-              <Logo scrolled={false} size="large" onComplete={handleIntroComplete} />
-            </motion.div>
-            <motion.p 
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 0.25 }}
-              transition={{ delay: 2.3, duration: 1 }}
-              className="absolute bottom-12 font-sans text-[10px] text-white uppercase tracking-[0.25em]"
-            >
-              Click to skip
-            </motion.p>
-          </motion.div>
-        )}
-      </AnimatePresence>
-
       {/* ── 1. HERO (Rounded Card — matches Services) ── */}
-      <section ref={heroRef} className="relative h-[90vh] lg:h-[95vh] min-h-[640px] lg:min-h-0 px-5 pt-5 pb-2 lg:px-12 z-0">
-        {/* Rounded card — fills the section */}
+      <section ref={heroRef} className="relative h-[94vh] lg:h-[98vh] min-h-[660px] lg:min-h-0 px-4 sm:px-6 pt-2 sm:pt-2.5 lg:pt-3 pb-2 sm:pb-3 lg:px-10 z-0">
+        {/* Rounded card — fills the section with smooth exit transition */}
         <motion.div
           style={{ scale: heroExitScale, opacity: heroExitOpacity, y: heroExitY }}
-          className="relative w-full h-full overflow-hidden will-change-transform rounded-[24px] lg:rounded-[40px] origin-top"
+          className="relative w-full h-full overflow-hidden rounded-[24px] lg:rounded-[40px] origin-top"
         >
           {/* Background Image Layer */}
-          <motion.div 
-            style={{ scale: bgScale, y: bgY }}
-            className="absolute inset-0 will-change-transform overflow-hidden"
-            initial={{ opacity: 1, scale: 1.05 }}
-            animate={{ opacity: 1, scale: 1.05 }}
-            transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
-          >
+          <div className="absolute inset-0 overflow-hidden">
             <HeroSlideshow 
               images={activeHeroBgImages}
-              intervalMs={3800}
-              transitionDuration={1.2}
+              intervalMs={2200}
+              transitionDuration={0.85}
               onIndexChange={setCurrentImageIdx}
             />
-          </motion.div>
+          </div>
 
           {/* ─── Foreground Glass Cards (pinned to bottom) ─── */}
           <div className="absolute inset-0 z-10 flex flex-col justify-end pointer-events-none">
@@ -1209,26 +1105,43 @@ const Home = () => {
                     <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-white/25 to-transparent" />
                     
                     <div className="p-4 sm:p-5.5 md:p-6">
-                      {/* Large interior thumbnail - slides in sync with background */}
-                      <div className="w-full aspect-[16/10] sm:aspect-[16/9] rounded-[14px] overflow-hidden mb-5 relative">
-                        <AnimatePresence initial={false}>
-                          <motion.img
-                            key={currentImageIdx}
-                            src={getOptimizedImageUrl((!homeSettings.hero_card_image || homeSettings.hero_card_image === '/api/user-uploaded-bedroom.jpg') ? activeHeroBgImages[currentImageIdx % activeHeroBgImages.length] : homeSettings.hero_card_image, 600)}
-                            alt="Luxury interior showcase"
-                            initial={{ opacity: 0, scale: 1.04 }}
-                            animate={{ opacity: 1, scale: 1.0 }}
-                            exit={{ opacity: 0, scale: 0.98 }}
-                            transition={{ duration: 1.2, ease: [0.25, 1, 0.5, 1] }}
-                            style={{
-                              willChange: 'transform, opacity',
-                              transform: 'translate3d(0,0,0)',
-                              WebkitBackfaceVisibility: 'hidden',
-                              backfaceVisibility: 'hidden'
-                            }}
-                            className="absolute inset-0 w-full h-full object-cover"
-                          />
-                        </AnimatePresence>
+                      {/* Large interior thumbnail - perfectly synced with background, cinematic motion */}
+                      <div className="w-full aspect-[16/10] sm:aspect-[16/9] rounded-[14px] overflow-hidden mb-5 relative bg-black/20">
+                        {activeHeroBgImages.map((imgUrl, imgIdx) => {
+                          const isActive = imgIdx === (currentImageIdx % activeHeroBgImages.length);
+                          const thumbSrc = (typeof imgUrl === 'string' && imgUrl.includes('/images/hero/hero_') && !imgUrl.includes('_thumb'))
+                            ? imgUrl.replace('.jpg', '_thumb.jpg')
+                            : imgUrl;
+                          return (
+                            <motion.img
+                              key={imgUrl}
+                              src={thumbSrc}
+                              alt="Luxury interior showcase"
+                              decoding="async"
+                              initial={false}
+                              animate={isActive ? {
+                                opacity: 1,
+                                scale: 1.0,
+                              } : {
+                                opacity: 0,
+                                scale: 1.06,
+                              }}
+                              transition={{
+                                duration: 0.65,
+                                ease: [0.22, 1, 0.36, 1],
+                                opacity: { duration: 0.55, ease: 'easeInOut' }
+                              }}
+                              style={{
+                                zIndex: isActive ? 2 : 1,
+                                imageRendering: 'high-quality',
+                                WebkitBackfaceVisibility: 'hidden',
+                                backfaceVisibility: 'hidden',
+                                transform: 'translateZ(0)'
+                              }}
+                              className="absolute inset-0 w-full h-full object-cover select-none pointer-events-none transform-gpu"
+                            />
+                          );
+                        })}
                       </div>
 
                       {/* Headline */}
@@ -1311,17 +1224,20 @@ const Home = () => {
                           whileHover={{
                             scale: 1.02,
                             borderColor: 'rgba(255, 255, 255, 0.45)',
-                            backgroundColor: 'rgba(255, 255, 255, 0.12)',
-                            boxShadow: '0 20px 40px -15px rgba(0, 0, 0, 0.35)'
+                            backgroundColor: 'rgba(0, 0, 0, 0.45)',
+                            boxShadow: '0 20px 40px -15px rgba(0, 0, 0, 0.5)'
                           }}
-                          className={`flex items-center rounded-[14px] md:rounded-[20px] border shadow-xl cursor-pointer transition-all duration-500 overflow-hidden ${
+                          className={`flex items-center rounded-[14px] md:rounded-[20px] border shadow-xl cursor-pointer overflow-hidden isolate select-none ${
                             isHovered 
-                              ? "flex-row justify-between w-[215px] sm:w-[255px] md:w-[300px] h-14 sm:h-18 md:h-20 px-4 md:px-5.5 border-white/35 bg-white/12" 
-                              : "flex-col justify-center items-center w-[80px] sm:w-[90px] md:w-[100px] h-[70px] sm:h-[80px] md:h-[88px] border-white/15 bg-white/8 text-center px-2"
+                              ? "flex-row justify-between w-[215px] sm:w-[255px] md:w-[300px] h-14 sm:h-18 md:h-20 px-4 md:px-5.5 border-white/35 bg-black/40" 
+                              : "flex-col justify-center items-center w-[80px] sm:w-[90px] md:w-[100px] h-[70px] sm:h-[80px] md:h-[88px] border-white/20 bg-black/30 text-center px-2"
                           }`}
                           style={{
-                            backdropFilter: 'blur(16px)',
-                            WebkitBackdropFilter: 'blur(16px)',
+                            backdropFilter: 'blur(20px)',
+                            WebkitBackdropFilter: 'blur(20px)',
+                            transform: 'translate3d(0,0,0)',
+                            WebkitBackfaceVisibility: 'hidden',
+                            backfaceVisibility: 'hidden',
                           }}
                         >
                           <AnimatePresence mode="wait">
@@ -1372,6 +1288,9 @@ const Home = () => {
               </motion.div>
             </motion.div>
           </div>
+
+          {/* ── Center Scroll Down Indicator (Small, thin, transparent) ── */}
+          <ScrollDownIndicator />
         </div>
       </motion.div>
     </section>
@@ -1458,7 +1377,7 @@ const Home = () => {
 
 
       {/* ── 4. PROJECTS GRID ────────────────────────────────────────────────── */}
-      <section className="py-14 px-4 md:px-8 lg:px-12 max-w-[1720px] mx-auto border-t border-ink-border">
+      <section className="py-14 px-4 md:px-8 lg:px-12 max-w-[1720px] mx-auto">
         <div className="flex items-end justify-between mb-6">
           <Reveal>
             <p className="font-sans text-[12px] font-semibold uppercase tracking-[0.2em] text-gold mb-4">Selected Work</p>
@@ -1481,7 +1400,7 @@ const Home = () => {
 
 
       {/* ── 5. SERVICES PARALLAX ────────────────────────────────────────────── */}
-      <section className="border-t border-ink-border bg-bg-card/10">
+      <section className="bg-bg">
         <React.Suspense fallback={<div className="min-h-[400px]" />}>
           <HeroParallax products={parallaxProducts} />
         </React.Suspense>
@@ -1491,63 +1410,40 @@ const Home = () => {
 
 
 
-      {/* ── FAQ SECTION (Premium Resentii Animations) ── */}
-      <motion.section
+      {/* ── FAQ SECTION (Sticky Left Column / Scrolling Right Questions) ── */}
+      <section
         ref={faqSectionRef}
-        initial={{ opacity: 0, y: 40 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true, amount: 0.2 }}
-        transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
-        className="pt-6 pb-14 px-6 md:px-12 max-w-[1440px] mx-auto border-t border-ink-border"
+        className="pt-10 pb-20 px-6 md:px-12 max-w-[1440px] mx-auto relative"
       >
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-20 items-stretch relative">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-20 items-start relative">
           
-          {/* Left Column Container (Stretches to allow sticky child) */}
-          <div className="lg:col-span-5 relative h-full">
-            {/* Sticky Content Wrapper */}
-            <motion.div
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.8, delay: 0.1, ease: [0.22, 1, 0.36, 1] }}
-              className="lg:sticky lg:top-[120px] flex flex-col items-center text-center pb-10"
-            >
-              <div className="inline-flex items-center gap-1.5 bg-ink text-bg px-4 py-1.5 rounded-full text-[11px] font-semibold tracking-wider uppercase mb-8 shadow-sm">
+          {/* Left Column: Sticky Pinned while questions scroll */}
+          <div className="lg:col-span-5 relative self-start lg:sticky lg:top-24 xl:top-28 z-10">
+            <div className="flex flex-col items-center text-center pb-6">
+              <div className="inline-flex items-center gap-1.5 bg-ink text-bg px-4 py-1.5 rounded-full text-[11px] font-semibold tracking-wider uppercase mb-6 shadow-sm">
                 <span className="w-1.5 h-1.5 rounded-full bg-gold animate-pulse" />
                 FAQ
               </div>
 
-              <h2 className="font-display text-[clamp(28px,3.5vw,44px)] font-medium leading-[1.12] tracking-tight text-ink mb-5 text-center">
+              <h2 className="font-display text-[clamp(28px,3.5vw,44px)] font-medium leading-[1.12] tracking-tight text-ink mb-4 text-center">
                 Got Questions?
                 <br />
                 We Have Answers.
               </h2>
 
-              <p className="font-sans text-[14px] text-ink-soft leading-relaxed mb-2 max-w-[400px] mx-auto text-center">
+              <p className="font-sans text-[14px] text-ink-soft leading-relaxed mb-6 max-w-[400px] mx-auto text-center">
                 From first consultation to final installation, we know you want to understand exactly what to expect. Here's everything you need to know about working with ESPACIO.
               </p>
 
               {/* FAQ Portrait Auto-Scrolling Projects Carousel */}
-              <motion.div
-                initial={{ opacity: 0, scale: 0.96 }}
-                whileInView={{ opacity: 1, scale: 1 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.8, delay: 0.2, ease: [0.22, 1, 0.36, 1] }}
-                className="hidden lg:block w-full max-w-[400px] mt-6"
-              >
+              <div className="hidden lg:block w-full max-w-[520px] xl:max-w-[560px]">
                 <AutoScrollingInteriorBox activeIdx={openFaqIdx} items={faqData} />
-              </motion.div>
-            </motion.div>
+              </div>
+            </div>
           </div>
 
-          {/* Right Column: FAQ Accordion List (Staggered Entrance) */}
-          <motion.div
-            variants={faqListVariants}
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true, margin: "-50px" }}
-            className="lg:col-span-7 flex flex-col justify-start"
-          >
+          {/* Right Column: FAQ Accordion List (Scrolls naturally) */}
+          <div className="lg:col-span-7 flex flex-col justify-start">
             <div className="border-t border-ink-border/20">
               {faqData.map((faq, idx) => {
                 const isOpen = openFaqIdx === idx;
@@ -1645,10 +1541,10 @@ const Home = () => {
                 );
               })}
             </div>
-          </motion.div>
+          </div>
           
         </div>
-      </motion.section>
+      </section>
 
       {/* Testimonials Marquee Section */}
       <React.Suspense fallback={<div className="min-h-[200px]" />}>

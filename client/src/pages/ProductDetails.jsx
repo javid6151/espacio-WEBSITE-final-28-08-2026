@@ -3,6 +3,7 @@ import { useParams, Link, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import { ArrowLeft, CheckCircle, Lock, ArrowRight, ChevronLeft, ChevronRight as ChevronRightIcon } from 'lucide-react';
 import SEO from '../components/common/SEO';
+import ScrollDownIndicator from '../components/common/ScrollDownIndicator';
 import { getCMSData, STORAGE_KEYS } from '../utils/cmsStore';
 
 const ProductDetails = () => {
@@ -21,10 +22,10 @@ const ProductDetails = () => {
     description: 'Co-extruded composite panels offering absolute water resistance and rich wood grain textures. Built for residential and commercial environments demanding premium finishes.',
     heroImage: '/images/materials/wpc_panels.jpg',
     gallery: [
-      'https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=800&q=80',
-      'https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?auto=format&fit=crop&w=800&q=80',
-      'https://images.unsplash.com/photo-1600210492486-724fe5c67fb0?auto=format&fit=crop&w=800&q=80',
-      'https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?auto=format&fit=crop&w=800&q=80',
+      '/images/company/2bhk_mordern_retro/hall_paneling.jpg',
+      '/images/company/2bhk_lux/tv_unit_2_1.png',
+      '/images/company/3bhk_lux/open_hall.png',
+      '/images/company/minimalist_beige_2bhk/Minimalist_Beige_Bedroom_and_Contemporary_Living_R-Living_room_3-20260810-124909.jpg',
     ],
     specifications: [
       { label: 'Standard Dimensions', value: '2900mm × 122mm × 12mm' },
@@ -827,6 +828,9 @@ const ProductDetails = () => {
             <h1 className="text-white text-4xl md:text-5xl font-editorial font-bold">{p.title}</h1>
           </div>
         </div>
+
+        {/* Scroll Down Indicator */}
+        <ScrollDownIndicator />
       </section>
       {(p.showOverviewSection !== false || p.showFinishesSection !== false || p.showSpecificationsSection !== false) && (
         <section className="max-w-[1440px] mx-auto px-6 md:px-12 py-20 grid grid-cols-1 lg:grid-cols-2 gap-16">

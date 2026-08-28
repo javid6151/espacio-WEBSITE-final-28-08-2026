@@ -17,17 +17,13 @@ export const ScrollStackItem = ({
     offset: ["start start", "end start"]
   });
 
-  // Calculate dynamic scale down as cards stack on top of it
-  const scale = useTransform(scrollYProgress, [0, 1], [1, 0.93 - (totalItems - index) * 0.02]);
-  
-  // Apply a subtle opacity fade as cards cover it (100% GPU composited)
-  const opacity = useTransform(scrollYProgress, [0, 0.8], [1, 0.7]);
+  // Rapid clean fade & scale as the card is covered by the next one to eliminate black mist ghosting
+  const scale = useTransform(scrollYProgress, [0, 0.3], [1, 0.98]);
+  const opacity = useTransform(scrollYProgress, [0, 0.15, 0.3], [1, 0.2, 0]);
 
-  // Calculate sticky offset top so cards stack on top of each other with a spacing overlap
+  // Use a clean unified sticky top with generous breathing room below the fixed navbar
   const isMobile = typeof window !== "undefined" && window.innerWidth < 768;
-  const stickyTop = isMobile
-    ? 80 + index * 12
-    : 140 + index * itemDistance;
+  const stickyTop = isMobile ? 110 : 135;
 
   return (
     <motion.div
@@ -38,7 +34,8 @@ export const ScrollStackItem = ({
         scale,
         opacity,
         willChange: "transform, opacity",
-        transformOrigin: "top center"
+        transformOrigin: "top center",
+        zIndex: index + 1
       }}
       className={`scroll-stack-card ${itemClassName}`.trim()}
     >

@@ -368,9 +368,14 @@ const Testimonials = () => {
         <motion.div initial={{ opacity: 0, y: 28 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }} style={{ textAlign: "center", marginBottom: "48px", padding: "0 24px" }}>
           
           {/* Testimonials Badge */}
-          <div style={{ display: "inline-flex", alignItems: "center", gap: "8px", background: "rgba(255,255,255,0.08)", border: "1px solid rgba(255,255,255,0.15)", color: "#fff", padding: "6px 16px", borderRadius: "999px", fontSize: "11px", fontWeight: 600, letterSpacing: "0.12em", textTransform: "uppercase", marginBottom: "24px", fontFamily: "Manrope, sans-serif" }}>
-            <span style={{ width: "6px", height: "6px", borderRadius: "50%", background: "#facc15" }} />
-            Testimonials
+          <div className="inline-flex items-center gap-2 bg-white text-ink px-4 py-1.5 rounded-full text-[13px] sm:text-[13.5px] font-sans font-medium shadow-md border border-black/5 mb-6 select-none tracking-normal">
+            <svg width="14" height="14" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg" className="shrink-0">
+              <path d="M2 3C1.44772 3 1 3.44772 1 4V11C1 11.5523 1.44772 12 2 12H4V15L7.5 12H14C14.5523 12 15 11.5523 15 11V4C15 3.44772 14.5523 3 14 3H2Z" fill="#101014" />
+              <circle cx="4.5" cy="7.5" r="0.9" fill="white" />
+              <circle cx="8" cy="7.5" r="0.9" fill="white" />
+              <circle cx="11.5" cy="7.5" r="0.9" fill="white" />
+            </svg>
+            <span>Testimonials</span>
           </div>
 
           <h2 className="font-editorial text-4xl sm:text-5xl md:text-6xl font-normal text-white leading-[1.12] mb-4 tracking-tight">

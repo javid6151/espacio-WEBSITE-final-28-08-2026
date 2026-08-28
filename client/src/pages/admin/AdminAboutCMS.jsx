@@ -20,53 +20,56 @@ const defaultGenerations = [
     title: 'The Civil Foundation',
     company: 'Founding Stone Masonry & Engineering',
     desc: 'Our great-grandfather laid the structural foundation of our family construction legacy in Hyderabad. Built on load-bearing precision, structural integrity, and honest material sourcing.',
-    image: 'https://images.unsplash.com/photo-1541888946425-d0fbb186c5f0?auto=format&fit=crop&w=1000&q=80'
+    image: '/images/company/2bhk_mordern_retro/hall_3.jpg'
   },
   {
     gen: 'Generation II',
     title: 'Mantana Constructions',
     company: 'Commercial & Multi-Family Residential',
     desc: 'Expanded into large-scale residential complexes and commercial landmarks across Hyderabad. Built a reputation for zero material compromises and strict engineering tolerances.',
-    image: 'https://images.unsplash.com/photo-1503387762-592deb58ef4e?auto=format&fit=crop&w=1000&q=80'
+    image: '/images/company/2bhk_urban/Ideas_2_2-_1-20260810-173541.jpg'
   },
   {
     gen: 'Generation III',
     title: 'Mastana Infra',
     company: 'Iconic Private Estates & Infrastructure',
     desc: 'Pioneered luxury architectural builds and bespoke private lakefront residences — including the lakeside estate chosen as a primary filming location in the movie Guntur Kaaram.',
-    image: 'https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?auto=format&fit=crop&w=1000&q=80'
+    image: '/images/company/duplex/Exquisite_Fusion_of_Modern__Desi_in_a_4BHK-Guest_restaurant_15-20260813-110616.jpg'
   },
   {
     gen: 'Generation IV',
     title: 'ESPACIO Interiors & Modular',
     company: 'Engineering-First Bespoke Interiors',
     desc: 'Fusing structural construction mastery with luxury interior architecture. We don\'t just style spaces — we engineer every wall, cabinet, and finish for lifetime permanence.',
-    image: 'https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=1000&q=80'
+    image: '/images/company/minimalist_beige_2bhk/Minimalist_Beige_Bedroom_and_Contemporary_Living_R-Living_room_23-20260810-124912.jpg'
   }
 ];
 
 const defaultGalleryImages = [
   {
-    url: 'https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=900&q=80',
-    title: 'Bespoke Villa Interior',
-    subtitle: 'Jubilee Hills Private Residence'
+    url: '/images/company/indo_classical_elegance_3bhk/3BHK-Master_Bedroom_0-20260810-121310.jpg',
+    title: 'Architectural Cornice & Fluted Wainscoting',
+    subtitle: 'Jubilee Hills Master Suite'
   },
   {
-    url: 'https://images.unsplash.com/photo-1618221195710-dd6b41faaea6?auto=format&fit=crop&w=900&q=80',
-    title: 'Modular Precision Joinery',
-    subtitle: 'ESPACIO Studio & Workshop'
+    url: '/images/company/duplex/Exquisite_Fusion_of_Modern__Desi_in_a_4BHK-Parents_Room_1-20260813-110616.jpg',
+    title: 'Bespoke Solid Walnut Veneer Joinery',
+    subtitle: 'Contemporary Luxury Suite'
   },
   {
-    url: 'https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?auto=format&fit=crop&w=900&q=80',
-    title: 'Italian Marble Architecture',
-    subtitle: 'Gachibowli Modern Estate'
+    url: '/images/company/indo_classical_elegance_3bhk/Indo-Classical_Elegance__A_Soothing_Blend_of_Mode-Guest_restaurant_20-20260810-120432.jpg',
+    title: 'Curved Archways & Classical Plaster Trim',
+    subtitle: 'Bespoke Living Lounge'
   },
   {
-    url: 'https://images.unsplash.com/photo-1600566753376-12c8ab7fb75b?auto=format&fit=crop&w=900&q=80',
-    title: 'Lakeside Architectural Build',
-    subtitle: 'Featured in Guntur Kaaram'
+    url: '/images/company/2bhk_mordern_retro/hall_2.jpg',
+    title: 'Halo Luminaire & Wall Paneling Architecture',
+    subtitle: 'Modern Retro Residence'
   }
 ];
+
+const defaultAboutHeroImage = '/images/company/duplex/Exquisite_Fusion_of_Modern__Desi_in_a_4BHK-Guest_restaurant_22-20260813-110617.jpg';
+const defaultAboutStoryImage = '/images/company/duplex/Exquisite_Fusion_of_Modern__Desi_in_a_4BHK-Guest_restaurant_10-20260813-110615.jpg';
 
 const getNonEmpty = (val, fallback) => (val && typeof val === 'string' && val.trim().length > 0 ? val : fallback);
 
@@ -87,7 +90,7 @@ const AdminAboutCMS = () => {
     about_hero_badge: 'About ESPACIO',
     about_hero_title: 'Four generations of construction. One new standard for design.',
     about_hero_subtitle: 'Long before ESPACIO existed, our family was already building across Hyderabad through Mantana Constructions and Mastana Infra. We bring 40 years of load-bearing precision and structural engineering to luxury interior architecture.',
-    about_hero_image: 'https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=1600&q=80',
+    about_hero_image: defaultAboutHeroImage,
     about_hero_stats: defaultStats,
     about_hero_visible: true,
 
@@ -98,7 +101,7 @@ const AdminAboutCMS = () => {
     about_story_p1: "Long before Espacio existed, our family was already building, as builders. Our great-grandfather laid the literal foundation of a construction legacy that would run four generations deep, through two companies, Mantana Constructions and Mastana Infra, and 40+ years of homes, commercial spaces, and landmark builds across Hyderabad.",
     about_story_p2: "One of those builds is the lakeside home which was later chosen as a filming location for the movie Guntur Kaaram. Not because it was decorated well. Because it was built to be unforgettable.",
     about_story_p3: "That's the world this brand comes from. Not showrooms. Job sites. Not mood boards. Load-bearing walls, material tolerances, what actually holds up over decades and what doesn't.",
-    about_story_image: 'https://images.unsplash.com/photo-1618221195710-dd6b41faaea6?auto=format&fit=crop&w=1000&q=80',
+    about_story_image: defaultAboutStoryImage,
     about_milestone_label: 'Engineering Milestone',
     about_milestone_text: 'Lakeside residence chosen as filming location for Guntur Kaaram',
     about_milestone_visible: true,
@@ -133,20 +136,24 @@ const AdminAboutCMS = () => {
         setAboutState({
           about_hero_badge: getNonEmpty(storedSettings.about_hero_badge, 'About ESPACIO'),
           about_hero_title: getNonEmpty(storedSettings.about_hero_title, 'Four generations of construction. One new standard for design.'),
-          about_hero_subtitle: getNonEmpty(storedSettings.about_hero_subtitle, 'Long before ESPACIO existed, our family was already building across Hyderabad through Mantana Constructions and Mastana Infra...'),
-          about_hero_image: getNonEmpty(storedSettings.about_hero_image, 'https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=1600&q=80'),
+          about_hero_subtitle: getNonEmpty(storedSettings.about_hero_subtitle, 'Long before ESPACIO existed, our family was already building across Hyderabad through Mantana Constructions and Mastana Infra. We bring 40 years of load-bearing precision and structural engineering to luxury interior architecture.'),
+          about_hero_image: (storedSettings.about_hero_image && !storedSettings.about_hero_image.includes('unsplash.com') && !storedSettings.about_hero_image.includes('Living_room_3'))
+            ? storedSettings.about_hero_image
+            : defaultAboutHeroImage,
           about_hero_stats: (Array.isArray(storedSettings.about_hero_stats) && storedSettings.about_hero_stats.length > 0)
             ? storedSettings.about_hero_stats
             : defaultStats,
           about_hero_visible: storedSettings.about_hero_visible !== false,
 
           about_story_badge: getNonEmpty(storedSettings.about_story_badge, 'OUR ORIGIN STORY'),
-          about_story_main: getNonEmpty(storedSettings.about_story_main, "Most interiors don't fail because of bad design..."),
+          about_story_main: getNonEmpty(storedSettings.about_story_main, "Most interiors don't fail because of bad design. They fail because of what's hiding behind the design — walls that were never built right in the first place."),
           about_story_highlight: getNonEmpty(storedSettings.about_story_highlight, "We've spent four generations making sure that never happens."),
-          about_story_p1: getNonEmpty(storedSettings.about_story_p1, 'Long before Espacio existed...'),
-          about_story_p2: getNonEmpty(storedSettings.about_story_p2, 'One of those builds is the lakeside home...'),
-          about_story_p3: getNonEmpty(storedSettings.about_story_p3, "That's the world this brand comes from..."),
-          about_story_image: getNonEmpty(storedSettings.about_story_image, 'https://images.unsplash.com/photo-1618221195710-dd6b41faaea6?auto=format&fit=crop&w=1000&q=80'),
+          about_story_p1: getNonEmpty(storedSettings.about_story_p1, 'Long before Espacio existed, our family was already building, as builders. Our great-grandfather laid the literal foundation of a construction legacy that would run four generations deep, through two companies, Mantana Constructions and Mastana Infra, and 40+ years of homes, commercial spaces, and landmark builds across Hyderabad.'),
+          about_story_p2: getNonEmpty(storedSettings.about_story_p2, 'One of those builds is the lakeside home which was later chosen as a filming location for the movie Guntur Kaaram. Not because it was decorated well. Because it was built to be unforgettable.'),
+          about_story_p3: getNonEmpty(storedSettings.about_story_p3, "That's the world this brand comes from. Not showrooms. Job sites. Not mood boards. Load-bearing walls, material tolerances, what actually holds up over decades and what doesn't."),
+          about_story_image: (storedSettings.about_story_image && !storedSettings.about_story_image.includes('unsplash.com') && !storedSettings.about_story_image.includes('open_hall.png'))
+            ? storedSettings.about_story_image
+            : defaultAboutStoryImage,
           about_milestone_label: getNonEmpty(storedSettings.about_milestone_label, 'Engineering Milestone'),
           about_milestone_text: getNonEmpty(storedSettings.about_milestone_text, 'Lakeside residence chosen as filming location for Guntur Kaaram'),
           about_milestone_visible: storedSettings.about_milestone_visible !== false,
@@ -154,22 +161,22 @@ const AdminAboutCMS = () => {
           about_gen_badge: getNonEmpty(storedSettings.about_gen_badge, 'The Evolution'),
           about_gen_title: getNonEmpty(storedSettings.about_gen_title, 'Four Generations of Mastery'),
           about_gen_subtitle: getNonEmpty(storedSettings.about_gen_subtitle, 'Hover to Expand Era'),
-          about_generations: (Array.isArray(storedSettings.about_generations) && storedSettings.about_generations.length > 0)
+          about_generations: (Array.isArray(storedSettings.about_generations) && storedSettings.about_generations.length > 0 && !storedSettings.about_generations.some(g => g.image && g.image.includes('open_hall.png')))
             ? storedSettings.about_generations
             : defaultGenerations,
 
-          about_mission_quote: getNonEmpty(storedSettings.about_mission_quote, '"We design spaces with intention..."'),
-          about_vision_quote: getNonEmpty(storedSettings.about_vision_quote, '"To redefine what interior design means..."'),
+          about_mission_quote: getNonEmpty(storedSettings.about_mission_quote, '"We design spaces with intention — engineered first, styled second — so every home we touch is as functional as it is beautiful."'),
+          about_vision_quote: getNonEmpty(storedSettings.about_vision_quote, '"To redefine what interior design means — proving that real craftsmanship, not trends, is what makes a space timeless."'),
 
           about_gallery_badge: getNonEmpty(storedSettings.about_gallery_badge, 'Visual Standards'),
           about_gallery_title: getNonEmpty(storedSettings.about_gallery_title, 'Craftsmanship in Detail'),
-          about_gallery_images: (Array.isArray(storedSettings.about_gallery_images) && storedSettings.about_gallery_images.length > 0)
+          about_gallery_images: (Array.isArray(storedSettings.about_gallery_images) && storedSettings.about_gallery_images.length > 0 && !storedSettings.about_gallery_images.some(g => g.url && g.url.includes('open_hall.png')))
             ? storedSettings.about_gallery_images
             : defaultGalleryImages,
 
           about_cta_badge: getNonEmpty(storedSettings.about_cta_badge, 'GET IN TOUCH'),
           about_cta_title: getNonEmpty(storedSettings.about_cta_title, 'Ready to Transform Your Space?'),
-          about_cta_desc: getNonEmpty(storedSettings.about_cta_desc, "Let's discuss your luxury interior design and engineering requirements..."),
+          about_cta_desc: getNonEmpty(storedSettings.about_cta_desc, "Let's discuss your luxury interior design and engineering requirements with our master team."),
           about_cta_btn_text: getNonEmpty(storedSettings.about_cta_btn_text, "LET'S TALK ↗"),
           about_cta_btn_link: getNonEmpty(storedSettings.about_cta_btn_link, '/contact')
         });
