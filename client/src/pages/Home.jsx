@@ -11,6 +11,8 @@ import { getCMSData, STORAGE_KEYS } from '../utils/cmsStore';
 import { USER_UPLOADED_BEDROOM_IMAGE } from '../assets/userUploadedBedroom';
 import { getOptimizedImageUrl } from '../utils/imageOptimizer';
 
+const StickyScroll = React.lazy(() => import('../components/ui/sticky-scroll-reveal').then(m => ({ default: m.StickyScroll })));
+const HeroParallax = React.lazy(() => import('../components/ui/hero-parallax').then(m => ({ default: m.HeroParallax })));
 const Testimonials = React.lazy(() => import('../components/ui/Testimonials'));
 
 const Reveal = ({ children, delay = 0, className = '' }) => {
